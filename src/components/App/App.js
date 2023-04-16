@@ -3,13 +3,15 @@
 
 import Main from '../Main/Main';
 
+import './App.css';
+
 function App() {
   // const navigate = useNavigate();
 
   return (
-    <>
+    <div className="page">
       <Main></Main>
-    </>
+    </div>
   );
 }
 

@@ -8,6 +8,8 @@ import AboutMe from './AboutMe/AboutMe';
 import Portfolio from './Portfolio/Portfolio';
 import Footer from '../Footer/Footer';
 
+import './Main.css';
+
 const Main = () => {
   return (
     <>
