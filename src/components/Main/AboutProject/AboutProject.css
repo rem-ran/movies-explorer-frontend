@@ -1,0 +1,80 @@
+.about__container {
+    padding: 110px 70px;
+
+}
+
+.about__header {
+    margin: 0;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 27px;
+    border-bottom: 1px solid black;
+    padding-bottom: 23px;
+}
+
+.about__note-container {
+    margin-top: 70px;
+    margin-bottom: 110px;
+    display: flex;
+}
+
+.about__note-item {
+    width: 550px
+}
+
+.about__note-item-heading {
+    margin: 0;
+    margin-bottom: 26px;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+}
+
+.about__note-item-text {
+    margin: 0;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.about__indicators {
+    display: flex;
+    justify-content: space-between;
+}
+
+.about__indicator-one {
+    text-align: center;
+    width: 20%;
+}
+
+.about__indicator-one-heading {
+    margin: 0;
+    color: white;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 36px;
+    background-color: rgba(52, 86, 243, 1);
+}
+
+.about__indicator-two {
+    text-align: center;
+    width: 80%;
+}
+
+.about__indicator-two-heading {
+    margin: 0;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 36px;
+    background-color: rgba(242, 242, 242, 1);
+}
+
+.about__indicator-note {
+    margin: 0;
+    margin-top: 14px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    color: rgba(160, 160, 160, 1);
+    ;
+}
