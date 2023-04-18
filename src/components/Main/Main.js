@@ -13,9 +13,8 @@ import './Main.css';
 const Main = () => {
   return (
     <>
-      <Header>
-        <NavTab></NavTab>
-      </Header>
+      <Header></Header>
+      <NavTab></NavTab>
       <Promo></Promo>
       <AboutProject></AboutProject>
       <Techs></Techs>
