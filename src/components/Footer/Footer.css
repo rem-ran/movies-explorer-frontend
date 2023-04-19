@@ -6,6 +6,13 @@
     padding: 80px 70px 20px 70px;
 }
 
+@media screen and (max-width: 1023px) {
+    .footer__container {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+}
+
 .footer__heading {
     margin: 0;
     padding-bottom: 20px;
