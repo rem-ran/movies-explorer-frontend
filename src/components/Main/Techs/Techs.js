@@ -15,8 +15,10 @@ const Techs = () => {
           </p>
         </div>
         <ul className="techs__used-technologies">
-          {techsList.map((item) => (
-            <li className="techs__used-technologie">{item}</li>
+          {techsList.map((item, index) => (
+            <li key={index} className="techs__used-technologie">
+              {item}
+            </li>
           ))}
         </ul>
       </div>
