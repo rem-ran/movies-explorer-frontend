@@ -21,7 +21,7 @@ const Main = () => {
           // </Link>
           <div className="header__user-container">
             <span className="header__link">Регистрация</span>
-            <span className="header__link">Войти</span>
+            <span className="header__link header__link_type_login">Войти</span>
           </div>
         }
       ></Header>
