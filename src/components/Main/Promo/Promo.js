@@ -13,7 +13,7 @@ const Promo = () => {
           <span className="promo__note">
             Листайте ниже, чтобы узнать больше про этот проект и его создателя.
           </span>
-          <a className="promo__link" href="#">
+          <a className="promo__link" href="#portfolio">
             Узнать больше
           </a>
         </div>

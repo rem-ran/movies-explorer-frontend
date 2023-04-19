@@ -21,6 +21,8 @@ const AboutMe = () => {
             <a
               className="about-me__link"
               href="https://github.com/rem-ran?tab=repositories"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               Github
             </a>

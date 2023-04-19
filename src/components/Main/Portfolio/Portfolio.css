@@ -21,7 +21,6 @@
 }
 
 .portfolio__list-item {
-    /* width: 880px; */
     padding-top: 20px;
     padding-bottom: 20px;
     list-style: none;
@@ -39,4 +38,8 @@
     float: right;
     width: 18px;
     height: 18px;
+}
+
+.portfolio__list-link-img:hover {
+    opacity: 0.7;
 }
