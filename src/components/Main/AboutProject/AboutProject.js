@@ -4,7 +4,7 @@ const AboutProject = () => {
   return (
     <section className="about">
       <div className="about__container">
-        <h2 className="about__header">О проекте</h2>
+        <h2 className="about__heading">О проекте</h2>
         <div className="about__note-container">
           <div className="about__note-item">
             <p className="about__note-item-heading">
