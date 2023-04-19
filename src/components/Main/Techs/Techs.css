@@ -6,6 +6,12 @@
     padding: 110px 70px;
 }
 
+@media screen and (max-width: 1023px) {
+    .techs__container {
+        padding: 90px 50px;
+    }
+}
+
 .techs__heading {
     margin: 0;
     font-weight: 400;
@@ -39,10 +45,24 @@
     line-height: 20px;
 }
 
+@media screen and (max-width: 1023px) {
+    .techs__text {
+        margin-top: 22px;
+        font-size: 12px;
+        line-height: 18px;
+    }
+}
+
 .techs__used-technologies {
     display: flex;
     margin-top: 100px;
     justify-content: center;
+}
+
+@media screen and (max-width: 1023px) {
+    .techs__used-technologies {
+        margin-top: 83px;
+    }
 }
 
 .techs__used-technologie {
@@ -57,6 +77,15 @@
     font-weight: 400;
     font-size: 14px;
     text-align: center;
+}
+
+@media screen and (max-width: 1023px) {
+    .techs__used-technologie {
+        font-size: 12px;
+        width: 84px;
+        height: 57px;
+        line-height: 57px;
+    }
 }
 
 .techs__used-technologie:last-child {
