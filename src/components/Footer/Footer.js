@@ -9,14 +9,14 @@ const Footer = () => {
         <h6 className="footer__heading">
           Учебный проект Яндекс.Практикум х BeatFilm.
         </h6>
-        <div class="footer__lower-part">
-          <p class="footer__year">&copy; 2023</p>
-          <ul class="footer__links">
+        <div className="footer__lower-part">
+          <p className="footer__year">&copy; 2023</p>
+          <ul className="footer__links">
             {footerLinks.map((item, index) => (
-              <li key={index} class="footer__list-item">
+              <li key={index} className="footer__list-item">
                 <a
                   href={item.link}
-                  class="footer__link"
+                  className="footer__link"
                   target="_blank"
                   rel="noopener noreferrer"
                 >

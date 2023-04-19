@@ -1,21 +1,25 @@
 .header {
-    display: flex;
-    justify-content: space-between;
     background-color: #DDDEE3;
-    height: 74px;
-    padding-left: 70px;
-    padding-right: 70px;
-}
-
-@media screen and (max-width: 1023px) {
-    .header {
-        max-width: 581px;
-    }
 }
 
 @media screen and (max-width: 767px) {
     .header {
         max-width: 320px;
+    }
+}
+
+.header__container {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 70px;
+    padding-right: 70px;
+    height: 74px;
+}
+
+@media screen and (max-width: 1023px) {
+    .header__container {
+        padding-left: 30px;
+        padding-right: 30px;
     }
 }
 

@@ -4,7 +4,7 @@ import promoImage from '../../../images/planet-logo.svg';
 
 const Promo = () => {
   return (
-    <div className="promo">
+    <section className="promo">
       <div className="promo__container">
         <div className="promo__text">
           <h1 className="promo__header">
@@ -23,7 +23,7 @@ const Promo = () => {
           alt="Лого в виде планеты из слов WEB"
         />
       </div>
-    </div>
+    </section>
   );
 };
 
