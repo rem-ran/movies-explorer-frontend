@@ -67,36 +67,9 @@
     flex-direction: column;
 }
 
-/* @media screen and (max-width: 767px) {
-    .sign__input-box {
-        align-items: stretch;
-    }
-} */
-
 .sign__btn-box {
     display: flex;
     flex-direction: column;
-}
-
-.sign__input-label {
-    margin: 0;
-    margin-bottom: 10px;
-    font-weight: 400;
-    font-size: 10px;
-    line-height: 12px;
-    color: rgba(160, 160, 160);
-}
-
-.sign__input {
-    margin: 0;
-    padding: 15px;
-    height: 16px;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 16px;
-    border: none;
-    border-radius: 8px;
-    background-color: rgba(244, 244, 244);
 }
 
 .sign__submit-btn {
@@ -159,15 +132,4 @@
 .sign__link:hover {
     cursor: pointer;
     opacity: 0.7;
-}
-
-.sign__input-error {
-    margin: 0;
-    font-weight: 400;
-    font-size: 10px;
-    line-height: 12px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    min-height: 12px;
-    color: rgba(238, 52, 101);
 }

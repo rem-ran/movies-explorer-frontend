@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form';
+import LoginInput from '../LoginInput/LoginInput';
 import { inputConfig } from '../../utils/constants';
 import CommonSignPage from '../CommonSignPage/CommonSignPage';
 
@@ -32,41 +33,29 @@ const Register = ({ handleUserSignUp }) => {
         handleSubmit={handleSubmit(onSubmit)}
         inputs={
           <>
-            {/* импут с именем /////////////////////////////////////////////////*/}
-            <label className="sign__input-label">Name</label>
-            <input
-              {...register('name', inputConfig.name)}
-              id="name"
-              type="name"
-              className="sign__input"
-            />
-            <span className={'sign__input-error'}>
-              {errors?.name && errors.name.message}
-            </span>
+            <LoginInput
+              labelTxt={'Имя'}
+              register={register('name', inputConfig.name)}
+              error={errors?.name && errors.name.message}
+              type={'name'}
+              errorBool={errors?.name}
+            ></LoginInput>
 
-            {/* импут с имэйлом /////////////////////////////////////////////////*/}
-            <label className="sign__input-label">E-mail</label>
-            <input
-              {...register('email', inputConfig.email)}
-              id="email"
-              type="email"
-              className="sign__input"
-            />
-            <span className={'sign__input-error'}>
-              {errors?.email && errors.email.message}
-            </span>
+            <LoginInput
+              labelTxt={'E-mail'}
+              register={register('email', inputConfig.email)}
+              error={errors?.email && errors.email.message}
+              type={'email'}
+              errorBool={errors?.email}
+            ></LoginInput>
 
-            {/* импут с паролем /////////////////////////////////////////////////*/}
-            <label className="sign__input-label">Пароль</label>
-            <input
-              {...register('password', inputConfig.password)}
-              id="password"
-              type="password"
-              className="sign__input"
-            />
-            <span className={'sign__input-error'}>
-              {errors?.password && errors.password.message}
-            </span>
+            <LoginInput
+              labelTxt={'Пароль'}
+              register={register('password', inputConfig.password)}
+              error={errors?.password && errors.password.message}
+              type={'password'}
+              errorBool={errors?.password}
+            ></LoginInput>
           </>
         }
       ></CommonSignPage>
