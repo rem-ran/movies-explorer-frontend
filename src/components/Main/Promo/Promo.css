@@ -55,7 +55,7 @@
 
 @media screen and (max-width: 767px) {
     .promo__heading {
-        width: 300px;
+        width: 308px;
         font-size: 30px;
         line-height: 38px;
         margin-top: 44px;
@@ -98,6 +98,7 @@
     font-weight: 500;
     font-size: 12px;
     line-height: 36px;
+    border-radius: 3px;
 }
 
 .promo__link:hover {
