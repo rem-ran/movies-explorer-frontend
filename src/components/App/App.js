@@ -1,5 +1,5 @@
 // import { useEffect, useState } from 'react';
-import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -13,6 +13,16 @@ import './App.css';
 function App() {
   // const navigate = useNavigate();
 
+  //проверка метода обработки авторизации пользоваетля на странице
+  function handleUserSignIn({ password, email }) {
+    console.log({ password, email });
+  }
+
+  //проверка метода  обработки регистрации пользоваетля на странице
+  function handleUserSignUp({ name, password, email }) {
+    console.log({ name, password, email });
+  }
+
   return (
     <div className="page">
       <Routes>
@@ -23,8 +33,14 @@ function App() {
           element={<SavedMovies></SavedMovies>}
         ></Route>
         <Route path="/profile" element={<Profile></Profile>}></Route>
-        <Route path="/signin" element={<Login></Login>}></Route>
-        <Route path="/signup" element={<Register></Register>}></Route>
+        <Route
+          path="/signin"
+          element={<Login handleUserSignIn={handleUserSignIn}></Login>}
+        ></Route>
+        <Route
+          path="/signup"
+          element={<Register handleUserSignUp={handleUserSignUp}></Register>}
+        ></Route>
       </Routes>
     </div>
   );
