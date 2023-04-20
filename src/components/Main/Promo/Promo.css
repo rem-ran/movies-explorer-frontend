@@ -94,7 +94,7 @@
     height: 36px;
     text-align: center;
     justify-content: center;
-    color: black;
+    color: inherit;
     font-weight: 500;
     font-size: 12px;
     line-height: 36px;

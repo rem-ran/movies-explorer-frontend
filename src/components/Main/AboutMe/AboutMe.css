@@ -162,7 +162,7 @@
     font-weight: 500;
     font-size: 14x;
     line-height: 17px;
-    color: rgba(0, 0, 0, 1);
+    color: inherit;
 }
 
 .about-me__link:hover {

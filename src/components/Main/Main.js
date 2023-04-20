@@ -16,12 +16,13 @@ const Main = () => {
     <>
       <Header
         links={
-          // <Link to="/sign-up" className="header__link">
-          //   Регистрация
-          // </Link>
           <div className="header__user-container">
-            <span className="header__link">Регистрация</span>
-            <span className="header__link header__link_type_login">Войти</span>
+            <Link to="/signup" className="header__link">
+              Регистрация
+            </Link>
+            <Link to="/signin" className="header__link header__link_type_login">
+              Войти
+            </Link>
           </div>
         }
       ></Header>
