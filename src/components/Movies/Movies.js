@@ -3,9 +3,7 @@ import './Movies.css';
 
 import Header from '../Header/Header';
 import SearchForm from './SearchForm/SearchForm';
-//import Preloader from './Preloader/Preloader';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
-//import SavedMovies from '../SavedMovies/SavedMovies';
 import Footer from '../Footer/Footer';
 
 const Movies = () => {

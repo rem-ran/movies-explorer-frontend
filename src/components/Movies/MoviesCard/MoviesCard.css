@@ -14,12 +14,9 @@
     color: white;
 }
 
-/* @media screen and (max-width: 1180px) {
-    .movie_image {
-        width: 350px;
-        height: 190px;
-    }
-} */
+.movie_image:hover {
+    cursor: pointer;
+}
 
 @media screen and (max-width: 1023px) {
     .movie_image {
