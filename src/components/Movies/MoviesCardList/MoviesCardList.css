@@ -1,0 +1,5 @@
+.movies__container {
+    margin: 0;
+    padding: 70px 70px 60px 70px;
+    display: grid;
+}

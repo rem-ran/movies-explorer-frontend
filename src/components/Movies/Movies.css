@@ -1,0 +1,39 @@
+.movies {
+    background-color: white;
+}
+
+.movies__link-container {
+    display: flex;
+    align-items: center;
+    /* margin-right: 70px; */
+}
+
+.movies__link {
+    margin: 0;
+    margin-right: 20px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.movies__link:last-child {
+    margin-right: 0;
+    margin-left: 30px;
+}
+
+.movies__link:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.movies__link_type_account {
+    height: 32px;
+    width: 100px;
+    font-weight: 500;
+    line-height: 32px;
+    background-color: rgba(244, 244, 244);
+    border-radius: 20px;
+    text-align: center;
+}
