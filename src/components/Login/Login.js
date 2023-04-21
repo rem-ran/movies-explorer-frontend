@@ -23,7 +23,7 @@ const Login = ({ handleUserSignIn }) => {
   }
 
   return (
-    <div>
+    <section>
       <CommonSignPage
         heading={'Рады видеть!'}
         btnTxt={'Войти'}
@@ -51,7 +51,7 @@ const Login = ({ handleUserSignIn }) => {
           </>
         }
       ></CommonSignPage>
-    </div>
+    </section>
   );
 };
 

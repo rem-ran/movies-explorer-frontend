@@ -9,29 +9,33 @@ import Footer from '../Footer/Footer';
 const Movies = () => {
   return (
     <div className="movies">
-      <Header
-        links={
-          <div className="movies__link-container">
-            <Link to="/movies" className="movies__link">
-              Фильмы
-            </Link>
-            <Link to="/saved-movies" className="movies__link">
-              Сохранённые фильмы
-            </Link>
-            <Link
-              to="/profile"
-              className="movies__link movies__link_type_account"
-            >
-              Аккаунт
-            </Link>
-          </div>
-        }
-      ></Header>
-      <main>
-        <SearchForm></SearchForm>
-        <MoviesCardList></MoviesCardList>
-      </main>
-      <Footer></Footer>
+      <div>
+        <Header
+          links={
+            <div className="movies__link-container">
+              <Link to="/movies" className="movies__link">
+                Фильмы
+              </Link>
+              <Link to="/saved-movies" className="movies__link">
+                Сохранённые фильмы
+              </Link>
+              <Link
+                to="/profile"
+                className="movies__link movies__link_type_account"
+              >
+                Аккаунт
+              </Link>
+            </div>
+          }
+        ></Header>
+        <main>
+          <SearchForm></SearchForm>
+          <MoviesCardList></MoviesCardList>
+        </main>
+      </div>
+      <div>
+        <Footer></Footer>
+      </div>
     </div>
   );
 };
