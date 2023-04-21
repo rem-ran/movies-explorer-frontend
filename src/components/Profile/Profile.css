@@ -44,9 +44,10 @@
     border: none;
     font-weight: 400;
     font-size: 11px;
-    line-height: 13px;
+    line-height: 15px;
     text-align: right;
     background-color: white;
+    min-width: 250px;
 }
 
 .profile__btn-box {
@@ -56,12 +57,13 @@
 }
 
 .profile__edit-btn {
+    margin-top: 207px;
     border: none;
     font-weight: 400;
     font-size: 13px;
     line-height: 16px;
     background-color: white;
-    transition: linear .3s;
+    transition: linear .2s;
 }
 
 .profile__edit-btn:hover {
@@ -76,10 +78,39 @@
     line-height: 16px;
     margin-top: 16px;
     color: rgba(238, 52, 101);
-    transition: linear .3s;
+    transition: linear .2s;
 }
 
 .profile__logout:hover {
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.profile__error-txt {
+    margin: 0 auto;
+    margin-top: 187px;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 13px;
+    min-height: 13px;
+    color: rgba(255, 0, 76);
+}
+
+.profile__save-btn {
+    width: 100%;
+    margin-top: 20px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 45px;
+    text-align: center;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    background-color: rgba(52, 86, 243);
+    transition: 0.4s ease;
+}
+
+.profile__save-btn:hover {
     cursor: pointer;
     opacity: 0.7;
 }
