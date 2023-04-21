@@ -1,11 +1,10 @@
 .movies {
-    background-color: white;
+    height: 100%;
 }
 
 .movies__link-container {
     display: flex;
     align-items: center;
-    /* margin-right: 70px; */
 }
 
 .movies__link {

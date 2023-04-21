@@ -7,7 +7,6 @@ const Header = ({ links, headerUserContainer }) => {
   return (
     <header className="header">
       <div className="header__container">
-        {/* <div className="header__logo-container"> */}
         <Link to="/">
           <img
             className="header__logo"
@@ -15,7 +14,6 @@ const Header = ({ links, headerUserContainer }) => {
             alt="логотип в виде буквы C"
           />
         </Link>
-        {/* </div> */}
         {links}
         {headerUserContainer}
       </div>
