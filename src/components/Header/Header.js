@@ -1,5 +1,5 @@
 // импорты
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import headerLogo from '../../images/c-logo.svg';
 
 //импорт стилей
@@ -37,9 +37,9 @@ const Header = ({
           }`}
         >
           {headerLinkList.map((movie, index) => (
-            <Link key={index} to={movie.route} className={movie.styles}>
+            <NavLink key={index} to={movie.route} className={movie.styles}>
               {movie.text}
-            </Link>
+            </NavLink>
           ))}
         </div>
       </div>

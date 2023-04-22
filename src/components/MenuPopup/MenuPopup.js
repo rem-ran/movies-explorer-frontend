@@ -1,5 +1,5 @@
 //импорты
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 import { popupLinks } from '../../utils/constants';
 
@@ -15,14 +15,14 @@ const MenuPopup = ({ isMenuClicked, handleOpenMenu }) => {
       <div className="menu-popup__container">
         <div className="menu-popup__container-main">
           {popupLinks.map((movie, index) => (
-            <Link
+            <NavLink
               key={index}
               to={movie.route}
               className={movie.styles}
               onClick={handleOpenMenu}
             >
               {movie.text}
-            </Link>
+            </NavLink>
           ))}
         </div>
         <div className="menu-popup__container-acc">

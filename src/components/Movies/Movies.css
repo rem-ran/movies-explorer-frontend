@@ -15,6 +15,10 @@
     color: inherit;
 }
 
+.movies__link.active {
+    font-weight: 500;
+}
+
 .movies__link:last-child {
     margin-right: 0;
     margin-left: 30px;

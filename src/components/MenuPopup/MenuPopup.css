@@ -74,6 +74,11 @@
     color: inherit;
     max-width: 340px;
     text-align: center;
+    padding-bottom: 4px;
+}
+
+.menu-popup__link.active {
+    border-bottom: 2px solid black;
 }
 
 @media screen and (max-width: 767px) {
