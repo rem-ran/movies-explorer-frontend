@@ -1,11 +1,16 @@
+// импорты
 import { Link } from 'react-router-dom';
-import './Movies.css';
 
+// импорт компонент
 import Header from '../Header/Header';
 import SearchForm from './SearchForm/SearchForm';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 
+//импорт стилей
+import './Movies.css';
+
+// компонет главной страницы с фильмами ////////////////////////////////////
 const Movies = () => {
   return (
     <div className="movies">
@@ -40,4 +45,5 @@ const Movies = () => {
   );
 };
 
+// экспорт //////////////////////////////////////////////////////
 export default Movies;

@@ -114,3 +114,9 @@
     cursor: pointer;
     opacity: 0.7;
 }
+
+.profile__save-btn_disabled {
+    background-color: white;
+    border: solid 1px #c4c4c4;
+    color: #c4c4c4;
+}

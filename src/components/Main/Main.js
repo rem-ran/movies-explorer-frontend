@@ -1,6 +1,7 @@
+//импорты
 import { Link } from 'react-router-dom';
 
-// импорт компонентов
+// импорт компонент
 import Header from '../Header/Header';
 import Promo from './Promo/Promo';
 import AboutProject from './AboutProject/AboutProject';
@@ -9,8 +10,10 @@ import AboutMe from './AboutMe/AboutMe';
 import Portfolio from './Portfolio/Portfolio';
 import Footer from '../Footer/Footer';
 
+//импорт стилей
 import './Main.css';
 
+// компонет страницы с информацией о проекте и стенденте //////////////////////////
 const Main = () => {
   return (
     <>
@@ -36,4 +39,5 @@ const Main = () => {
   );
 };
 
+// экспорт //////////////////////////////////////////////////////
 export default Main;

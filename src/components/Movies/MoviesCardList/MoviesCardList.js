@@ -1,9 +1,11 @@
+// импорты
 import { movieCards } from '../../../utils/constants';
-
-import './MoviesCardList.css';
-
 import MoviesCard from '../MoviesCard/MoviesCard';
 
+// импорт стилей
+import './MoviesCardList.css';
+
+// компонет списка карточек /////////////////////////////////////
 const MoviesCardList = () => {
   return (
     <section className="movies-list">
@@ -16,4 +18,5 @@ const MoviesCardList = () => {
   );
 };
 
+// экспорт //////////////////////////////////////////////////////
 export default MoviesCardList;

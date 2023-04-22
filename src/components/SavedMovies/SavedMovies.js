@@ -1,9 +1,15 @@
+// импорты
 import { Link } from 'react-router-dom';
+
+//импорт компонент
 import Header from '../Header/Header';
-import './SavedMovies.css';
 import SearchForm from '../Movies/SearchForm/SearchForm';
 import Footer from '../Footer/Footer';
 
+//импорт стилей
+import './SavedMovies.css';
+
+// компонет страницы с сохранёнными фильмами //////////////////////////
 const SavedMovies = () => {
   return (
     <div className="saved-movies">
@@ -37,4 +43,5 @@ const SavedMovies = () => {
   );
 };
 
+// экспорт //////////////////////////////////////////////////////
 export default SavedMovies;

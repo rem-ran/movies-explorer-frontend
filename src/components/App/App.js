@@ -1,6 +1,7 @@
 // import { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
+// импорт компонент
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import Profile from '../Profile/Profile';
@@ -8,6 +9,7 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 
+// импорт стилей
 import './App.css';
 
 function App() {
@@ -23,6 +25,7 @@ function App() {
     console.log({ name, password, email });
   }
 
+  // начало JSX ////////////////////////////////////////////////////////////
   return (
     <div className="page">
       <Routes>
@@ -46,4 +49,5 @@ function App() {
   );
 }
 
+// экспорт //////////////////////////////////////////////////////
 export default App;

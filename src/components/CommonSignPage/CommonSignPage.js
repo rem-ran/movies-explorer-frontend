@@ -1,3 +1,4 @@
+// импорты
 import { Link } from 'react-router-dom';
 
 import commonSignLogo from '../../images/c-logo.svg';
@@ -5,6 +6,7 @@ import commonSignLogo from '../../images/c-logo.svg';
 //импорт стилей
 import './CommonSignPage.css';
 
+// компонет для login/register //////////////////////////////////////////////////////
 const CommonSignPage = ({
   heading,
   btnTxt,
@@ -13,7 +15,9 @@ const CommonSignPage = ({
   questionTxt,
   linkTxt,
   inputs,
+  buttonDisabled,
 }) => {
+  // начало JSX ////////////////////////////////////////////////////////////////
   return (
     <div className="sign sign__container">
       {/* лого с заголовком /////////////////////////////////////////////////*/}
@@ -31,7 +35,10 @@ const CommonSignPage = ({
 
         {/* кнопка, вопрос и линк ///////////////////////////////////////////*/}
         <div className="sign__btn-box">
-          <button onClick={handleSubmit} className="sign__submit-btn">
+          <button
+            onClick={handleSubmit}
+            className={`sign__submit-btn ${buttonDisabled}`}
+          >
             {btnTxt}
           </button>
           <div className="sign__question-box">
@@ -46,4 +53,5 @@ const CommonSignPage = ({
   );
 };
 
+// экспорт //////////////////////////////////////////////////////
 export default CommonSignPage;

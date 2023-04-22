@@ -1,5 +1,7 @@
+// импорт стилей
 import './LoginInput.css';
 
+// компонет импута для login/register ///////////////////////////////////
 const LoginInput = ({ labelTxt, register, error, type, errorBool }) => {
   return (
     <div className="login-input">
@@ -17,4 +19,5 @@ const LoginInput = ({ labelTxt, register, error, type, errorBool }) => {
   );
 };
 
+// экспорт //////////////////////////////////////////////////////
 export default LoginInput;

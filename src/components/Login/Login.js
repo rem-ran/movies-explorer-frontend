@@ -1,3 +1,4 @@
+// импорты
 import { useForm } from 'react-hook-form';
 import LoginInput from '../LoginInput/LoginInput';
 import { inputConfig } from '../../utils/constants';
@@ -5,7 +6,9 @@ import CommonSignPage from '../CommonSignPage/CommonSignPage';
 
 //импорт стилей
 import './Login.css';
+import '../CommonSignPage/CommonSignPage.css';
 
+// компонет авторизации //////////////////////////////////////////////////////
 const Login = ({ handleUserSignIn }) => {
   //подключаем пакет валидации форм
   const {
@@ -17,11 +20,13 @@ const Login = ({ handleUserSignIn }) => {
     mode: 'onBlur',
   });
 
+  // метод обработки сабмита формы
   function onSubmit(inputData) {
     handleUserSignIn(inputData);
     reset();
   }
 
+  // начало JSX ////////////////////////////////////////////////////////////
   return (
     <section>
       <CommonSignPage
@@ -31,6 +36,9 @@ const Login = ({ handleUserSignIn }) => {
         questionTxt={'Ещё не зарегистрированы?'}
         linkTxt={'Регистрация'}
         handleSubmit={handleSubmit(onSubmit)}
+        buttonDisabled={
+          (errors?.email || errors?.password) && 'sign__submit-btn_disabled'
+        }
         inputs={
           <>
             <LoginInput
@@ -55,4 +63,5 @@ const Login = ({ handleUserSignIn }) => {
   );
 };
 
+// экспорт //////////////////////////////////////////////////////
 export default Login;

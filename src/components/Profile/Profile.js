@@ -1,12 +1,15 @@
+// импорты
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import Header from '../Header/Header';
 
+import Header from '../Header/Header';
 import { inputConfig } from '../../utils/constants';
 
+// импорт стилей
 import './Profile.css';
 
+// компонет профиля //////////////////////////////////////////////////////
 const Profile = () => {
   //подключаем пакет валидации форм
   const {
@@ -17,21 +20,26 @@ const Profile = () => {
     mode: 'onBlur',
   });
 
+  // состояние, которое меняется при нажатии на кнопку формы
   const [isEditOn, setIsEditOn] = useState(false);
 
   const profileInputs = document.querySelectorAll('.profile__input');
 
+  // метод обработки клика по кнопке редактирования
   const handleEditClick = (ev) => {
     ev.preventDefault();
     setIsEditOn(true);
     profileInputs.forEach((input) => input.removeAttribute('disabled'));
   };
 
+  // метод обработки клика по кнопке сохранения изменений
   const handleSaveClick = (ev) => {
     ev.preventDefault();
     setIsEditOn(false);
     profileInputs.forEach((input) => input.setAttribute('disabled', true));
   };
+
+  // начало JSX ////////////////////////////////////////////////////////////
   return (
     <div>
       <Header
@@ -77,22 +85,35 @@ const Profile = () => {
               className="profile__input"
             ></input>
           </div>
+
+          {/* рендерим ту или иную кнопку форму в зависимости от значения состояние isEditOn */}
           {!isEditOn ? (
             <button onClick={handleEditClick} className="profile__edit-btn">
               Редактировать
             </button>
           ) : (
             <>
+              {/* текст ошибки появляется в зависимости от наличия ошибок в инпутах */}
               <span className="profile__error-txt">
                 {(errors?.name && errors.name.message) ||
                   (errors?.email && errors.email.message)}
               </span>
-              <button onClick={handleSaveClick} className="profile__save-btn">
+
+              {/* у кнопки меняется стиль в зависимости от наличия ошибок в инпутах */}
+              <button
+                onClick={handleSaveClick}
+                className={`profile__save-btn ${
+                  (errors?.name || errors?.email) &&
+                  'profile__save-btn_disabled'
+                }`}
+              >
                 Сохранить
               </button>
             </>
           )}
         </form>
+
+        {/* рендерим ссылку выхода в зависимости от значения состояние isEditOn */}
         {!isEditOn && (
           <Link to="/signin" className="profile__logout">
             Выйти из аккаунта
@@ -103,4 +124,5 @@ const Profile = () => {
   );
 };
 
+// экспорт //////////////////////////////////////////////////////
 export default Profile;

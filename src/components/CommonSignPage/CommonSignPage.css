@@ -90,6 +90,12 @@
     opacity: 0.8;
 }
 
+.sign__submit-btn_disabled {
+    background-color: white;
+    border: solid 1px #c4c4c4;
+    color: #c4c4c4;
+}
+
 .sign__question-box {
     display: flex;
     margin: 0 auto;

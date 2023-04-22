@@ -1,11 +1,18 @@
+// импорты
 import { useForm } from 'react-hook-form';
+
+//импорт компонент
 import LoginInput from '../LoginInput/LoginInput';
-import { inputConfig } from '../../utils/constants';
 import CommonSignPage from '../CommonSignPage/CommonSignPage';
+
+//импорт констант
+import { inputConfig } from '../../utils/constants';
 
 //импорт стилей
 import './Register.css';
+import '../CommonSignPage/CommonSignPage.css';
 
+// компонет регистрации //////////////////////////////////////////////////////
 const Register = ({ handleUserSignUp }) => {
   //подключаем пакет валидации форм
   const {
@@ -17,11 +24,13 @@ const Register = ({ handleUserSignUp }) => {
     mode: 'onBlur',
   });
 
+  // метод обработки сабмита формы
   const onSubmit = (inputData) => {
     handleUserSignUp(inputData);
     reset();
   };
 
+  // начало JSX ////////////////////////////////////////////////////////////
   return (
     <div>
       <CommonSignPage
@@ -31,6 +40,10 @@ const Register = ({ handleUserSignUp }) => {
         questionTxt={'Уже зарегистрированы?'}
         linkTxt={'Войти'}
         handleSubmit={handleSubmit(onSubmit)}
+        buttonDisabled={
+          (errors?.name || errors?.email || errors?.password) &&
+          'sign__submit-btn_disabled'
+        }
         inputs={
           <>
             <LoginInput
@@ -63,4 +76,5 @@ const Register = ({ handleUserSignUp }) => {
   );
 };
 
+// экспорт //////////////////////////////////////////////////////
 export default Register;
