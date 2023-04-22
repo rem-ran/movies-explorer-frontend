@@ -1,3 +1,5 @@
+export const coloredHeaderStyle = 'header_type_colored';
+
 export const techsList = [
   'HTML',
   'CSS',

@@ -3,9 +3,9 @@ import headerLogo from '../../images/c-logo.svg';
 
 import './Header.css';
 
-const Header = ({ links, headerUserContainer }) => {
+const Header = ({ links, headerUserContainer, coloredHeaderStyle }) => {
   return (
-    <header className="header">
+    <header className={`header ${coloredHeaderStyle}`}>
       <div className="header__container">
         <Link to="/">
           <img
@@ -15,8 +15,8 @@ const Header = ({ links, headerUserContainer }) => {
           />
         </Link>
         {links}
-        {headerUserContainer}
       </div>
+      {headerUserContainer}
     </header>
   );
 };

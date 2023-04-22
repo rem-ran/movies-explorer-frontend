@@ -1,7 +1,10 @@
 .header {
-    background-color: #DDDEE3;
     display: flex;
     margin: 0 auto;
+}
+
+.header_type_colored {
+    background-color: #DDDEE3;
 }
 
 .header__container {
@@ -42,6 +45,7 @@
     display: flex;
     align-items: center;
 }
+
 
 .header__link {
     margin: 0;
@@ -91,4 +95,36 @@
 
 .header__link:last-child {
     margin-right: 0;
+}
+
+.header__button-mobile {
+    display: none;
+    background-image: url('../../images/burger-menu-icon.svg');
+    background-color: white;
+    background-repeat: no-repeat;
+    background-size: contain;
+    padding: 0;
+    border: none;
+    width: 43px;
+    height: 43px;
+    transition: linear 0.2s;
+}
+
+@media screen and (max-width: 1023px) {
+    .header__button-mobile {
+        display: block;
+    }
+}
+
+.header__button-mobile:hover {
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+@media screen and (max-width: 1023px) {
+    .header__button-mobile_type_close {
+        background-image: url('../../images/menu-black-cross.svg');
+        width: 48px;
+        height: 48px;
+    }
 }

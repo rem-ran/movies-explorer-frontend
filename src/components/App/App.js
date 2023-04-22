@@ -11,9 +11,19 @@ import Register from '../Register/Register';
 
 // импорт стилей
 import './App.css';
+import { useState } from 'react';
 
 function App() {
   // const navigate = useNavigate();
+
+  //переменная состояния клика меню на мобильных разрешении
+  const [isMenuClicked, setIsMenuClicked] = useState(false);
+
+  //метод обработки состояния клика меню на мобильном разрешении
+  const handleOpenMenu = () => {
+    setIsMenuClicked((open) => !open);
+    console.log('click');
+  };
 
   //проверка метода обработки авторизации пользоваетля на странице
   function handleUserSignIn({ password, email }) {
@@ -30,7 +40,15 @@ function App() {
     <div className="page">
       <Routes>
         <Route path="/" element={<Main></Main>}></Route>
-        <Route path="/movies" element={<Movies></Movies>}></Route>
+        <Route
+          path="/movies"
+          element={
+            <Movies
+              isMenuClicked={isMenuClicked}
+              handleOpenMenu={handleOpenMenu}
+            ></Movies>
+          }
+        ></Route>
         <Route
           path="/saved-movies"
           element={<SavedMovies></SavedMovies>}

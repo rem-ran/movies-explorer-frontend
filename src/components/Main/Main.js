@@ -10,7 +10,10 @@ import AboutMe from './AboutMe/AboutMe';
 import Portfolio from './Portfolio/Portfolio';
 import Footer from '../Footer/Footer';
 
-//импорт стилей
+// импорт констант
+import { coloredHeaderStyle } from '../../utils/constants';
+
+// импорт стилей
 import './Main.css';
 
 // компонет страницы с информацией о проекте и стенденте //////////////////////////
@@ -18,6 +21,7 @@ const Main = () => {
   return (
     <>
       <Header
+        coloredHeaderStyle={coloredHeaderStyle}
         links={
           <div className="header__user-container">
             <Link to="/signup" className="header__link">

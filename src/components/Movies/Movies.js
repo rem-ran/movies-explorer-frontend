@@ -11,26 +11,34 @@ import Footer from '../Footer/Footer';
 import './Movies.css';
 
 // компонет главной страницы с фильмами ////////////////////////////////////
-const Movies = () => {
+const Movies = ({ isMenuClicked, handleOpenMenu }) => {
   return (
     <div className="movies">
       <div>
         <Header
           links={
-            <div className="movies__link-container">
-              <Link to="/movies" className="movies__link">
-                Фильмы
-              </Link>
-              <Link to="/saved-movies" className="movies__link">
-                Сохранённые фильмы
-              </Link>
-              <Link
-                to="/profile"
-                className="movies__link movies__link_type_account"
-              >
-                Аккаунт
-              </Link>
-            </div>
+            <>
+              <button
+                className={`header__button-mobile ${
+                  isMenuClicked ? 'header__button-mobile_type_close' : ''
+                }`}
+                onClick={handleOpenMenu}
+              ></button>
+              <div className="movies__link-container">
+                <Link to="/movies" className="movies__link">
+                  Фильмы
+                </Link>
+                <Link to="/saved-movies" className="movies__link">
+                  Сохранённые фильмы
+                </Link>
+                <Link
+                  to="/profile"
+                  className="movies__link movies__link_type_account"
+                >
+                  Аккаунт
+                </Link>
+              </div>
+            </>
           }
         ></Header>
         <main>
