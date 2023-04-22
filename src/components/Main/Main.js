@@ -1,5 +1,4 @@
 //импорты
-import { Link } from 'react-router-dom';
 
 // импорт компонент
 import Header from '../Header/Header';
@@ -11,27 +10,28 @@ import Portfolio from './Portfolio/Portfolio';
 import Footer from '../Footer/Footer';
 
 // импорт констант
-import { coloredHeaderStyle } from '../../utils/constants';
+import { coloredHeaderStyle, headerMainLinks } from '../../utils/constants';
 
 // импорт стилей
 import './Main.css';
+import { useEffect } from 'react';
 
 // компонет страницы с информацией о проекте и стенденте //////////////////////////
-const Main = () => {
+const Main = ({ isMainOpen, setIsMainOpen }) => {
+  const handleOpenMain = () => {
+    setIsMainOpen(true);
+  };
+
+  useEffect(() => {
+    handleOpenMain();
+    console.log(isMainOpen);
+  });
   return (
     <>
       <Header
+        headerLinkList={headerMainLinks}
+        isMainOpen={isMainOpen}
         coloredHeaderStyle={coloredHeaderStyle}
-        links={
-          <div className="header__user-container">
-            <Link to="/signup" className="header__link">
-              Регистрация
-            </Link>
-            <Link to="/signin" className="header__link header__link_type_login">
-              Войти
-            </Link>
-          </div>
-        }
       ></Header>
       <Promo></Promo>
       <AboutProject></AboutProject>

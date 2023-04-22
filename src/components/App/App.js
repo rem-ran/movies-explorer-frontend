@@ -17,6 +17,13 @@ import { useState } from 'react';
 function App() {
   // const navigate = useNavigate();
 
+  //переменная состояния страницы Main
+  const [isMainOpen, setIsMainOpen] = useState(false);
+
+  const handleOpenMain = () => {
+    setIsMainOpen(true);
+  };
+
   //переменная состояния клика меню на мобильных разрешении
   const [isMenuClicked, setIsMenuClicked] = useState(false);
 
@@ -50,21 +57,49 @@ function App() {
   return (
     <div className="page">
       <Routes>
-        <Route path="/" element={<Main></Main>}></Route>
+        <Route
+          path="/"
+          element={
+            <Main
+              isMainOpen={isMainOpen}
+              handleOpenMain={handleOpenMain}
+              setIsMainOpen={setIsMainOpen}
+            ></Main>
+          }
+        ></Route>
         <Route
           path="/movies"
           element={
             <Movies
               isMenuClicked={isMenuClicked}
               handleOpenMenu={handleOpenMenu}
+              isMainOpen={isMainOpen}
+              handleOpenMain={handleOpenMain}
             ></Movies>
           }
         ></Route>
         <Route
           path="/saved-movies"
-          element={<SavedMovies></SavedMovies>}
+          element={
+            <SavedMovies
+              isMenuClicked={isMenuClicked}
+              handleOpenMenu={handleOpenMenu}
+              isMainOpen={isMainOpen}
+              handleOpenMain={handleOpenMain}
+            ></SavedMovies>
+          }
         ></Route>
-        <Route path="/profile" element={<Profile></Profile>}></Route>
+        <Route
+          path="/profile"
+          element={
+            <Profile
+              isMenuClicked={isMenuClicked}
+              handleOpenMenu={handleOpenMenu}
+              isMainOpen={isMainOpen}
+              handleOpenMain={handleOpenMain}
+            ></Profile>
+          }
+        ></Route>
         <Route
           path="/signin"
           element={<Login handleUserSignIn={handleUserSignIn}></Login>}

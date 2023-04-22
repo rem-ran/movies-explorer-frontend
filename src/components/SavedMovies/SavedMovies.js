@@ -1,36 +1,25 @@
 // импорты
-import { Link } from 'react-router-dom';
 
 //импорт компонент
 import Header from '../Header/Header';
 import SearchForm from '../Movies/SearchForm/SearchForm';
 import Footer from '../Footer/Footer';
 
+import { headerMoviesLinks } from '../../utils/constants';
+
 //импорт стилей
 import './SavedMovies.css';
 
 // компонет страницы с сохранёнными фильмами //////////////////////////
-const SavedMovies = () => {
+const SavedMovies = ({ isMenuClicked, handleOpenMenu, isMainOpen }) => {
   return (
     <div className="saved-movies">
       <div>
         <Header
-          links={
-            <div className="movies__link-container">
-              <Link to="/movies" className="movies__link">
-                Фильмы
-              </Link>
-              <Link to="/saved-movies" className="movies__link">
-                Сохранённые фильмы
-              </Link>
-              <Link
-                to="/profile"
-                className="movies__link movies__link_type_account"
-              >
-                Аккаунт
-              </Link>
-            </div>
-          }
+          isMainOpen={isMainOpen}
+          isMenuClicked={isMenuClicked}
+          handleOpenMenu={handleOpenMenu}
+          headerLinkList={headerMoviesLinks}
         ></Header>
         <main>
           <SearchForm></SearchForm>

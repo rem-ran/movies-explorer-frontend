@@ -1,6 +1,8 @@
 //импорты
 import { Link } from 'react-router-dom';
 
+import { popupLinks } from '../../utils/constants';
+
 //импорт стилей
 import './MenuPopup.css';
 
@@ -12,23 +14,16 @@ const MenuPopup = ({ isMenuClicked, handleOpenMenu }) => {
     >
       <div className="menu-popup__container">
         <div className="menu-popup__container-main">
-          <Link onClick={handleOpenMenu} to="/" className="menu-popup__link">
-            Главная
-          </Link>
-          <Link
-            onClick={handleOpenMenu}
-            to="/movies"
-            className="menu-popup__link"
-          >
-            Фильмы
-          </Link>
-          <Link
-            onClick={handleOpenMenu}
-            to="/saved-movies"
-            className="menu-popup__link"
-          >
-            Сохранённые фильмы
-          </Link>
+          {popupLinks.map((movie, index) => (
+            <Link
+              key={index}
+              to={movie.route}
+              className={movie.styles}
+              onClick={handleOpenMenu}
+            >
+              {movie.text}
+            </Link>
+          ))}
         </div>
         <div className="menu-popup__container-acc">
           <Link

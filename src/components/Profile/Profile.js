@@ -7,13 +7,13 @@ import { Link } from 'react-router-dom';
 import Header from '../Header/Header';
 
 // импорт констант
-import { inputConfig } from '../../utils/constants';
+import { inputConfig, headerMoviesLinks } from '../../utils/constants';
 
 // импорт стилей
 import './Profile.css';
 
 // компонет профиля //////////////////////////////////////////////////////
-const Profile = () => {
+const Profile = ({ isMenuClicked, handleOpenMenu, isMainOpen }) => {
   //подключаем пакет валидации форм
   const {
     register,
@@ -52,22 +52,10 @@ const Profile = () => {
   return (
     <div>
       <Header
-        links={
-          <div className="movies__link-container">
-            <Link to="/movies" className="movies__link">
-              Фильмы
-            </Link>
-            <Link to="/saved-movies" className="movies__link">
-              Сохранённые фильмы
-            </Link>
-            <Link
-              to="/profile"
-              className="movies__link movies__link_type_account"
-            >
-              Аккаунт
-            </Link>
-          </div>
-        }
+        isMainOpen={isMainOpen}
+        isMenuClicked={isMenuClicked}
+        handleOpenMenu={handleOpenMenu}
+        headerLinkList={headerMoviesLinks}
       ></Header>
       <div className="profile__container">
         <h1 className="profile__heading">Привет, Руслан!</h1>

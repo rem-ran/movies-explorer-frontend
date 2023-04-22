@@ -1,5 +1,54 @@
+// стиль необходимый для смены цвета хедеру
 export const coloredHeaderStyle = 'header_type_colored';
 
+/////////////////////////////////////////////////////////////////////////
+
+// стили необходимые для хедера на главной странице
+const mainLink = 'header__link';
+const mainLastLink = 'header__link_type_login';
+
+// список необходимых ссылок для хедера на главной странице
+export const headerMainLinks = [
+  { route: '/signup', text: 'Регистрация', styles: mainLink },
+  {
+    route: '/signin',
+    text: 'Войти',
+    styles: `${mainLink} ${mainLastLink}`,
+  },
+];
+
+/////////////////////////////////////////////////////////////////////////
+
+// стили необходимые для хедера на страницах с фильмами
+const moviesLink = 'movies__link';
+const moviesLastLink = 'movies__link_type_account';
+
+// список необходимых ссылок для хедера на страницах с фильмами
+export const headerMoviesLinks = [
+  { route: '/movies', text: 'Фильмы', styles: moviesLink },
+  { route: '/saved-movies', text: 'Сохранённые фильмы', styles: moviesLink },
+  {
+    route: '/profile',
+    text: 'Аккаунт',
+    styles: `${moviesLink} ${moviesLastLink}`,
+  },
+];
+
+/////////////////////////////////////////////////////////////////////////
+
+// стили необходимые для хедера на главной странице
+const popupLink = 'menu-popup__link';
+
+// список необходимых ссылок для хедера на главной странице
+export const popupLinks = [
+  { route: '/', text: 'Главная', styles: popupLink },
+  { route: '/movies', text: 'Фильмы', styles: popupLink },
+  { route: '/saved-movies', text: 'Сохранённые фильмы', styles: popupLink },
+];
+
+/////////////////////////////////////////////////////////////////////////
+
+// список использованных в проекте технологий
 export const techsList = [
   'HTML',
   'CSS',
@@ -10,6 +59,9 @@ export const techsList = [
   'mongoDB',
 ];
 
+/////////////////////////////////////////////////////////////////////////
+
+// список работ портофолио
 export const porfolioWebsites = [
   {
     heading: 'Статичный сайт',
@@ -22,6 +74,9 @@ export const porfolioWebsites = [
   { heading: 'Одностраничное приложение', link: 'https://lenta.ru' },
 ];
 
+/////////////////////////////////////////////////////////////////////////
+
+// список ссылкок футеры
 export const footerLinks = [
   {
     heading: 'Яндекс.Практикум',
@@ -32,6 +87,8 @@ export const footerLinks = [
     link: 'https://github.com/',
   },
 ];
+
+/////////////////////////////////////////////////////////////////////////
 
 //настройки зарегистрированных инпутов
 export const inputConfig = {
@@ -56,6 +113,9 @@ export const inputConfig = {
   },
 };
 
+/////////////////////////////////////////////////////////////////////////
+
+// для примера работы с карточками
 export const movieCards = [
   {
     id: 1,
