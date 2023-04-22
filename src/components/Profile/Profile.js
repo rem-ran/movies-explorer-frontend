@@ -1,9 +1,12 @@
 // импорты
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
+// импорт компонент
 import Header from '../Header/Header';
+
+// импорт констант
 import { inputConfig } from '../../utils/constants';
 
 // импорт стилей
@@ -22,21 +25,27 @@ const Profile = () => {
 
   // состояние, которое меняется при нажатии на кнопку формы
   const [isEditOn, setIsEditOn] = useState(false);
-
   const profileInputs = document.querySelectorAll('.profile__input');
+
+  const toggleInputState = () => {
+    profileInputs.forEach((input) => input.toggleAttribute('disabled'));
+  };
+
+  useEffect(() => {
+    toggleInputState();
+  }, [isEditOn]);
+
+  // const profileInputs = document.querySelectorAll('.profile__input');
 
   // метод обработки клика по кнопке редактирования
   const handleEditClick = (ev) => {
     ev.preventDefault();
     setIsEditOn(true);
-    profileInputs.forEach((input) => input.removeAttribute('disabled'));
   };
 
-  // метод обработки клика по кнопке сохранения изменений
-  const handleSaveClick = (ev) => {
-    ev.preventDefault();
+  const onSubmit = (data) => {
     setIsEditOn(false);
-    profileInputs.forEach((input) => input.setAttribute('disabled', true));
+    console.log(data);
   };
 
   // начало JSX ////////////////////////////////////////////////////////////
@@ -62,7 +71,7 @@ const Profile = () => {
       ></Header>
       <div className="profile__container">
         <h1 className="profile__heading">Привет, Руслан!</h1>
-        <form className="profile__form">
+        <form onSubmit={handleSubmit(onSubmit)} className="profile__form">
           <div className="profile__form-element">
             <label className="profile__input-label">Имя</label>
             <input
@@ -86,12 +95,8 @@ const Profile = () => {
             ></input>
           </div>
 
-          {/* рендерим ту или иную кнопку форму в зависимости от значения состояние isEditOn */}
-          {!isEditOn ? (
-            <button onClick={handleEditClick} className="profile__edit-btn">
-              Редактировать
-            </button>
-          ) : (
+          {/* рендерим кнопку формы в зависимости от значения состояние isEditOn */}
+          {isEditOn && (
             <>
               {/* текст ошибки появляется в зависимости от наличия ошибок в инпутах */}
               <span className="profile__error-txt">
@@ -101,7 +106,7 @@ const Profile = () => {
 
               {/* у кнопки меняется стиль в зависимости от наличия ошибок в инпутах */}
               <button
-                onClick={handleSaveClick}
+                onClick={handleSubmit(onSubmit)}
                 className={`profile__save-btn ${
                   (errors?.name || errors?.email) &&
                   'profile__save-btn_disabled'
@@ -113,11 +118,17 @@ const Profile = () => {
           )}
         </form>
 
-        {/* рендерим ссылку выхода в зависимости от значения состояние isEditOn */}
+        {/* рендерим кнопку редактирования и ссылку выхода 
+        в зависимости от значения состояние isEditOn */}
         {!isEditOn && (
-          <Link to="/signin" className="profile__logout">
-            Выйти из аккаунта
-          </Link>
+          <>
+            <button onClick={handleEditClick} className="profile__edit-btn">
+              Редактировать
+            </button>
+            <Link to="/signin" className="profile__logout">
+              Выйти из аккаунта
+            </Link>
+          </>
         )}
       </div>
     </div>
