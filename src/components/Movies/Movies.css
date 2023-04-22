@@ -39,6 +39,7 @@
 .movies__link_type_account {
     height: 32px;
     width: 100px;
+    font-size: 14px;
     font-weight: 500;
     line-height: 32px;
     background-color: rgba(244, 244, 244);

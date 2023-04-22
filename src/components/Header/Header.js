@@ -1,8 +1,11 @@
+// импорты
 import { Link } from 'react-router-dom';
 import headerLogo from '../../images/c-logo.svg';
 
+//импорт стилей
 import './Header.css';
 
+// компонет хедера ////////////////////////////////////////////////////
 const Header = ({ links, headerUserContainer, coloredHeaderStyle }) => {
   return (
     <header className={`header ${coloredHeaderStyle}`}>
@@ -21,4 +24,5 @@ const Header = ({ links, headerUserContainer, coloredHeaderStyle }) => {
   );
 };
 
+// экспорт //////////////////////////////////////////////////////
 export default Header;

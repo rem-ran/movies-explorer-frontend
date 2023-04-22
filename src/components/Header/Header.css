@@ -126,5 +126,6 @@
         background-image: url('../../images/menu-black-cross.svg');
         width: 48px;
         height: 48px;
+        z-index: 2;
     }
 }

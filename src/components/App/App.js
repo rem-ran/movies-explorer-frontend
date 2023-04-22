@@ -8,6 +8,7 @@ import Profile from '../Profile/Profile';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
+import MenuPopup from '../MenuPopup/MenuPopup';
 
 // импорт стилей
 import './App.css';
@@ -19,10 +20,20 @@ function App() {
   //переменная состояния клика меню на мобильных разрешении
   const [isMenuClicked, setIsMenuClicked] = useState(false);
 
+  let bodyOverflow = document.querySelector('body');
+
+  const toggleBodyOverflow = () => {
+    if (bodyOverflow.style.overflow !== 'hidden') {
+      bodyOverflow.style.overflow = 'hidden';
+    } else {
+      bodyOverflow.style.overflow = 'visible';
+    }
+  };
+
   //метод обработки состояния клика меню на мобильном разрешении
   const handleOpenMenu = () => {
     setIsMenuClicked((open) => !open);
-    console.log('click');
+    toggleBodyOverflow();
   };
 
   //проверка метода обработки авторизации пользоваетля на странице
@@ -63,6 +74,12 @@ function App() {
           element={<Register handleUserSignUp={handleUserSignUp}></Register>}
         ></Route>
       </Routes>
+
+      {/* попа с меню ///////////////////////////////////////////////////*/}
+      <MenuPopup
+        isMenuClicked={isMenuClicked}
+        handleOpenMenu={handleOpenMenu}
+      ></MenuPopup>
     </div>
   );
 }
