@@ -1,6 +1,6 @@
 // импорты
 import { useState } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 // импорт компонент
 import Main from '../Main/Main';
@@ -11,6 +11,7 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import MenuPopup from '../MenuPopup/MenuPopup';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import PageNotFound from '../PageNotFound/PageNotFound';
 
 // импорт констатнт
 import { bodyOverflow } from '../../utils/constants';
@@ -122,6 +123,11 @@ function App() {
         <Route
           path="/signup"
           element={<Register handleUserSignUp={handleUserSignUp}></Register>}
+        ></Route>
+
+        <Route
+          path="/not-found"
+          element={<PageNotFound></PageNotFound>}
         ></Route>
       </Routes>
 
