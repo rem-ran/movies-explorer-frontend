@@ -1,4 +1,5 @@
 //импорты
+import { NavLink } from 'react-router-dom';
 
 // импорт компонент
 import Header from '../Header/Header';
@@ -10,36 +11,52 @@ import Portfolio from './Portfolio/Portfolio';
 import Footer from '../Footer/Footer';
 
 // импорт констант
-import { coloredHeaderStyle, headerMainLinks } from '../../utils/constants';
+import { coloredHeaderStyle, mainHeaderLinks } from '../../utils/constants';
 
 // импорт стилей
 import './Main.css';
-import { useEffect } from 'react';
 
 // компонет страницы с информацией о проекте и стенденте //////////////////////////
-const Main = ({ isMainOpen, setIsMainOpen }) => {
-  const handleOpenMain = () => {
-    setIsMainOpen(true);
-  };
-
-  useEffect(() => {
-    handleOpenMain();
-    console.log(isMainOpen);
-  });
+const Main = ({ isLoggenIn, isMenuClicked, handleOpenMenu }) => {
   return (
-    <>
+    // начало JSX ////////////////////////////////////////////////////////////////
+    <div className="about">
       <Header
-        headerLinkList={headerMainLinks}
-        isMainOpen={isMainOpen}
+        isMenuClicked={isMenuClicked}
+        isLoggenIn={isLoggenIn}
+        handleOpenMenu={handleOpenMenu}
         coloredHeaderStyle={coloredHeaderStyle}
+        // меняем стили для кнопки хедера на в зависимсоти от состояния авторизации
+        mainPageClasses={
+          !isLoggenIn
+            ? 'header__button-mobile_invisible'
+            : 'header__button-mobile_loggedin'
+        }
+        links={
+          <div
+            className={`about__link-container ${
+              // убираем линки, если мы авторизированы
+              isLoggenIn && 'about__link-container_type_hidden'
+            }`}
+          >
+            {/* рендерим заранее подготовленные линки из константы */}
+            {mainHeaderLinks.map((movie, index) => (
+              <NavLink key={index} to={movie.route} className={movie.styles}>
+                {movie.text}
+              </NavLink>
+            ))}
+          </div>
+        }
       ></Header>
-      <Promo></Promo>
-      <AboutProject></AboutProject>
-      <Techs></Techs>
-      <AboutMe></AboutMe>
-      <Portfolio></Portfolio>
+      <main>
+        <Promo></Promo>
+        <AboutProject></AboutProject>
+        <Techs></Techs>
+        <AboutMe></AboutMe>
+        <Portfolio></Portfolio>
+      </main>
       <Footer></Footer>
-    </>
+    </div>
   );
 };
 

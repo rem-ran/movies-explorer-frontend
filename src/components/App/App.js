@@ -1,5 +1,6 @@
-// import { useEffect, useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+// импорты
+import { useEffect, useState } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 // импорт компонент
 import Main from '../Main/Main';
@@ -10,25 +11,27 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import MenuPopup from '../MenuPopup/MenuPopup';
 
+// импорт констатнт
+import { bodyOverflow } from '../../utils/constants';
+
 // импорт стилей
 import './App.css';
-import { useState } from 'react';
 
+/////////////////////////////////////////////////////////////////////////
+
+// главный компонент приложения
 function App() {
-  // const navigate = useNavigate();
+  /////////////////////////////////////////////////////////////////////////
 
-  //переменная состояния страницы Main
-  const [isMainOpen, setIsMainOpen] = useState(false);
+  // переменная состояния страницы Main
+  const [isLoggenIn, setIsLoggenIn] = useState(true);
 
-  const handleOpenMain = () => {
-    setIsMainOpen(true);
-  };
-
-  //переменная состояния клика меню на мобильных разрешении
+  // переменная состояния клика меню на мобильных разрешении
   const [isMenuClicked, setIsMenuClicked] = useState(false);
 
-  let bodyOverflow = document.querySelector('body');
+  /////////////////////////////////////////////////////////////////////////
 
+  // метод блокировки прокрутки экрана при открытии меню
   const toggleBodyOverflow = () => {
     if (bodyOverflow.style.overflow !== 'hidden') {
       bodyOverflow.style.overflow = 'hidden';
@@ -37,18 +40,18 @@ function App() {
     }
   };
 
-  //метод обработки состояния клика меню на мобильном разрешении
+  // метод обработки состояния клика меню на мобильном разрешении
   const handleOpenMenu = () => {
     setIsMenuClicked((open) => !open);
     toggleBodyOverflow();
   };
 
-  //проверка метода обработки авторизации пользоваетля на странице
+  // проверка метода обработки авторизации пользоваетля на странице
   function handleUserSignIn({ password, email }) {
     console.log({ password, email });
   }
 
-  //проверка метода  обработки регистрации пользоваетля на странице
+  // проверка метода  обработки регистрации пользоваетля на странице
   function handleUserSignUp({ name, password, email }) {
     console.log({ name, password, email });
   }
@@ -57,60 +60,77 @@ function App() {
   return (
     <div className="page">
       <Routes>
+        {/* рут с информацией об авторе и проекте ///////////////////////////*/}
         <Route
           path="/"
           element={
             <Main
-              isMainOpen={isMainOpen}
-              handleOpenMain={handleOpenMain}
-              setIsMainOpen={setIsMainOpen}
+              isLoggenIn={isLoggenIn}
+              isMenuClicked={isMenuClicked}
+              handleOpenMenu={handleOpenMenu}
             ></Main>
           }
         ></Route>
+
+        {/* рут со всеми фильмами ///////////////////////////////////////////*/}
         <Route
           path="/movies"
           element={
-            <Movies
-              isMenuClicked={isMenuClicked}
-              handleOpenMenu={handleOpenMenu}
-              isMainOpen={isMainOpen}
-              handleOpenMain={handleOpenMain}
-            ></Movies>
+            isLoggenIn ? (
+              <Movies
+                isMenuClicked={isMenuClicked}
+                handleOpenMenu={handleOpenMenu}
+              ></Movies>
+            ) : (
+              <Navigate to="/signin" replace />
+            )
           }
         ></Route>
+
+        {/* рут с сохранёнными пользователем фильмами /////////////////////////*/}
         <Route
           path="/saved-movies"
           element={
-            <SavedMovies
-              isMenuClicked={isMenuClicked}
-              handleOpenMenu={handleOpenMenu}
-              isMainOpen={isMainOpen}
-              handleOpenMain={handleOpenMain}
-            ></SavedMovies>
+            isLoggenIn ? (
+              <SavedMovies
+                isMenuClicked={isMenuClicked}
+                handleOpenMenu={handleOpenMenu}
+              ></SavedMovies>
+            ) : (
+              <Navigate to="/signin" replace />
+            )
           }
         ></Route>
+
+        {/* рут редактирования профиля//////////////////////////////,//////////*/}
         <Route
           path="/profile"
           element={
-            <Profile
-              isMenuClicked={isMenuClicked}
-              handleOpenMenu={handleOpenMenu}
-              isMainOpen={isMainOpen}
-              handleOpenMain={handleOpenMain}
-            ></Profile>
+            isLoggenIn ? (
+              <Profile
+                isMenuClicked={isMenuClicked}
+                handleOpenMenu={handleOpenMenu}
+              ></Profile>
+            ) : (
+              <Navigate to="/signin" replace />
+            )
           }
         ></Route>
+
+        {/* рут авторизации //////////////////////////////,////////////////////*/}
         <Route
           path="/signin"
           element={<Login handleUserSignIn={handleUserSignIn}></Login>}
         ></Route>
+
+        {/* рут регистрации //////////////////////////////,////////////////////*/}
         <Route
           path="/signup"
           element={<Register handleUserSignUp={handleUserSignUp}></Register>}
         ></Route>
       </Routes>
 
-      {/* попа с меню ///////////////////////////////////////////////////*/}
+      {/* попа с меню при нажатии на бургер-меню ///////////////////////////////*/}
       <MenuPopup
         isMenuClicked={isMenuClicked}
         handleOpenMenu={handleOpenMenu}

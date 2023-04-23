@@ -1,5 +1,5 @@
 // импорты
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import headerLogo from '../../images/c-logo.svg';
 
 //импорт стилей
@@ -10,12 +10,15 @@ const Header = ({
   coloredHeaderStyle,
   isMenuClicked,
   handleOpenMenu,
-  isOpenMain,
-  headerLinkList,
+  links,
+  mainPageClasses,
 }) => {
+  // начало JSX ////////////////////////////////////////////////////////////
   return (
+    // coloredHeaderStyle меняет цвет хедера в зависимости где он вызван
     <header className={`header ${coloredHeaderStyle}`}>
       <div className="header__container">
+        {/* при нажатии на лого переходим на основную страницу */}
         <Link to="/">
           <img
             className="header__logo"
@@ -23,25 +26,17 @@ const Header = ({
             alt="логотип в виде буквы C"
           />
         </Link>
-        {!isOpenMain && (
-          <button
-            className={`header__button-mobile ${
-              isMenuClicked ? 'header__button-mobile_type_close' : ''
-            }`}
-            onClick={handleOpenMenu}
-          ></button>
-        )}
-        <div
-          className={`header__link-container ${
-            isOpenMain ? '' : 'header__link-container_type_hidden'
-          }`}
-        >
-          {headerLinkList.map((movie, index) => (
-            <NavLink key={index} to={movie.route} className={movie.styles}>
-              {movie.text}
-            </NavLink>
-          ))}
-        </div>
+        <button
+          className={`header__button-mobile ${
+            // при нажатии на кропку меняем её изображение на крестик
+            isMenuClicked && 'header__button-mobile_type_close'
+            // дополнительные классы кнопки для основной страницы
+          } ${mainPageClasses}`}
+          onClick={handleOpenMenu}
+        ></button>
+
+        {/* для каждой страницы, где вызван хедер, линки нужно вставлять отдельно */}
+        {links}
       </div>
     </header>
   );

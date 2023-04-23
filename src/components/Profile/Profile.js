@@ -7,13 +7,14 @@ import { Link } from 'react-router-dom';
 import Header from '../Header/Header';
 
 // импорт констант
-import { inputConfig, headerMoviesLinks } from '../../utils/constants';
+import { inputConfig } from '../../utils/constants';
 
 // импорт стилей
 import './Profile.css';
+import Navigation from '../Navigation/Navigation';
 
 // компонет профиля //////////////////////////////////////////////////////
-const Profile = ({ isMenuClicked, handleOpenMenu, isMainOpen }) => {
+const Profile = ({ isMenuClicked, handleOpenMenu }) => {
   //подключаем пакет валидации форм
   const {
     register,
@@ -35,8 +36,6 @@ const Profile = ({ isMenuClicked, handleOpenMenu, isMainOpen }) => {
     toggleInputState();
   }, [isEditOn]);
 
-  // const profileInputs = document.querySelectorAll('.profile__input');
-
   // метод обработки клика по кнопке редактирования
   const handleEditClick = (ev) => {
     ev.preventDefault();
@@ -52,10 +51,9 @@ const Profile = ({ isMenuClicked, handleOpenMenu, isMainOpen }) => {
   return (
     <div>
       <Header
-        isMainOpen={isMainOpen}
         isMenuClicked={isMenuClicked}
         handleOpenMenu={handleOpenMenu}
-        headerLinkList={headerMoviesLinks}
+        links={<Navigation></Navigation>}
       ></Header>
       <div className="profile__container">
         <h1 className="profile__heading">Привет, Руслан!</h1>

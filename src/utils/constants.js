@@ -1,6 +1,8 @@
 // стиль необходимый для смены цвета хедеру
 export const coloredHeaderStyle = 'header_type_colored';
 
+export let bodyOverflow = document.querySelector('body');
+
 /////////////////////////////////////////////////////////////////////////
 
 // стили необходимые для хедера на главной странице
@@ -8,7 +10,7 @@ const mainLink = 'header__link';
 const mainLastLink = 'header__link_type_login';
 
 // список необходимых ссылок для хедера на главной странице
-export const headerMainLinks = [
+export const mainHeaderLinks = [
   { route: '/signup', text: 'Регистрация', styles: mainLink },
   {
     route: '/signin',
@@ -24,7 +26,7 @@ const moviesLink = 'movies__link';
 const moviesLastLink = 'movies__link_type_account';
 
 // список необходимых ссылок для хедера на страницах с фильмами
-export const headerMoviesLinks = [
+export const moviesHeaderLinks = [
   { route: '/movies', text: 'Фильмы', styles: moviesLink },
   { route: '/saved-movies', text: 'Сохранённые фильмы', styles: moviesLink },
   {

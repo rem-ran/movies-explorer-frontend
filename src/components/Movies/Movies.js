@@ -5,26 +5,20 @@ import Header from '../Header/Header';
 import SearchForm from './SearchForm/SearchForm';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
-
-import { headerMoviesLinks } from '../../utils/constants';
+import Navigation from '../Navigation/Navigation';
 
 //импорт стилей
 import './Movies.css';
-import { useEffect } from 'react';
 
 // компонет главной страницы с фильмами ////////////////////////////////////
-const Movies = ({ isMenuClicked, handleOpenMenu, isMainOpen }) => {
-  useEffect(() => {
-    console.log(isMainOpen);
-  });
+const Movies = ({ isMenuClicked, handleOpenMenu }) => {
   return (
     <div className="movies">
       <div>
         <Header
-          isMainOpen={isMainOpen}
           isMenuClicked={isMenuClicked}
           handleOpenMenu={handleOpenMenu}
-          headerLinkList={headerMoviesLinks}
+          links={<Navigation></Navigation>}
         ></Header>
         <main>
           <SearchForm></SearchForm>

@@ -4,22 +4,20 @@
 import Header from '../Header/Header';
 import SearchForm from '../Movies/SearchForm/SearchForm';
 import Footer from '../Footer/Footer';
-
-import { headerMoviesLinks } from '../../utils/constants';
+import Navigation from '../Navigation/Navigation';
 
 //импорт стилей
 import './SavedMovies.css';
 
 // компонет страницы с сохранёнными фильмами //////////////////////////
-const SavedMovies = ({ isMenuClicked, handleOpenMenu, isMainOpen }) => {
+const SavedMovies = ({ isMenuClicked, handleOpenMenu }) => {
   return (
     <div className="saved-movies">
       <div>
         <Header
-          isMainOpen={isMainOpen}
           isMenuClicked={isMenuClicked}
           handleOpenMenu={handleOpenMenu}
-          headerLinkList={headerMoviesLinks}
+          links={<Navigation></Navigation>}
         ></Header>
         <main>
           <SearchForm></SearchForm>
