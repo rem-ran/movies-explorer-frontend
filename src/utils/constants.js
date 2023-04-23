@@ -22,8 +22,8 @@ export const mainHeaderLinks = [
 /////////////////////////////////////////////////////////////////////////
 
 // стили необходимые для хедера на страницах с фильмами
-const moviesLink = 'movies__link';
-const moviesLastLink = 'movies__link_type_account';
+const moviesLink = 'nav__link';
+const moviesLastLink = 'nav__link_type_account';
 
 // список необходимых ссылок для хедера на страницах с фильмами
 export const moviesHeaderLinks = [
