@@ -1,6 +1,10 @@
+// импорты
 import { Link } from 'react-router-dom';
+
+// импорт стилей
 import './PageNotFound.css';
 
+// компонент страницы "страницы не найдена" //////////////////////
 const PageNotFound = () => {
   return (
     <section className="not-found">
@@ -15,4 +19,5 @@ const PageNotFound = () => {
   );
 };
 
+// экспорт //////////////////////////////////////////////////////
 export default PageNotFound;

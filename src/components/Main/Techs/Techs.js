@@ -1,7 +1,10 @@
+// импорт констант
 import { techsList } from '../../../utils/constants';
 
+// импорт стилей
 import './Techs.css';
 
+// компонет используемых технолигий //////////////////////////////////////////////
 const Techs = () => {
   return (
     <section className="techs">
@@ -26,4 +29,5 @@ const Techs = () => {
   );
 };
 
+// экспорт //////////////////////////////////////////////////////
 export default Techs;

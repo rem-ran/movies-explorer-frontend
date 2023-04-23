@@ -1,6 +1,9 @@
+// импорт стилей
 import './MoviesCard.css';
 
+// компонет карточки с фильмом ////////////////////////////////////////
 const MoviesCard = ({ nameRU, duration, image, id, trailerLink }) => {
+  //метод подсчёта времени в часа и минутах
   const calculateTiming = (minutes) => {
     return `${Math.floor(minutes / 60)}ч ${minutes % 60}м`;
   };
@@ -10,6 +13,7 @@ const MoviesCard = ({ nameRU, duration, image, id, trailerLink }) => {
     ev.target.classList.toggle('movie__like-btn_active');
   };
   return (
+    // начало JSX //////////////////////////////////////////////////////
     <li className="movie" id={id}>
       <a href={trailerLink} target="_blank" rel="noopener noreferrer">
         <img className="movie_image" src={image.url} alt={nameRU} />
@@ -31,4 +35,5 @@ const MoviesCard = ({ nameRU, duration, image, id, trailerLink }) => {
   );
 };
 
+// экспорт //////////////////////////////////////////////////////
 export default MoviesCard;

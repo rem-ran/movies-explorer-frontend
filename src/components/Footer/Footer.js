@@ -1,7 +1,10 @@
+// импорт констант
 import { footerLinks } from '../../utils/constants';
 
+// импорт стилей
 import './Footer.css';
 
+// компонет футера /////////////////////////////////////////////
 const Footer = () => {
   return (
     <footer className="footer">
@@ -31,4 +34,5 @@ const Footer = () => {
   );
 };
 
+// экспорт //////////////////////////////////////////////////////
 export default Footer;

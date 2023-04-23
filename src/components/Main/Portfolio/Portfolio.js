@@ -1,7 +1,13 @@
+// импорт картинки
 import arrowImg from '../../../images/arrowUp-icon.svg';
+
+// импорт констант
 import { porfolioWebsites } from '../../../utils/constants';
+
+// импорт стилей
 import './Portfolio.css';
 
+// компонет портфолио //////////////////////////////////////////////////////
 const Portfolio = () => {
   return (
     <section className="portfolio" id="portfolio">
@@ -31,4 +37,5 @@ const Portfolio = () => {
   );
 };
 
+// экспорт //////////////////////////////////////////////////////
 export default Portfolio;

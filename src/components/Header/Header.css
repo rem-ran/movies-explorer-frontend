@@ -41,17 +41,6 @@
     cursor: pointer;
 }
 
-/* .header__link-container {
-    display: flex;
-    align-items: center;
-}
-
-@media screen and (max-width: 1023px) {
-    .header__link-container_type_hidden {
-        display: none;
-    }
-} */
-
 .header__link {
     margin: 0;
     margin-right: 30px;

@@ -80,7 +80,7 @@
 }
 
 .movie__like-btn {
-    background: no-repeat url("../../../images/white-hear-icon.svg");
+    background: no-repeat url("../../images/white-hear-icon.svg");
     background-size: contain;
     width: 30px;
     height: 30px;
@@ -89,7 +89,7 @@
 }
 
 .movie__like-btn_active {
-    background: no-repeat url("../../../images/red-heart-icon.svg");
+    background: no-repeat url("../../images/red-heart-icon.svg");
 }
 
 .movie__like-btn:hover {

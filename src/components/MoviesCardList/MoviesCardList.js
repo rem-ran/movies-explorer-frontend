@@ -1,16 +1,15 @@
 // импорты
-import { movieCards } from '../../../utils/constants';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
 // импорт стилей
 import './MoviesCardList.css';
 
 // компонет списка карточек /////////////////////////////////////
-const MoviesCardList = () => {
+const MoviesCardList = ({ movieCardList }) => {
   return (
     <section className="movies-list">
       <ul className="movies-list__container">
-        {movieCards.map((movie) => (
+        {movieCardList.map((movie) => (
           <MoviesCard key={movie.id} {...movie} />
         ))}
       </ul>

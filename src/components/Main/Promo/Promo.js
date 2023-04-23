@@ -1,7 +1,10 @@
+// импорт стилей
 import './Promo.css';
 
+// импорт констант
 import promoImage from '../../../images/planet-logo.svg';
 
+// компонет промо //////////////////////////////////////////////////////
 const Promo = () => {
   return (
     <section className="promo">
@@ -27,4 +30,5 @@ const Promo = () => {
   );
 };
 
+// экспорт //////////////////////////////////////////////////////
 export default Promo;

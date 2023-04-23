@@ -2,10 +2,13 @@
 
 // импорт компонент
 import Header from '../Header/Header';
-import SearchForm from './SearchForm/SearchForm';
-import MoviesCardList from './MoviesCardList/MoviesCardList';
+import SearchForm from '../SearchForm/SearchForm';
+import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 import Navigation from '../Navigation/Navigation';
+
+// ипорт констант
+import { movieCards } from '../../utils/constants';
 
 //импорт стилей
 import './Movies.css';
@@ -22,7 +25,7 @@ const Movies = ({ isMenuClicked, handleOpenMenu }) => {
         ></Header>
         <main>
           <SearchForm></SearchForm>
-          <MoviesCardList></MoviesCardList>
+          <MoviesCardList movieCardList={movieCards}></MoviesCardList>
         </main>
       </div>
       <div>

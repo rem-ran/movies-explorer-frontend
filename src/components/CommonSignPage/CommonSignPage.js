@@ -1,6 +1,7 @@
 // импорты
 import { Link } from 'react-router-dom';
 
+//импорт картинки
 import commonSignLogo from '../../images/c-logo.svg';
 
 //импорт стилей

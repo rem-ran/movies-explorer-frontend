@@ -1,7 +1,10 @@
+// импорт картинки
 import profileImg from '../../../images/my-profile-photo.jpg';
 
+// импорт стилей
 import './AboutMe.css';
 
+// компонет описания себя //////////////////////////////////////////////////////
 const AboutMe = () => {
   return (
     <section className="about-me">
@@ -12,11 +15,12 @@ const AboutMe = () => {
             <h3 className="about-me__name">Руслан</h3>
             <h4 className="about-me__prof">Фронтенд-разработчик, 33 года</h4>
             <p className="about-me__about">
-              Я родился и живу в Саратове, закончил факультет экономики СГУ. У
-              меня есть жена и дочь. Я люблю слушать музыку, а ещё увлекаюсь
-              бегом. Недавно начал кодить. С 2015 года работал в компании «СКБ
-              Контур». После того, как прошёл курс по веб-разработке, начал
-              заниматься фриланс-заказами и ушёл с постоянной работы.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
+              aliquam luctus risus, vitae commodo libero. Proin tincidunt orci
+              at leo finibus faucibus. Lorem ipsum dolor sit amet, consectetur
+              adipiscing elit. Sed eu consequat risus. Suspendisse sed felis
+              scelerisque, porta diam et, sollicitudin nunc. Donec vitae lacus
+              sit amet urna malesuada sagittis ac eget enim.
             </p>
             <a
               className="about-me__link"
@@ -38,4 +42,5 @@ const AboutMe = () => {
   );
 };
 
+// экспорт //////////////////////////////////////////////////////
 export default AboutMe;

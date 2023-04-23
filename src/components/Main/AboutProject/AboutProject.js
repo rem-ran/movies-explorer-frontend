@@ -1,5 +1,7 @@
+// импорт стилей
 import './AboutProject.css';
 
+// компонет описания пректа //////////////////////////////////////////////////////
 const AboutProject = () => {
   return (
     <section className="about">
@@ -40,4 +42,5 @@ const AboutProject = () => {
   );
 };
 
+// экспорт //////////////////////////////////////////////////////
 export default AboutProject;
