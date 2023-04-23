@@ -1,5 +1,5 @@
 // импорты
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 // импорт компонент
@@ -10,6 +10,7 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import MenuPopup from '../MenuPopup/MenuPopup';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 // импорт констатнт
 import { bodyOverflow } from '../../utils/constants';
@@ -76,14 +77,12 @@ function App() {
         <Route
           path="/movies"
           element={
-            isLoggenIn ? (
+            <ProtectedRoute isLoggenIn={isLoggenIn}>
               <Movies
                 isMenuClicked={isMenuClicked}
                 handleOpenMenu={handleOpenMenu}
               ></Movies>
-            ) : (
-              <Navigate to="/signin" replace />
-            )
+            </ProtectedRoute>
           }
         ></Route>
 
@@ -91,14 +90,12 @@ function App() {
         <Route
           path="/saved-movies"
           element={
-            isLoggenIn ? (
+            <ProtectedRoute isLoggenIn={isLoggenIn}>
               <SavedMovies
                 isMenuClicked={isMenuClicked}
                 handleOpenMenu={handleOpenMenu}
               ></SavedMovies>
-            ) : (
-              <Navigate to="/signin" replace />
-            )
+            </ProtectedRoute>
           }
         ></Route>
 
@@ -106,14 +103,12 @@ function App() {
         <Route
           path="/profile"
           element={
-            isLoggenIn ? (
+            <ProtectedRoute isLoggenIn={isLoggenIn}>
               <Profile
                 isMenuClicked={isMenuClicked}
                 handleOpenMenu={handleOpenMenu}
               ></Profile>
-            ) : (
-              <Navigate to="/signin" replace />
-            )
+            </ProtectedRoute>
           }
         ></Route>
 
