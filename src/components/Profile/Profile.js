@@ -14,7 +14,7 @@ import './Profile.css';
 import Navigation from '../Navigation/Navigation';
 
 // компонет профиля //////////////////////////////////////////////////////
-const Profile = ({ isMenuClicked, handleOpenMenu }) => {
+const Profile = ({ handleOpenMenu }) => {
   //подключаем пакет валидации форм
   const {
     register,
@@ -51,7 +51,6 @@ const Profile = ({ isMenuClicked, handleOpenMenu }) => {
   return (
     <div>
       <Header
-        isMenuClicked={isMenuClicked}
         handleOpenMenu={handleOpenMenu}
         links={<Navigation></Navigation>}
       ></Header>

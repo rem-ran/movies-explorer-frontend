@@ -8,7 +8,6 @@ import './Header.css';
 // компонет хедера ////////////////////////////////////////////////////
 const Header = ({
   coloredHeaderStyle,
-  isMenuClicked,
   handleOpenMenu,
   links,
   mainPageClasses,
@@ -27,11 +26,8 @@ const Header = ({
           />
         </Link>
         <button
-          className={`header__button-mobile ${
-            // при нажатии на кропку меняем её изображение на крестик
-            isMenuClicked && 'header__button-mobile_type_close'
-            // дополнительные классы кнопки для основной страницы
-          } ${mainPageClasses}`}
+          // дополнительные классы кнопки для основной страницы
+          className={`header__button-mobile ${mainPageClasses}`}
           onClick={handleOpenMenu}
         ></button>
 

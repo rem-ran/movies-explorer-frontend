@@ -14,12 +14,11 @@ import { savedMovies } from '../../utils/constants';
 import './SavedMovies.css';
 
 // компонет страницы с сохранёнными фильмами //////////////////////////
-const SavedMovies = ({ isMenuClicked, handleOpenMenu }) => {
+const SavedMovies = ({ handleOpenMenu }) => {
   return (
     <div className="saved-movies">
       <div>
         <Header
-          isMenuClicked={isMenuClicked}
           handleOpenMenu={handleOpenMenu}
           links={<Navigation></Navigation>}
         ></Header>

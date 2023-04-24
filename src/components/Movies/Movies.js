@@ -14,12 +14,11 @@ import { movieCards } from '../../utils/constants';
 import './Movies.css';
 
 // компонет главной страницы с фильмами ////////////////////////////////////
-const Movies = ({ isMenuClicked, handleOpenMenu }) => {
+const Movies = ({ handleOpenMenu }) => {
   return (
     <div className="movies">
       <div>
         <Header
-          isMenuClicked={isMenuClicked}
           handleOpenMenu={handleOpenMenu}
           links={<Navigation></Navigation>}
         ></Header>

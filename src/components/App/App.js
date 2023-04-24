@@ -68,7 +68,6 @@ function App() {
           element={
             <Main
               isLoggenIn={isLoggenIn}
-              isMenuClicked={isMenuClicked}
               handleOpenMenu={handleOpenMenu}
             ></Main>
           }
@@ -79,10 +78,7 @@ function App() {
           path="/movies"
           element={
             <ProtectedRoute isLoggenIn={isLoggenIn}>
-              <Movies
-                isMenuClicked={isMenuClicked}
-                handleOpenMenu={handleOpenMenu}
-              ></Movies>
+              <Movies handleOpenMenu={handleOpenMenu}></Movies>
             </ProtectedRoute>
           }
         ></Route>
@@ -92,10 +88,7 @@ function App() {
           path="/saved-movies"
           element={
             <ProtectedRoute isLoggenIn={isLoggenIn}>
-              <SavedMovies
-                isMenuClicked={isMenuClicked}
-                handleOpenMenu={handleOpenMenu}
-              ></SavedMovies>
+              <SavedMovies handleOpenMenu={handleOpenMenu}></SavedMovies>
             </ProtectedRoute>
           }
         ></Route>
@@ -105,10 +98,7 @@ function App() {
           path="/profile"
           element={
             <ProtectedRoute isLoggenIn={isLoggenIn}>
-              <Profile
-                isMenuClicked={isMenuClicked}
-                handleOpenMenu={handleOpenMenu}
-              ></Profile>
+              <Profile handleOpenMenu={handleOpenMenu}></Profile>
             </ProtectedRoute>
           }
         ></Route>
