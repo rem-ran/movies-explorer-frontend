@@ -16,13 +16,13 @@ const Portfolio = () => {
         <ul className="portfolio__list">
           {porfolioWebsites.map((item, index) => (
             <li key={index} className="portfolio__list-item">
-              {item.heading}
               <a
                 className="portfolio__list-link"
                 href={item.link}
                 target="_blank"
                 rel="noopener noreferrer"
               >
+                {item.heading}
                 <img
                   className="portfolio__list-link-img"
                   src={arrowImg}

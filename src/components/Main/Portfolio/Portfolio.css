@@ -64,14 +64,22 @@
   }
 }
 
+.portfolio__list-link {
+  text-decoration: none;
+  color: inherit;
+  transition: linear 0.2s;
+}
+
 .portfolio__list-link:hover {
   cursor: pointer;
+  opacity: 0.7;
 }
 
 .portfolio__list-link-img {
   float: right;
   width: 18px;
   height: 50px;
+  transition: linear 0.2s;
 }
 
 @media screen and (max-width: 1023px) {
@@ -87,5 +95,6 @@
 }
 
 .portfolio__list-link-img:hover {
+  cursor: pointer;
   opacity: 0.7;
 }
