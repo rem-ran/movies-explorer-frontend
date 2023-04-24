@@ -33,19 +33,9 @@ function App() {
 
   /////////////////////////////////////////////////////////////////////////
 
-  // метод блокировки прокрутки экрана при открытии меню
-  const toggleBodyOverflow = () => {
-    if (bodyOverflow.style.overflow !== 'hidden') {
-      bodyOverflow.style.overflow = 'hidden';
-    } else {
-      bodyOverflow.style.overflow = 'visible';
-    }
-  };
-
   // метод обработки состояния клика меню на мобильном разрешении
   const handleOpenMenu = () => {
     setIsMenuClicked((open) => !open);
-    toggleBodyOverflow();
   };
 
   // проверка метода обработки авторизации пользоваетля на странице

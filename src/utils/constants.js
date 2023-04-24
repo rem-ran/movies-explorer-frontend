@@ -1,8 +1,6 @@
 // стиль необходимый для смены цвета хедеру
 export const coloredHeaderStyle = 'header_type_colored';
 
-export let bodyOverflow = document.querySelector('body');
-
 /////////////////////////////////////////////////////////////////////////
 
 // стили необходимые для хедера на главной странице
