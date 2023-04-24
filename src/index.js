@@ -1,9 +1,12 @@
+// импорты
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
+
+//импорт констант
 import App from './components/App/App';
 
-//импортируем стили
+//импорт стилей
 import './index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

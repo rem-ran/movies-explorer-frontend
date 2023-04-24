@@ -1,8 +1,8 @@
-//импорты
+// импорты
 import { useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
-//импорт констант
+// импорт констант
 import { popupLinks } from '../../utils/constants';
 
 //импорт стилей
@@ -10,7 +10,7 @@ import './MenuPopup.css';
 
 // компонет попа с меню ////////////////////////////////////////////////////
 const MenuPopup = ({ isMenuClicked, handleOpenMenu }) => {
-  //вешаем слушатель на зактрые модального окна по нажатию ESC клавиши
+  // вешаем слушатель на зактрые модального окна по нажатию ESC клавиши
   useEffect(() => {
     const handleEscClose = (ev) => {
       if (ev.key === 'Escape') {
@@ -19,7 +19,7 @@ const MenuPopup = ({ isMenuClicked, handleOpenMenu }) => {
       }
     };
 
-    //метод закрытия модального окна по клику вне модального окна
+    // метод закрытия модального окна по клику вне модального окна
     const handleOutsideClickClose = (ev) => {
       if (ev.target.classList.contains('menu-popup')) {
         ev.preventDefault();
