@@ -9,6 +9,7 @@ import Techs from './Techs/Techs';
 import AboutMe from './AboutMe/AboutMe';
 import Portfolio from './Portfolio/Portfolio';
 import Footer from '../Footer/Footer';
+import Navigation from '../Navigation/Navigation';
 
 // импорт констант
 import { coloredHeaderStyle, mainHeaderLinks } from '../../utils/constants';
@@ -26,26 +27,25 @@ const Main = ({ isLoggenIn, isMenuClicked, handleOpenMenu }) => {
         isLoggenIn={isLoggenIn}
         handleOpenMenu={handleOpenMenu}
         coloredHeaderStyle={coloredHeaderStyle}
-        // меняем стили для кнопки хедера на в зависимсоти от состояния авторизации
-        mainPageClasses={
-          !isLoggenIn
-            ? 'header__button-mobile_invisible'
-            : 'header__button-mobile_loggedin'
-        }
+        // если пользователь не авторизирован, то кнопку меню полностью скрываем
+        // стилем "header__button-mobile_invisible"
+        mainPageClasses={!isLoggenIn && 'header__button-mobile_invisible'}
         links={
-          <div
-            className={`about__link-container ${
-              // убираем линки, если мы авторизированы
-              isLoggenIn && 'about__link-container_type_hidden'
-            }`}
-          >
-            {/* рендерим заранее подготовленные линки из константы */}
-            {mainHeaderLinks.map((movie, index) => (
-              <NavLink key={index} to={movie.route} className={movie.styles}>
-                {movie.text}
-              </NavLink>
-            ))}
-          </div>
+          isLoggenIn ? (
+            // если пользователь авторизирован, то показываем линки навигации по странице
+            <Navigation></Navigation>
+          ) : (
+            // если пользователь не авторизирован, то показываем линки
+            // регистрации и авторизации
+            <div className={`about__link-container`}>
+              {/* рендерим заранее подготовленные линки из константы "mainHeaderLinks" */}
+              {mainHeaderLinks.map((movie, index) => (
+                <NavLink key={index} to={movie.route} className={movie.styles}>
+                  {movie.text}
+                </NavLink>
+              ))}
+            </div>
+          )
         }
       ></Header>
       <main>

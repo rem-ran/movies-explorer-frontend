@@ -120,8 +120,6 @@
   display: block;
 }
 
-@media screen and (max-width: 1023px) {
-  .header__button-mobile_invisible {
-    display: none;
-  }
+.header__button-mobile_invisible {
+  display: none;
 }
