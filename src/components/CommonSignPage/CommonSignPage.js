@@ -21,12 +21,14 @@ const CommonSignPage = ({
   // начало JSX ////////////////////////////////////////////////////////////////
   return (
     <div className="sign sign__container">
-      {/* лого с заголовком /////////////////////////////////////////////////*/}
-      <img
-        className="sign__logo"
-        src={commonSignLogo}
-        alt="логотип в виде буквы C"
-      />
+      {/* линк на главную с лого ///////////////////////////////////////////////*/}
+      <Link className="sign__logo-link" to="/">
+        <img
+          className="sign__logo"
+          src={commonSignLogo}
+          alt="логотип в виде буквы C"
+        />
+      </Link>
       <h2 className="sign__heading">{heading}</h2>
 
       {/* начало формы ///////////////////////////////////////////////////////*/}
