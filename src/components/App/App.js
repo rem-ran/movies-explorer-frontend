@@ -115,10 +115,8 @@ function App() {
           element={<Register handleUserSignUp={handleUserSignUp}></Register>}
         ></Route>
 
-        <Route
-          path="/not-found"
-          element={<PageNotFound></PageNotFound>}
-        ></Route>
+        {/* рут несуществующей страницы /////////////////////,////////////////////*/}
+        <Route path="*" element={<PageNotFound></PageNotFound>}></Route>
       </Routes>
 
       {/* попа с меню при нажатии на бургер-меню ///////////////////////////////*/}
