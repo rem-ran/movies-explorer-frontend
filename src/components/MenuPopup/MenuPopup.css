@@ -33,11 +33,12 @@
   transition-delay: 0s;
 }
 
-/* @media screen and (min-width: 767px) {
+@media screen and (min-width: 769px) {
   .menu-popup {
     visibility: hidden;
   }
-} */
+}
+
 .menu-popup__container {
   display: flex;
   flex-direction: column;

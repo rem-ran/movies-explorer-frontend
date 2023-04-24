@@ -1,8 +1,4 @@
-.about__link-container {
+.about {
   display: flex;
-  align-items: center;
-}
-
-.about__link-container_type_hidden {
-  display: none;
+  flex-direction: column;
 }

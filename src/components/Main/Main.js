@@ -37,7 +37,7 @@ const Main = ({ isLoggenIn, isMenuClicked, handleOpenMenu }) => {
           ) : (
             // если пользователь не авторизирован, то показываем линки
             // регистрации и авторизации
-            <div className={`about__link-container`}>
+            <div className={`header__link-container`}>
               {/* рендерим заранее подготовленные линки из константы "mainHeaderLinks" */}
               {mainHeaderLinks.map((movie, index) => (
                 <NavLink key={index} to={movie.route} className={movie.styles}>

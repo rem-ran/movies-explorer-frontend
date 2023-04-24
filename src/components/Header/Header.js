@@ -1,5 +1,7 @@
 // импорты
 import { Link } from 'react-router-dom';
+
+// ипорт картинки
 import headerLogo from '../../images/c-logo.svg';
 
 //импорт стилей
