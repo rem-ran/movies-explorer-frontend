@@ -49,72 +49,75 @@ const Profile = ({ handleOpenMenu }) => {
 
   // начало JSX ////////////////////////////////////////////////////////////
   return (
-    <div>
+    <div className="profile">
       <Header
         handleOpenMenu={handleOpenMenu}
         links={<Navigation></Navigation>}
       ></Header>
       <div className="profile__container">
-        <h1 className="profile__heading">Привет, Руслан!</h1>
-        <form onSubmit={handleSubmit(onSubmit)} className="profile__form">
-          <div className="profile__form-element">
-            <label className="profile__input-label">Имя</label>
-            <input
-              {...register('name', inputConfig.name)}
-              disabled
-              id="name"
-              type="name"
-              name="name"
-              className="profile__input"
-            ></input>
-          </div>
-          <div className="profile__form-element">
-            <label className="profile__input-label">E-mail</label>
-            <input
-              {...register('email', inputConfig.email)}
-              disabled
-              id="email"
-              type="email"
-              name="email"
-              className="profile__input"
-            ></input>
-          </div>
+        <div className="profile__container-main">
+          <h1 className="profile__heading">Привет, Руслан!</h1>
+          <form onSubmit={handleSubmit(onSubmit)} className="profile__form">
+            <div className="profile__form-element">
+              <label className="profile__input-label">Имя</label>
+              <input
+                {...register('name', inputConfig.name)}
+                disabled
+                id="name"
+                type="name"
+                name="name"
+                className="profile__input"
+              ></input>
+            </div>
+            <div className="profile__form-element">
+              <label className="profile__input-label">E-mail</label>
+              <input
+                {...register('email', inputConfig.email)}
+                disabled
+                id="email"
+                type="email"
+                name="email"
+                className="profile__input"
+              ></input>
+            </div>
 
-          {/* рендерим кнопку формы в зависимости от значения состояние isEditOn */}
-          {isEditOn && (
+            {/* рендерим кнопку формы в зависимости от значения состояние isEditOn */}
+            {isEditOn && (
+              <>
+                {/* текст ошибки появляется в зависимости от наличия ошибок в инпутах */}
+                <span className="profile__error-txt">
+                  {(errors?.name && errors.name.message) ||
+                    (errors?.email && errors.email.message)}
+                </span>
+
+                {/* у кнопки меняется стиль в зависимости от наличия ошибок в инпутах */}
+                <button
+                  onClick={handleSubmit(onSubmit)}
+                  className={`profile__save-btn ${
+                    (errors?.name || errors?.email) &&
+                    'profile__save-btn_disabled'
+                  }`}
+                >
+                  Сохранить
+                </button>
+              </>
+            )}
+          </form>
+        </div>
+        <div className="profile__container-btns">
+          {/* рендерим кнопку редактирования и ссылку выхода 
+        в зависимости от значения состояние isEditOn */}
+          {!isEditOn && (
             <>
-              {/* текст ошибки появляется в зависимости от наличия ошибок в инпутах */}
-              <span className="profile__error-txt">
-                {(errors?.name && errors.name.message) ||
-                  (errors?.email && errors.email.message)}
-              </span>
-
-              {/* у кнопки меняется стиль в зависимости от наличия ошибок в инпутах */}
-              <button
-                onClick={handleSubmit(onSubmit)}
-                className={`profile__save-btn ${
-                  (errors?.name || errors?.email) &&
-                  'profile__save-btn_disabled'
-                }`}
-              >
-                Сохранить
+              <button onClick={handleEditClick} className="profile__edit-btn">
+                Редактировать
               </button>
+              <Link to="/signin" className="profile__logout">
+                Выйти из аккаунта
+              </Link>
             </>
           )}
-        </form>
-
-        {/* рендерим кнопку редактирования и ссылку выхода 
-        в зависимости от значения состояние isEditOn */}
-        {!isEditOn && (
-          <>
-            <button onClick={handleEditClick} className="profile__edit-btn">
-              Редактировать
-            </button>
-            <Link to="/signin" className="profile__logout">
-              Выйти из аккаунта
-            </Link>
-          </>
-        )}
+        </div>
       </div>
     </div>
   );

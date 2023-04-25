@@ -1,9 +1,37 @@
+.profile {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
 .profile__container {
   display: flex;
   flex-direction: column;
   width: 410px;
   margin: 0 auto;
   padding-top: 74px;
+  padding-bottom: 40px;
+  align-items: center;
+  height: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .profile__container {
+    padding-top: 70px;
+    width: 260px;
+    justify-content: space-between;
+  }
+}
+
+.profile__container-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile__container-btns {
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
@@ -20,6 +48,12 @@
   margin: 0;
   margin-top: 107px;
   width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .profile__form {
+    margin-top: 80px;
+  }
 }
 
 .profile__form-element {
@@ -48,6 +82,12 @@
   text-align: right;
   background-color: white;
   min-width: 250px;
+}
+
+@media screen and (max-width: 768px) {
+  .profile__input {
+    min-width: 150px;
+  }
 }
 
 .profile__btn-box {
@@ -97,6 +137,7 @@
 }
 
 .profile__save-btn {
+  padding: 0;
   width: 100%;
   margin-top: 20px;
   font-weight: 500;
