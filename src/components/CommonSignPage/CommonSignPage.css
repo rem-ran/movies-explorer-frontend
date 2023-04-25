@@ -4,7 +4,8 @@
   width: 396px;
   margin: 0 auto;
   margin-top: 70px;
-  height: 580px;
+  margin-bottom: 70px;
+  height: 560px;
 }
 
 @media screen and (min-height: 1024px) {
@@ -13,7 +14,7 @@
   }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   .sign__container {
     width: 260px;
     height: 694px;
@@ -38,7 +39,7 @@
   transition: linear 0.2s;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   .sign__logo {
     margin: 0 auto;
   }
@@ -52,7 +53,7 @@
   line-height: 29px;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   .sign__heading {
     margin-top: 50px;
     text-align: center;
@@ -68,7 +69,7 @@
   justify-content: space-between;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   .sign__form {
     margin-top: 80px;
   }
@@ -89,12 +90,17 @@
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
-  margin-top: 55px;
   border: none;
   border-radius: 3px;
   transition: linear 0.3s;
   color: rgba(255, 255, 255);
   background-color: rgba(52, 86, 243);
+}
+
+@media screen and (max-width: 768px) {
+  .sign__submit-btn {
+    font-size: 12px;
+  }
 }
 
 .sign__submit-btn:hover {
@@ -123,7 +129,7 @@
   color: rgba(160, 160, 160);
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   .sign__question {
     font-size: 12px;
     line-height: 15px;
@@ -140,7 +146,7 @@
   color: rgba(52, 86, 243);
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   .sign__link {
     font-size: 12px;
     line-height: 15px;
