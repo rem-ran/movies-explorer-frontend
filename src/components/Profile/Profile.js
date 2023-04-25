@@ -22,6 +22,10 @@ const Profile = ({ handleOpenMenu }) => {
     formState: { errors },
   } = useForm({
     mode: 'onBlur',
+    defaultValues: {
+      name: 'Виталий',
+      email: 'pochta@yandex.ru',
+    },
   });
 
   // состояние, которое меняется при нажатии на кнопку формы
