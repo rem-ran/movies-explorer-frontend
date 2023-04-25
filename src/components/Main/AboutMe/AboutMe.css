@@ -5,7 +5,7 @@
 }
 
 .about-me__container {
-  padding: 110px 70px;
+  padding: 110px 70px 100px 70px;
   width: 1140px;
 }
 
@@ -20,6 +20,45 @@
   .about-me__container {
     padding: 70px 14px;
     width: 292px;
+  }
+}
+
+.about-me__heading {
+  margin: 0;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 27px;
+  border-bottom: 1px solid black;
+  padding-bottom: 23px;
+  letter-spacing: -0.06vw;
+}
+
+@media screen and (max-width: 768px) {
+  .about-me__heading {
+    font-size: 18px;
+    line-height: 22px;
+    padding-bottom: 28px;
+  }
+}
+
+.about-me__content {
+  display: flex;
+  padding-top: 66px;
+  justify-content: space-between;
+  height: 327px;
+}
+
+@media screen and (max-width: 1024px) {
+  .about-me__content {
+    height: 307px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .about-me__content {
+    align-items: center;
+    flex-direction: column-reverse;
+    height: 541px;
   }
 }
 
@@ -42,41 +81,12 @@
   }
 }
 
-.about-me__heading {
-  margin: 0;
-  font-weight: 400;
-  font-size: 22px;
-  line-height: 27px;
-  border-bottom: 1px solid black;
-  padding-bottom: 23px;
-}
-
-@media screen and (max-width: 768px) {
-  .about-me__heading {
-    font-size: 18px;
-    line-height: 22px;
-    padding-bottom: 28px;
-  }
-}
-
-.about-me__content {
-  display: flex;
-  padding-top: 66px;
-  justify-content: space-between;
-}
-
-@media screen and (max-width: 768px) {
-  .about-me__content {
-    align-items: center;
-    flex-direction: column-reverse;
-  }
-}
-
 .about-me__name {
   margin: 0;
   font-weight: 400;
   font-size: 50px;
   line-height: 58px;
+  letter-spacing: -0.15vw;
 }
 
 @media screen and (max-width: 1024px) {
@@ -123,6 +133,8 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 22px;
+  max-width: 600px;
+  min-height: 170px;
 }
 
 @media screen and (max-width: 1024px) {
@@ -130,6 +142,7 @@
     padding-top: 20px;
     font-size: 12px;
     line-height: 18px;
+    min-height: 180px;
   }
 }
 
@@ -137,6 +150,7 @@
   .about-me__about {
     font-size: 11px;
     line-height: 16px;
+    min-height: 0;
   }
 }
 
@@ -163,13 +177,14 @@
 
 .about-me__link {
   margin: 0;
-  padding-top: 99px;
+  padding-top: 18px;
   text-decoration: none;
   color: black;
   font-weight: 500;
   font-size: 14x;
   line-height: 17px;
   color: inherit;
+  letter-spacing: -0.08vw;
 }
 
 .about-me__link:hover {
@@ -177,12 +192,11 @@
   color: rgba(0, 0, 0, 0.7);
 }
 
-@media screen and (max-width: 1024px) {
+/* @media screen and (max-width: 1024px) {
   .about-me__link {
     padding-top: 87px;
   }
-}
-
+} */
 @media screen and (max-width: 768px) {
   .about-me__link {
     padding-top: 40px;

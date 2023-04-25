@@ -12,15 +12,11 @@ const AboutMe = () => {
         <h2 className="about-me__heading">Студент</h2>
         <div className="about-me__content">
           <div className="about-me__text">
-            <h3 className="about-me__name">Руслан</h3>
-            <h4 className="about-me__prof">Фронтенд-разработчик, 33 года</h4>
+            <h3 className="about-me__name">Виталий</h3>
+            <h4 className="about-me__prof">Фронтенд-разработчик, 30 лет</h4>
             <p className="about-me__about">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-              aliquam luctus risus, vitae commodo libero. Proin tincidunt orci
-              at leo finibus faucibus. Lorem ipsum dolor sit amet, consectetur
-              adipiscing elit. Sed eu consequat risus. Suspendisse sed felis
-              scelerisque, porta diam et, sollicitudin nunc. Donec vitae lacus
-              sit amet urna malesuada sagittis ac eget enim.
+              Я родился и живу в Саратове, закончил факультет экономики СГУ. У
+              меня есть жена и дочь.
             </p>
             <a
               className="about-me__link"
