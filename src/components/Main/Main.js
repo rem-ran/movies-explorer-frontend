@@ -21,7 +21,7 @@ import './Main.css';
 const Main = ({ isLoggenIn, isMenuClicked, handleOpenMenu }) => {
   return (
     // начало JSX ////////////////////////////////////////////////////////////////
-    <div className="about">
+    <div className="main">
       <Header
         isMenuClicked={isMenuClicked}
         isLoggenIn={isLoggenIn}

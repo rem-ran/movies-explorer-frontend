@@ -1,20 +1,26 @@
 .techs {
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
   background-color: rgba(245, 245, 245, 1);
 }
 
 .techs__container {
   padding: 110px 70px;
+  width: 1140px;
 }
 
-@media screen and (max-width: 1023px) {
+@media screen and (max-width: 1024px) {
   .techs__container {
     padding: 90px 50px;
+    width: 708px;
   }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   .techs__container {
     padding: 70px 18px;
+    width: 292px;
   }
 }
 
@@ -27,7 +33,7 @@
   padding-bottom: 23px;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   .techs__heading {
     font-size: 18px;
     line-height: 22px;
@@ -44,7 +50,7 @@
   text-align: center;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   .techs__text-container {
     width: 299px;
     margin-top: 60px;
@@ -58,7 +64,7 @@
   line-height: 58px;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   .techs__sub-heading {
     font-size: 30px;
     line-height: 36px;
@@ -73,7 +79,7 @@
   line-height: 20px;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   .techs__text {
     font-size: 11px;
     line-height: 16px;
@@ -81,7 +87,7 @@
   }
 }
 
-@media screen and (max-width: 1023px) {
+@media screen and (max-width: 1024px) {
   .techs__text {
     margin-top: 22px;
     font-size: 12px;
@@ -96,13 +102,13 @@
   padding-left: 0;
 }
 
-@media screen and (max-width: 1023px) {
+@media screen and (max-width: 1024px) {
   .techs__used-technologies {
     margin-top: 83px;
   }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   .techs__used-technologies {
     flex-wrap: wrap;
     width: 178px;
@@ -126,7 +132,7 @@
   text-align: center;
 }
 
-@media screen and (max-width: 1023px) {
+@media screen and (max-width: 1024px) {
   .techs__used-technologie {
     font-size: 12px;
     width: 84px;
@@ -135,13 +141,13 @@
   }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   .techs__used-technologie {
     margin-bottom: 10px;
   }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   .techs__used-technologie:nth-child(2n) {
     margin-right: 0;
   }
