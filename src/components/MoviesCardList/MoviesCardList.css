@@ -11,13 +11,7 @@
     grid-template-columns: repeat(auto-fill, minmax(364px, 1fr));
 }
 
-@media screen and (max-width: 1180px) {
-    .movies-list__container {
-        max-width: 760px;
-    }
-}
-
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1279px) {
     .movies-list__container {
         max-width: 708px;
         column-gap: 30px;

@@ -13,9 +13,6 @@ import MenuPopup from '../MenuPopup/MenuPopup';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import PageNotFound from '../PageNotFound/PageNotFound';
 
-// импорт констатнт
-import { bodyOverflow } from '../../utils/constants';
-
 // импорт стилей
 import './App.css';
 

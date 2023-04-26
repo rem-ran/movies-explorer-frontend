@@ -11,11 +11,11 @@
   width: 1140px;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1279px) {
   .footer__container {
+    max-width: 708px;
     padding-left: 30px;
     padding-right: 30px;
-    width: 708px;
   }
 }
 

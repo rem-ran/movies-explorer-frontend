@@ -12,12 +12,12 @@
   width: 1140px;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1279px) {
   .promo__container {
-    padding: 140px 44px 76px 44px;
     align-items: center;
     flex-direction: column-reverse;
-    width: 708px;
+    padding: 140px 44px 76px 44px;
+    width: 680px;
   }
 }
 
@@ -33,7 +33,7 @@
   flex-direction: column;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1279px) {
   .promo__text {
     align-items: center;
     text-align: center;
@@ -49,7 +49,7 @@
   line-height: 58px;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1279px) {
   .promo__heading {
     width: 680px;
     font-size: 40px;
@@ -79,7 +79,7 @@
   line-height: 16px;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1279px) {
   .promo__note {
     margin-bottom: 92px;
   }

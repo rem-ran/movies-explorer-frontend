@@ -10,10 +10,10 @@
   width: 1140px;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1279px) {
   .techs__container {
     padding: 90px 50px;
-    width: 708px;
+    width: 668px;
   }
 }
 
@@ -90,7 +90,7 @@
   }
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1279px) {
   .techs__text {
     margin-top: 22px;
     font-size: 12px;
@@ -105,7 +105,7 @@
   padding-left: 0;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1279px) {
   .techs__used-technologies {
     margin-top: 83px;
   }
@@ -136,7 +136,7 @@
   letter-spacing: -0.06vw;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1279px) {
   .techs__used-technologie {
     font-size: 12px;
     width: 84px;

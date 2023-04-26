@@ -9,10 +9,10 @@
   width: 1140px;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1279px) {
   .portfolio__container {
     padding: 0 50px 90px 50px;
-    width: 708px;
+    width: 668px;
   }
 }
 
@@ -66,7 +66,7 @@
   letter-spacing: -0.09vw;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1279px) {
   .portfolio__list-link {
     font-size: 28px;
   }
@@ -92,7 +92,7 @@
   padding-right: 10px;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1279px) {
   .portfolio__list-link-img {
     width: 16px;
   }

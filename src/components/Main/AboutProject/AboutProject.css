@@ -9,10 +9,10 @@
   width: 1140px;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1279px) {
   .about__container {
     padding: 90px 50px;
-    width: 708px;
+    width: 668px;
   }
 }
 
@@ -48,6 +48,7 @@
   margin-bottom: 110px;
   display: flex;
   justify-content: space-between;
+  width: 100%;
 }
 
 @media screen and (max-width: 768px) {
@@ -64,7 +65,7 @@
   max-width: 550px;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1279px) {
   .about__note-item {
     max-width: 320px;
   }
@@ -114,7 +115,7 @@
   }
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1279px) {
   .about__note-item-text {
     font-size: 12px;
     line-height: 18px;
