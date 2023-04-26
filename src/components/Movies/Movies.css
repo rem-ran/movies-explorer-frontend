@@ -1,6 +1,9 @@
 .movies {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  height: 100vh;
+  flex-grow: 1;
+}
+
+.saved-movies__content {
+  flex-grow: 1;
 }

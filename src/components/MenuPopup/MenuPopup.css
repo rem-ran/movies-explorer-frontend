@@ -10,7 +10,7 @@
   right: -15%;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   .menu-popup {
     right: 0;
   }
@@ -53,7 +53,7 @@
   position: relative;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   .menu-popup__container {
     width: 100%;
   }
@@ -89,7 +89,7 @@
   border-bottom: 2px solid black;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   .menu-popup__link {
     max-width: 300px;
   }
@@ -135,7 +135,7 @@
   opacity: 0.7;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   .menu-popup__close-btn {
     top: 16px;
     right: 14px;

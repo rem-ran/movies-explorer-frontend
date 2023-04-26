@@ -5,13 +5,13 @@ import { Link } from 'react-router-dom';
 
 // импорт компонент
 import Header from '../Header/Header';
+import Navigation from '../Navigation/Navigation';
 
 // импорт констант
 import { inputConfig } from '../../utils/constants';
 
 // импорт стилей
 import './Profile.css';
-import Navigation from '../Navigation/Navigation';
 
 // компонет профиля //////////////////////////////////////////////////////
 const Profile = ({ handleOpenMenu }) => {

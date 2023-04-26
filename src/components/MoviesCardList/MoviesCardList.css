@@ -17,7 +17,7 @@
     }
 }
 
-@media screen and (max-width: 1023px) {
+@media screen and (max-width: 1024px) {
     .movies-list__container {
         max-width: 708px;
         column-gap: 30px;
@@ -26,7 +26,7 @@
     }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
     .movies-list__container {
         padding-top: 50px;
         max-width: 300px;

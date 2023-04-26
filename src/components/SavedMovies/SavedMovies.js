@@ -17,19 +17,16 @@ import './SavedMovies.css';
 const SavedMovies = ({ handleOpenMenu }) => {
   return (
     <div className="saved-movies">
-      <div>
-        <Header
-          handleOpenMenu={handleOpenMenu}
-          links={<Navigation></Navigation>}
-        ></Header>
-        <main>
-          <SearchForm></SearchForm>
-          <MoviesCardList movieCardList={savedMovies}></MoviesCardList>
-        </main>
-      </div>
-      <div>
-        <Footer></Footer>
-      </div>
+      <Header
+        handleOpenMenu={handleOpenMenu}
+        links={<Navigation></Navigation>}
+      ></Header>
+      <main className="saved-movies__content">
+        <SearchForm></SearchForm>
+        <MoviesCardList movieCardList={savedMovies}></MoviesCardList>
+      </main>
+
+      <Footer></Footer>
     </div>
   );
 };
