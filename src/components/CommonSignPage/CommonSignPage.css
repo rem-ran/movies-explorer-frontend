@@ -5,7 +5,8 @@
   margin: 0 auto;
   margin-top: 70px;
   margin-bottom: 70px;
-  height: 560px;
+  max-height: 560px;
+  flex-grow: 1;
 }
 
 @media screen and (min-height: 1024px) {
@@ -14,11 +15,13 @@
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
   .sign__container {
     width: 260px;
-    height: 694px;
+    height: 100%;
     margin-top: 56px;
+    margin-bottom: 30px;
+    max-height: inherit;
   }
 }
 
@@ -39,7 +42,7 @@
   transition: linear 0.2s;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
   .sign__logo {
     margin: 0 auto;
   }
@@ -53,7 +56,7 @@
   line-height: 29px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
   .sign__heading {
     margin-top: 50px;
     text-align: center;
@@ -69,7 +72,7 @@
   justify-content: space-between;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
   .sign__form {
     margin-top: 80px;
   }
@@ -97,7 +100,7 @@
   background-color: rgba(52, 86, 243);
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
   .sign__submit-btn {
     font-size: 12px;
   }
@@ -129,7 +132,7 @@
   color: rgba(160, 160, 160);
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
   .sign__question {
     font-size: 12px;
     line-height: 15px;
@@ -146,7 +149,7 @@
   color: rgba(52, 86, 243);
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
   .sign__link {
     font-size: 12px;
     line-height: 15px;

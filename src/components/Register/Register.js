@@ -32,7 +32,7 @@ const Register = ({ handleUserSignUp }) => {
 
   // начало JSX ////////////////////////////////////////////////////////////
   return (
-    <div>
+    <div className="register">
       <CommonSignPage
         heading={'Добро пожаловать!'}
         btnTxt={'Зарегистрироваться'}

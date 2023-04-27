@@ -28,7 +28,7 @@ const Login = ({ handleUserSignIn }) => {
 
   // начало JSX ////////////////////////////////////////////////////////////
   return (
-    <section>
+    <section className="login">
       <CommonSignPage
         heading={'Рады видеть!'}
         btnTxt={'Войти'}
