@@ -98,6 +98,7 @@
   transition: linear 0.3s;
   color: rgba(255, 255, 255);
   background-color: rgba(52, 86, 243);
+  margin-top: 5px;
 }
 
 @media screen and (max-width: 767px) {
