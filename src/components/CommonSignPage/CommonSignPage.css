@@ -9,7 +9,7 @@
   flex-grow: 1;
 }
 
-@media screen and (min-height: 1024px) {
+@media screen and (min-height: 1024px) and (min-width: 768px) {
   .sign__container {
     margin-top: 232px;
   }
