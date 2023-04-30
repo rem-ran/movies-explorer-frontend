@@ -1,0 +1,45 @@
+.nav__link-container {
+  display: flex;
+  align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  .nav__link-container_type_hidden {
+    display: none;
+  }
+}
+
+.nav__link {
+  margin: 0;
+  margin-right: 20px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.nav__link.active {
+  font-weight: 500;
+}
+
+.nav__link:last-child {
+  margin-right: 0;
+  margin-left: 30px;
+}
+
+.nav__link:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.nav__link_type_account {
+  height: 32px;
+  width: 100px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 32px;
+  background-color: rgba(244, 244, 244);
+  border-radius: 20px;
+  text-align: center;
+}

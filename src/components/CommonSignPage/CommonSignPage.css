@@ -1,0 +1,163 @@
+.sign__container {
+  display: flex;
+  flex-direction: column;
+  width: 396px;
+  margin: 0 auto;
+  margin-top: 70px;
+  margin-bottom: 70px;
+  max-height: 560px;
+  flex-grow: 1;
+}
+
+@media screen and (min-height: 1024px) and (min-width: 768px) {
+  .sign__container {
+    margin-top: 232px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .sign__container {
+    width: 260px;
+    height: 100%;
+    margin-top: 56px;
+    margin-bottom: 30px;
+    max-height: inherit;
+  }
+}
+
+.sign__logo-link {
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.sign__logo:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.sign__logo {
+  width: 38px;
+  height: 38px;
+  transition: linear 0.2s;
+}
+
+@media screen and (max-width: 767px) {
+  .sign__logo {
+    margin: 0 auto;
+  }
+}
+
+.sign__heading {
+  margin: 0;
+  margin-top: 40px;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+}
+
+@media screen and (max-width: 767px) {
+  .sign__heading {
+    margin-top: 50px;
+    text-align: center;
+  }
+}
+
+.sign__form {
+  margin: 0;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 767px) {
+  .sign__form {
+    margin-top: 80px;
+  }
+}
+
+.sign__input-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.sign__btn-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.sign__submit-btn {
+  height: 45px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  border: none;
+  border-radius: 3px;
+  transition: linear 0.3s;
+  color: rgba(255, 255, 255);
+  background-color: rgba(52, 86, 243);
+  margin-top: 5px;
+}
+
+@media screen and (max-width: 767px) {
+  .sign__submit-btn {
+    font-size: 12px;
+  }
+}
+
+.sign__submit-btn:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.sign__submit-btn_disabled {
+  background-color: white;
+  border: solid 1px #c4c4c4;
+  color: #c4c4c4;
+}
+
+.sign__question-box {
+  display: flex;
+  margin: 0 auto;
+  margin-top: 16px;
+}
+
+.sign__question {
+  margin: 0;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  margin-right: 6px;
+  color: rgba(160, 160, 160);
+}
+
+@media screen and (max-width: 767px) {
+  .sign__question {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}
+
+.sign__link {
+  margin: 0;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-decoration: none;
+  transition: linear 0.3s;
+  color: rgba(52, 86, 243);
+}
+
+@media screen and (max-width: 767px) {
+  .sign__link {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}
+
+.sign__link:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
