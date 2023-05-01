@@ -25,7 +25,7 @@ class MovieApi {
   }
 }
 
-//создаём экземпляр класса MainApi для работы с сервером
+//создаём экземпляр класса MovieApi для работы с сервером
 const movieApi = new MovieApi(apiMovieConfig);
 
 export default movieApi;
