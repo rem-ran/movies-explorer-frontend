@@ -3,6 +3,28 @@ export const coloredHeaderStyle = 'header_type_colored';
 
 /////////////////////////////////////////////////////////////////////////
 
+//объект с нужными для работы с сервером данными
+export const apiMainConfig = {
+  url: 'http://localhost:3001',
+  credentials: 'include',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+};
+
+/////////////////////////////////////////////////////////////////////////
+
+//объект с нужными для работы с сервером данными
+export const apiMovieConfig = {
+  url: 'https://api.nomoreparties.co/beatfilm-movies',
+  credentials: 'include',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+};
+
+/////////////////////////////////////////////////////////////////////////
+
 // стили необходимые для хедера на главной странице
 const mainLink = 'header__link';
 const mainLastLink = 'header__link_type_login';

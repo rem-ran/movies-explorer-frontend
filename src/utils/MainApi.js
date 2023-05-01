@@ -1,4 +1,4 @@
-import { apiConfig } from './constants.js';
+import { apiMainConfig } from './constants.js';
 
 class MainApi {
   constructor({ url, headers, credentials }) {
@@ -15,7 +15,7 @@ class MainApi {
     return res.json();
   }
 
-  //получить список всех карточек в виде массива
+  //получить список всех сохранённых фильмов в виде массива
   getAllSavedMovieCards() {
     return fetch(`${this._url}/movies`, {
       method: 'GET',
@@ -24,7 +24,7 @@ class MainApi {
     }).then(this._getResponseData);
   }
 
-  //добавить карточку
+  //добавить фильм к сохранённым
   saveMovie({ ...movie }) {
     return fetch(`${this._url}/movies`, {
       method: 'POST',
@@ -34,7 +34,7 @@ class MainApi {
     }).then(this._getResponseData);
   }
 
-  //удалить фильм
+  //удалить фильм из сохранённых
   deleteMovie(movieId) {
     return fetch(`${this._url}/movies/${movieId}`, {
       method: 'DELETE',
@@ -64,6 +64,6 @@ class MainApi {
 }
 
 //создаём экземпляр класса MainApi для работы с сервером
-const mainApi = new MainApi(apiConfig);
+const mainApi = new MainApi(apiMainConfig);
 
 export default mainApi;
