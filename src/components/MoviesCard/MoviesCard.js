@@ -1,3 +1,6 @@
+// импорт констант
+import { moviesUrl } from '../../utils/constants';
+
 // импорт стилей
 import './MoviesCard.css';
 
@@ -16,7 +19,11 @@ const MoviesCard = ({ nameRU, duration, image, id, trailerLink }) => {
     // начало JSX //////////////////////////////////////////////////////
     <li className="movie" id={id}>
       <a href={trailerLink} target="_blank" rel="noopener noreferrer">
-        <img className="movie_image" src={image.url} alt={nameRU} />
+        <img
+          className="movie_image"
+          src={`${moviesUrl}${image.url}`}
+          alt={nameRU}
+        />
       </a>
 
       <div className="movie__text-box">

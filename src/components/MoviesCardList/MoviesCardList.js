@@ -1,5 +1,7 @@
 // импорты
 import { useEffect, useLayoutEffect, useState } from 'react';
+
+// иморт компонент
 import MoviesCard from '../MoviesCard/MoviesCard';
 
 // импорт стилей
@@ -20,7 +22,7 @@ const useWindowSize = () => {
 };
 
 // компонет списка карточек ////////////////////////////////////////////////
-const MoviesCardList = ({ movieCardList }) => {
+const MoviesCardList = ({ movieCardList, moviesListLength }) => {
   const [width] = useWindowSize();
 
   // переменная состояния количества карточек для загрузки при нажатии "Ещё"
@@ -44,7 +46,7 @@ const MoviesCardList = ({ movieCardList }) => {
 
   // контролируем переменную "cardLimit" для изменения переменной "allCardsRendered"
   useEffect(() => {
-    if (cardLimit >= movieCardList.length) {
+    if (cardLimit >= moviesListLength) {
       setAllCardsRendered(true);
     }
   }, [cardLimit]);
@@ -68,7 +70,7 @@ const MoviesCardList = ({ movieCardList }) => {
           <MoviesCard key={movie.id} {...movie} />
         ))}
       </ul>
-      {movieCardList.length > 0 && !allCardsRendered && (
+      {!allCardsRendered && (
         <button className="movies-list__more-btn" onClick={handleMoreClick}>
           Ещё
         </button>

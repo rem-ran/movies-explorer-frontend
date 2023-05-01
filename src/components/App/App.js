@@ -1,5 +1,5 @@
 // импорты
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 // импорт компонент
@@ -13,6 +13,8 @@ import MenuPopup from '../MenuPopup/MenuPopup';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import PageNotFound from '../PageNotFound/PageNotFound';
 
+import movieApi from '../../utils/MoviesApi';
+
 // импорт стилей
 import './App.css';
 
@@ -25,10 +27,47 @@ function App() {
   // переменная состояния страницы Main
   const [isLoggenIn, setIsLoggenIn] = useState(true);
 
+  // переменная состояния страницы Main
+  const [movies, setMovies] = useState([]);
+
   // переменная состояния клика меню на мобильных разрешении
   const [isMenuClicked, setIsMenuClicked] = useState(false);
 
   /////////////////////////////////////////////////////////////////////////
+
+  //отправляем запросы к API для рендеринга начального списка карточек и данных о пользователе
+  useEffect(() => {
+    //отправляем запрос только после того как пользователь успешно авторизировался
+    if (isLoggenIn) {
+      //запрос на получение карточек
+      movieApi
+        .getAllMovieCards()
+
+        .then((movies) => {
+          setMovies(movies);
+        })
+
+        .catch((error) => {
+          console.log(
+            `Ошибка при начальной загрузки фильмов с сервера: ${error}`
+          );
+        });
+
+      //запрос на получение данных пользователя
+      // api
+      //   .getServerUserInfo()
+
+      //   .then((userData) => {
+      //     setCurrentUser(userData);
+      //   })
+
+      //   .catch((error) => {
+      //     console.log(
+      //       `Ошибка при начальной загрузки информации пользователя с сервера: ${error}`
+      //     );
+      //   });
+    }
+  }, [isLoggenIn]);
 
   // метод обработки состояния клика меню на мобильном разрешении
   const handleOpenMenu = () => {
@@ -65,7 +104,11 @@ function App() {
           path="/movies"
           element={
             <ProtectedRoute isLoggenIn={isLoggenIn}>
-              <Movies handleOpenMenu={handleOpenMenu}></Movies>
+              <Movies
+                handleOpenMenu={handleOpenMenu}
+                movies={movies}
+                moviesListLength={movies.length}
+              ></Movies>
             </ProtectedRoute>
           }
         ></Route>

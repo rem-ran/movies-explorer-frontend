@@ -14,7 +14,7 @@ import { movieCards } from '../../utils/constants';
 import './Movies.css';
 
 // компонет главной страницы с фильмами ////////////////////////////////////
-const Movies = ({ handleOpenMenu }) => {
+const Movies = ({ handleOpenMenu, movies }) => {
   return (
     <div className="movies">
       <Header
@@ -24,7 +24,7 @@ const Movies = ({ handleOpenMenu }) => {
 
       <main className="saved-movies__content">
         <SearchForm></SearchForm>
-        <MoviesCardList movieCardList={movieCards}></MoviesCardList>
+        <MoviesCardList movieCardList={movies}></MoviesCardList>
       </main>
 
       <Footer></Footer>

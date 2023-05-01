@@ -3,6 +3,11 @@ export const coloredHeaderStyle = 'header_type_colored';
 
 /////////////////////////////////////////////////////////////////////////
 
+// константа адреса с фильмами
+export const moviesUrl = 'https://api.nomoreparties.co/';
+
+/////////////////////////////////////////////////////////////////////////
+
 //объект с нужными для работы с сервером данными
 export const apiMainConfig = {
   url: 'http://localhost:3001',
