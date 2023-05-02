@@ -18,7 +18,7 @@ const Movies = ({
   handleOpenMenu,
   movies,
   handleMovieSearch,
-  handleTextFilter,
+  handleMovieSave,
 }) => {
   // начало JSX ///////////////////////////////////////////////////
   return (
@@ -30,7 +30,10 @@ const Movies = ({
 
       <main className="saved-movies__content">
         <SearchForm handleMovieSearch={handleMovieSearch}></SearchForm>
-        <MoviesCardList movieCardList={movies}></MoviesCardList>
+        <MoviesCardList
+          movieCardList={movies}
+          handleMovieSave={handleMovieSave}
+        ></MoviesCardList>
       </main>
 
       <Footer></Footer>

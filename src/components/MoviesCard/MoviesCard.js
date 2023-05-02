@@ -5,7 +5,20 @@ import { moviesUrl } from '../../utils/constants';
 import './MoviesCard.css';
 
 // компонет карточки с фильмом ////////////////////////////////////////
-const MoviesCard = ({ nameRU, duration, image, id, trailerLink }) => {
+const MoviesCard = ({
+  country,
+  director,
+  duration,
+  year,
+  description,
+  image,
+  nameRU,
+  nameEN,
+  thumbnail,
+  id,
+  trailerLink,
+  handleMovieSave,
+}) => {
   //метод подсчёта времени в часа и минутах
   const calculateTiming = (minutes) => {
     return `${Math.floor(minutes / 60)}ч ${minutes % 60}м`;
@@ -14,6 +27,20 @@ const MoviesCard = ({ nameRU, duration, image, id, trailerLink }) => {
   //метод обработки клика по иконке лайку
   const handleLikeClick = (ev) => {
     ev.target.classList.toggle('movie__like-btn_active');
+    handleMovieSave({
+      country,
+      director,
+      duration,
+      year,
+      description,
+      image,
+      nameRU,
+      nameEN,
+      thumbnail,
+      movieId: id,
+      trailerLink,
+      owner: 'testOwner123',
+    });
   };
   return (
     // начало JSX //////////////////////////////////////////////////////

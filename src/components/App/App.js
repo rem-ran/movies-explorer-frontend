@@ -1,6 +1,6 @@
 // импорты
 import { useEffect, useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 
 // импорт компонент
 import Main from '../Main/Main';
@@ -14,18 +14,21 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import PageNotFound from '../PageNotFound/PageNotFound';
 
 import movieApi from '../../utils/MoviesApi';
+import mainApi from '../../utils/MainApi';
 
 // импорт стилей
 import './App.css';
+import userAuthApi from '../../utils/UserAuthApi';
 
 /////////////////////////////////////////////////////////////////////////
 
 // главный компонент приложения
 function App() {
+  const navigate = useNavigate();
   /////////////////////////////////////////////////////////////////////////
 
   // переменная состояния страницы Main
-  const [isLoggenIn, setIsLoggenIn] = useState(true);
+  const [isLoggenIn, setIsLoggenIn] = useState(false);
 
   // переменная состояния отфильтрованного пользователем массива с фильмами
   const [movies, setMovies] = useState([]);
@@ -96,20 +99,95 @@ function App() {
     );
   };
 
+  /////////////////////////////////////////////////////////////////////////
+
   // метод обработки состояния клика меню на мобильном разрешении
   const handleOpenMenu = () => {
     setIsMenuClicked((open) => !open);
   };
 
-  // проверка метода обработки авторизации пользоваетля на странице
-  function handleUserSignIn({ password, email }) {
-    console.log({ password, email });
-  }
+  /////////////////////////////////////////////////////////////////////////
+
+  // метод обработки сохранения фильма пользователем
+  const handleMovieSave = (movie) => {
+    mainApi
+      .saveMovie(movie)
+
+      .then(() => {
+        console.log('all ok');
+      })
+
+      .catch((error) => {
+        console.log(`Ошибка при сохранении фильма: ${error}`);
+      });
+  };
+
+  /////////////////////////////////////////////////////////////////////////
 
   // проверка метода  обработки регистрации пользоваетля на странице
   function handleUserSignUp({ name, password, email }) {
-    console.log({ name, password, email });
+    userAuthApi
+      .register({ name, password, email })
+      .then(() => {
+        navigate('/signin', { replace: true });
+        console.log('reg ok');
+      })
+      .catch((error) => {
+        console.log(`Error with registration: ${error}`);
+      });
   }
+
+  /////////////////////////////////////////////////////////////////////////
+
+  // проверка метода обработки авторизации пользоваетля на странице
+  function handleUserSignIn({ password, email }) {
+    userAuthApi
+      .authorize({ password, email })
+      .then((data) => {
+        if (data._id) {
+          localStorage.setItem('jwt', data._id);
+          // setUserData({ email });
+          setIsLoggenIn(true);
+          navigate('/movies', { replace: true });
+          console.log('login ok');
+        }
+      })
+
+      .catch((error) => {
+        console.log(`Error with login: ${error}`);
+      });
+  }
+
+  /////////////////////////////////////////////////////////////////////////
+
+  //метод проверки токенов авторизированных пользователей, вернувшихся в приложение
+  function handleTokenCheck() {
+    const token = localStorage.getItem('jwt');
+    if (token) {
+      userAuthApi
+        .getContent()
+        .then((res) => {
+          if (res) {
+            // const userData = {
+            //   email: res.email,
+            // };
+            setIsLoggenIn(true);
+            // setUserData(userData);
+            navigate('/movies', { replace: true });
+          }
+        })
+        .catch((error) => {
+          console.log(`Error with token check: ${error}`);
+        });
+    }
+  }
+
+  /////////////////////////////////////////////////////////////////////////
+
+  //вызываем метод проверки токенов при рендеринге главной страницы
+  useEffect(() => {
+    handleTokenCheck();
+  }, []);
 
   // начало JSX ////////////////////////////////////////////////////////////
   return (
@@ -136,6 +214,7 @@ function App() {
                 movies={movies}
                 moviesListLength={movies.length}
                 handleMovieSearch={handleMovieSearch}
+                handleMovieSave={handleMovieSave}
               ></Movies>
             </ProtectedRoute>
           }

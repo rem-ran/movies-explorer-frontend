@@ -22,7 +22,11 @@ const useWindowSize = () => {
 };
 
 // компонет списка карточек ////////////////////////////////////////////////
-const MoviesCardList = ({ movieCardList, moviesListLength }) => {
+const MoviesCardList = ({
+  movieCardList,
+  moviesListLength,
+  handleMovieSave,
+}) => {
   const [width] = useWindowSize();
 
   // переменная состояния количества карточек для загрузки при нажатии "Ещё"
@@ -67,7 +71,11 @@ const MoviesCardList = ({ movieCardList, moviesListLength }) => {
     <section className="movies-list">
       <ul className="movies-list__container">
         {movieCardList.slice(0, cardLimit).map((movie) => (
-          <MoviesCard key={movie.id} {...movie} />
+          <MoviesCard
+            key={movie.id}
+            {...movie}
+            handleMovieSave={handleMovieSave}
+          />
         ))}
       </ul>
       {!allCardsRendered && (
