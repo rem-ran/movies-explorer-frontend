@@ -134,6 +134,9 @@
   font-size: 13px;
   line-height: 16px;
   margin-top: 16px;
+  padding: 0;
+  border: none;
+  background-color: inherit;
   color: rgba(238, 52, 101);
   transition: linear .2s;
 }

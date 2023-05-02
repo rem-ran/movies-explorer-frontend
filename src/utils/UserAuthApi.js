@@ -35,6 +35,16 @@ class UserAuthApi {
     }).then(this._getResponseData);
   }
 
+  // выход пользователя
+  logout() {
+    return fetch(`${this._url}/signout`, {
+      method: 'POST',
+      credentials: this._credentials,
+      headers: this._headers,
+      // body: JSON.stringify(_id),
+    }).then(this._getResponseData);
+  }
+
   getContent() {
     return fetch(`${this._url}/users/me`, {
       method: 'GET',

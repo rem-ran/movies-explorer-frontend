@@ -1,7 +1,6 @@
 // импорты
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
 
 // импорт компонент
 import Header from '../Header/Header';
@@ -14,7 +13,7 @@ import { inputConfig } from '../../utils/constants';
 import './Profile.css';
 
 // компонет профиля //////////////////////////////////////////////////////
-const Profile = ({ handleOpenMenu }) => {
+const Profile = ({ handleOpenMenu, handleSignOut }) => {
   //подключаем пакет валидации форм
   const {
     register,
@@ -41,8 +40,8 @@ const Profile = ({ handleOpenMenu }) => {
   }, [isEditOn]);
 
   // метод обработки клика по кнопке редактирования
-  const handleEditClick = (ev) => {
-    ev.preventDefault();
+  const handleEditClick = (e) => {
+    e.preventDefault();
     setIsEditOn(true);
   };
 
@@ -112,12 +111,12 @@ const Profile = ({ handleOpenMenu }) => {
         в зависимости от значения состояние isEditOn */}
         {!isEditOn && (
           <div className="profile__container-btns">
-            <button onClick={handleEditClick} className="profile__edit-btn">
+            <button className="profile__edit-btn" onClick={handleEditClick}>
               Редактировать
             </button>
-            <Link to="/signin" className="profile__logout">
+            <button className="profile__logout" onClick={handleSignOut}>
               Выйти из аккаунта
-            </Link>
+            </button>
           </div>
         )}
       </div>

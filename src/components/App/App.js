@@ -160,6 +160,23 @@ function App() {
 
   /////////////////////////////////////////////////////////////////////////
 
+  //метод выхода пользоваетля из системы
+  const handleSignOut = () => {
+    userAuthApi
+      .logout()
+      .then(() => {
+        localStorage.removeItem('jwt');
+        setIsLoggenIn(false);
+        navigate('/signin');
+        console.log('signout ok');
+      })
+      .catch((error) => {
+        console.log(`Error with logout: ${error}`);
+      });
+  };
+
+  /////////////////////////////////////////////////////////////////////////
+
   //метод проверки токенов авторизированных пользователей, вернувшихся в приложение
   function handleTokenCheck() {
     const token = localStorage.getItem('jwt');
@@ -235,7 +252,10 @@ function App() {
           path="/profile"
           element={
             <ProtectedRoute isLoggenIn={isLoggenIn}>
-              <Profile handleOpenMenu={handleOpenMenu}></Profile>
+              <Profile
+                handleOpenMenu={handleOpenMenu}
+                handleSignOut={handleSignOut}
+              ></Profile>
             </ProtectedRoute>
           }
         ></Route>
