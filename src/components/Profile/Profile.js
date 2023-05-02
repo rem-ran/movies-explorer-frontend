@@ -1,6 +1,9 @@
 // импорты
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+
+// импорт контекста пользователя
+import { CurrentUserContext } from '../../context/CurrentUserContext';
 
 // импорт компонент
 import Header from '../Header/Header';
@@ -14,6 +17,9 @@ import './Profile.css';
 
 // компонет профиля //////////////////////////////////////////////////////
 const Profile = ({ handleOpenMenu, handleSignOut }) => {
+  // подключаем контекст пользователя
+  const currentUser = useContext(CurrentUserContext);
+
   //подключаем пакет валидации форм
   const {
     register,
@@ -22,8 +28,8 @@ const Profile = ({ handleOpenMenu, handleSignOut }) => {
   } = useForm({
     mode: 'onBlur',
     defaultValues: {
-      name: 'Виталий',
-      email: 'pochta@yandex.ru',
+      name: currentUser.name,
+      email: currentUser.email,
     },
   });
 
@@ -63,6 +69,7 @@ const Profile = ({ handleOpenMenu, handleSignOut }) => {
           <div className="profile__form-element-box">
             <div className="profile__form-element">
               <label className="profile__input-label">Имя</label>
+              {/* импут с именем */}
               <input
                 {...register('name', inputConfig.name)}
                 disabled
@@ -74,6 +81,7 @@ const Profile = ({ handleOpenMenu, handleSignOut }) => {
             </div>
             <div className="profile__form-element">
               <label className="profile__input-label">E-mail</label>
+              {/* импут с электронным адресом */}
               <input
                 {...register('email', inputConfig.email)}
                 disabled
@@ -94,7 +102,8 @@ const Profile = ({ handleOpenMenu, handleSignOut }) => {
                   (errors?.email && errors.email.message)}
               </span>
 
-              {/* у кнопки меняется стиль в зависимости от наличия ошибок в инпутах */}
+              {/* у кнопки сохранения изменений меняется стиль в зависимости от 
+              наличия ошибок в инпутах */}
               <button
                 onClick={handleSubmit(onSubmit)}
                 className={`profile__save-btn ${

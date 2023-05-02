@@ -2,6 +2,9 @@
 import { useEffect, useState } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 
+// импортируем контекст пользователя
+import { CurrentUserContext } from '../../context/CurrentUserContext';
+
 // импорт компонент
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -30,6 +33,9 @@ function App() {
   // переменная состояния страницы Main
   const [isLoggenIn, setIsLoggenIn] = useState(false);
 
+  //переменная состояния информации пользователя
+  const [currentUser, setCurrentUser] = useState({});
+
   // переменная состояния отфильтрованного пользователем массива с фильмами
   const [movies, setMovies] = useState([]);
 
@@ -38,38 +44,25 @@ function App() {
 
   /////////////////////////////////////////////////////////////////////////
 
-  // useEffect(() => {
-  //   // отправляем запрос только после того как пользователь успешно авторизировался
-  //   if (isLoggenIn) {
-  //     //   //запрос на получение карточек
-  //     movieApi
-  //       .getAllMovieCards()
+  useEffect(() => {
+    // отправляем запрос только после того как пользователь успешно авторизировался
+    if (isLoggenIn) {
+      //запрос на получение данных пользователя
+      mainApi
+        .getUserInfo()
 
-  //       .then((movies) => {
-  //         setMovies(movies);
-  //       })
+        .then((userData) => {
+          setCurrentUser(userData);
+          console.log(userData);
+        })
 
-  //       .catch((error) => {
-  //         console.log(
-  //           `Ошибка при начальной загрузки фильмов с сервера: ${error}`
-  //         );
-  //       });
-
-  //запрос на получение данных пользователя
-  // api
-  //   .getServerUserInfo()
-
-  //   .then((userData) => {
-  //     setCurrentUser(userData);
-  //   })
-
-  //   .catch((error) => {
-  //     console.log(
-  //       `Ошибка при начальной загрузки информации пользователя с сервера: ${error}`
-  //     );
-  //   });
-  //   }
-  // }, [isLoggenIn]);
+        .catch((error) => {
+          console.log(
+            `Ошибка при начальной загрузки информации пользователя с сервера: ${error}`
+          );
+        });
+    }
+  }, [isLoggenIn]);
 
   // метод запроса к фильмам на сервере и обработки их фильтром пользователя
   const handleMovieSearch = (filterText) => {
@@ -209,78 +202,80 @@ function App() {
   // начало JSX ////////////////////////////////////////////////////////////
   return (
     <div className="page">
-      <Routes>
-        {/* рут с информацией об авторе и проекте ///////////////////////////*/}
-        <Route
-          path="/"
-          element={
-            <Main
-              isLoggenIn={isLoggenIn}
-              handleOpenMenu={handleOpenMenu}
-            ></Main>
-          }
-        ></Route>
-
-        {/* рут со всеми фильмами ///////////////////////////////////////////*/}
-        <Route
-          path="/movies"
-          element={
-            <ProtectedRoute isLoggenIn={isLoggenIn}>
-              <Movies
+      <CurrentUserContext.Provider value={currentUser}>
+        <Routes>
+          {/* рут с информацией об авторе и проекте ///////////////////////////*/}
+          <Route
+            path="/"
+            element={
+              <Main
+                isLoggenIn={isLoggenIn}
                 handleOpenMenu={handleOpenMenu}
-                movies={movies}
-                moviesListLength={movies.length}
-                handleMovieSearch={handleMovieSearch}
-                handleMovieSave={handleMovieSave}
-              ></Movies>
-            </ProtectedRoute>
-          }
-        ></Route>
+              ></Main>
+            }
+          ></Route>
 
-        {/* рут с сохранёнными пользователем фильмами /////////////////////////*/}
-        <Route
-          path="/saved-movies"
-          element={
-            <ProtectedRoute isLoggenIn={isLoggenIn}>
-              <SavedMovies handleOpenMenu={handleOpenMenu}></SavedMovies>
-            </ProtectedRoute>
-          }
-        ></Route>
+          {/* рут со всеми фильмами ///////////////////////////////////////////*/}
+          <Route
+            path="/movies"
+            element={
+              <ProtectedRoute isLoggenIn={isLoggenIn}>
+                <Movies
+                  handleOpenMenu={handleOpenMenu}
+                  movies={movies}
+                  moviesListLength={movies.length}
+                  handleMovieSearch={handleMovieSearch}
+                  handleMovieSave={handleMovieSave}
+                ></Movies>
+              </ProtectedRoute>
+            }
+          ></Route>
 
-        {/* рут редактирования профиля//////////////////////////////,//////////*/}
-        <Route
-          path="/profile"
-          element={
-            <ProtectedRoute isLoggenIn={isLoggenIn}>
-              <Profile
-                handleOpenMenu={handleOpenMenu}
-                handleSignOut={handleSignOut}
-              ></Profile>
-            </ProtectedRoute>
-          }
-        ></Route>
+          {/* рут с сохранёнными пользователем фильмами /////////////////////////*/}
+          <Route
+            path="/saved-movies"
+            element={
+              <ProtectedRoute isLoggenIn={isLoggenIn}>
+                <SavedMovies handleOpenMenu={handleOpenMenu}></SavedMovies>
+              </ProtectedRoute>
+            }
+          ></Route>
 
-        {/* рут авторизации //////////////////////////////,////////////////////*/}
-        <Route
-          path="/signin"
-          element={<Login handleUserSignIn={handleUserSignIn}></Login>}
-        ></Route>
+          {/* рут редактирования профиля//////////////////////////////,//////////*/}
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute isLoggenIn={isLoggenIn}>
+                <Profile
+                  handleOpenMenu={handleOpenMenu}
+                  handleSignOut={handleSignOut}
+                ></Profile>
+              </ProtectedRoute>
+            }
+          ></Route>
 
-        {/* рут регистрации //////////////////////////////,////////////////////*/}
-        <Route
-          path="/signup"
-          element={<Register handleUserSignUp={handleUserSignUp}></Register>}
-        ></Route>
+          {/* рут авторизации //////////////////////////////,////////////////////*/}
+          <Route
+            path="/signin"
+            element={<Login handleUserSignIn={handleUserSignIn}></Login>}
+          ></Route>
 
-        {/* рут несуществующей страницы /////////////////////,////////////////////*/}
-        <Route path="*" element={<PageNotFound></PageNotFound>}></Route>
-      </Routes>
+          {/* рут регистрации //////////////////////////////,////////////////////*/}
+          <Route
+            path="/signup"
+            element={<Register handleUserSignUp={handleUserSignUp}></Register>}
+          ></Route>
 
-      {/* попа с меню при нажатии на бургер-меню ///////////////////////////////*/}
-      <MenuPopup
-        isMenuClicked={isMenuClicked}
-        handleOpenMenu={handleOpenMenu}
-      ></MenuPopup>
+          {/* рут несуществующей страницы /////////////////////,////////////////////*/}
+          <Route path="*" element={<PageNotFound></PageNotFound>}></Route>
+        </Routes>
+
+        {/* попа с меню при нажатии на бургер-меню ///////////////////////////////*/}
+        <MenuPopup
+          isMenuClicked={isMenuClicked}
+          handleOpenMenu={handleOpenMenu}
+        ></MenuPopup>
+      </CurrentUserContext.Provider>
     </div>
   );
 }
