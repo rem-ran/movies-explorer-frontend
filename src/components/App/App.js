@@ -27,7 +27,7 @@ function App() {
   // переменная состояния страницы Main
   const [isLoggenIn, setIsLoggenIn] = useState(true);
 
-  // переменная состояния страницы Main
+  // переменная состояния отфильтрованного пользователем массива с фильмами
   const [movies, setMovies] = useState([]);
 
   // переменная состояния клика меню на мобильных разрешении
@@ -35,39 +35,66 @@ function App() {
 
   /////////////////////////////////////////////////////////////////////////
 
-  //отправляем запросы к API для рендеринга начального списка карточек и данных о пользователе
-  useEffect(() => {
-    //отправляем запрос только после того как пользователь успешно авторизировался
-    if (isLoggenIn) {
-      //запрос на получение карточек
-      movieApi
-        .getAllMovieCards()
+  // useEffect(() => {
+  //   // отправляем запрос только после того как пользователь успешно авторизировался
+  //   if (isLoggenIn) {
+  //     //   //запрос на получение карточек
+  //     movieApi
+  //       .getAllMovieCards()
 
-        .then((movies) => {
-          setMovies(movies);
-        })
+  //       .then((movies) => {
+  //         setMovies(movies);
+  //       })
 
-        .catch((error) => {
-          console.log(
-            `Ошибка при начальной загрузки фильмов с сервера: ${error}`
-          );
-        });
+  //       .catch((error) => {
+  //         console.log(
+  //           `Ошибка при начальной загрузки фильмов с сервера: ${error}`
+  //         );
+  //       });
 
-      //запрос на получение данных пользователя
-      // api
-      //   .getServerUserInfo()
+  //запрос на получение данных пользователя
+  // api
+  //   .getServerUserInfo()
 
-      //   .then((userData) => {
-      //     setCurrentUser(userData);
-      //   })
+  //   .then((userData) => {
+  //     setCurrentUser(userData);
+  //   })
 
-      //   .catch((error) => {
-      //     console.log(
-      //       `Ошибка при начальной загрузки информации пользователя с сервера: ${error}`
-      //     );
-      //   });
-    }
-  }, [isLoggenIn]);
+  //   .catch((error) => {
+  //     console.log(
+  //       `Ошибка при начальной загрузки информации пользователя с сервера: ${error}`
+  //     );
+  //   });
+  //   }
+  // }, [isLoggenIn]);
+
+  // метод запроса к фильмам на сервере и обработки их фильтром пользователя
+  const handleMovieSearch = (filterText) => {
+    movieApi
+      .getAllMovieCards()
+
+      .then((movies) => {
+        setMovies(handleUserMovieSearch(movies, filterText));
+      })
+
+      .catch((error) => {
+        console.log(
+          `Ошибка при начальной загрузки фильмов с сервера: ${error}`
+        );
+      });
+  };
+
+  // метод фильтрования массива с фильмами по введённому пользователем тексту "filterText"
+  const handleUserMovieSearch = (moviesList, filterText) => {
+    return moviesList.filter(
+      (obj) =>
+        obj.nameRU.toLowerCase().includes(filterText) ||
+        obj.nameEN.toLowerCase().includes(filterText) ||
+        obj.director.toLowerCase().includes(filterText) ||
+        obj.country.toLowerCase().includes(filterText) ||
+        obj.description.toLowerCase().includes(filterText)
+    );
+  };
 
   // метод обработки состояния клика меню на мобильном разрешении
   const handleOpenMenu = () => {
@@ -108,6 +135,7 @@ function App() {
                 handleOpenMenu={handleOpenMenu}
                 movies={movies}
                 moviesListLength={movies.length}
+                handleMovieSearch={handleMovieSearch}
               ></Movies>
             </ProtectedRoute>
           }

@@ -1,18 +1,35 @@
+//импорт стилей
+import { useState } from 'react';
 import './SearchForm.css';
 
-const SearchForm = () => {
+const SearchForm = ({ handleMovieSearch }) => {
+  const [searchInputValue, setSearchInputValue] = useState('');
+
+  const handleSearchValue = (e) => {
+    setSearchInputValue(e.target.value.toLowerCase());
+  };
+
+  // метод обработки отправки формы
+  const onSearch = (e) => {
+    e.preventDefault();
+    handleMovieSearch(searchInputValue);
+  };
+  // начало JSX ///////////////////////////////////////////////////////////////
   return (
     <section className="search">
       <div className="search__container">
-        <form className="search__form" role="search">
+        <form className="search__form" role="search" onSubmit={onSearch}>
           <input
             name="q"
             aria-label="Поиск по списку фильмов на сайте"
             type="search"
             placeholder="Фильм"
             className="search__input"
+            onChange={handleSearchValue}
           ></input>
-          <button className="search__btn">Найти</button>
+          <button className="search__btn" onClick={onSearch}>
+            Найти
+          </button>
         </form>
         <div className="search__filter">
           <p className="search__filter-txt">Короткометражки</p>
@@ -26,4 +43,5 @@ const SearchForm = () => {
   );
 };
 
+// экспорт ///////////////////////////////////////////////////////////////////
 export default SearchForm;
