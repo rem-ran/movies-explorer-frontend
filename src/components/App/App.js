@@ -25,10 +25,10 @@ import userAuthApi from '../../utils/UserAuthApi';
 
 /////////////////////////////////////////////////////////////////////////
 
-// главный компонент приложения
+// главный компонент приложения /////////////////////////////////////////
 function App() {
   const navigate = useNavigate();
-  /////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////
 
   // переменная состояния страницы Main
   const [isLoggenIn, setIsLoggenIn] = useState(false);
@@ -53,7 +53,6 @@ function App() {
 
         .then((userData) => {
           setCurrentUser(userData);
-          console.log(userData);
         })
 
         .catch((error) => {
@@ -64,7 +63,7 @@ function App() {
     }
   }, [isLoggenIn]);
 
-  // метод запроса к фильмам на сервере и обработки их фильтром пользователя
+  // метод запроса к API для фильмам на сервере и обработки их фильтром пользователя
   const handleMovieSearch = (filterText) => {
     movieApi
       .getAllMovieCards()
@@ -74,9 +73,7 @@ function App() {
       })
 
       .catch((error) => {
-        console.log(
-          `Ошибка при начальной загрузки фильмов с сервера: ${error}`
-        );
+        console.log(`Ошибка при загрузки фильмов с сервера: ${error}`);
       });
   };
 
@@ -101,13 +98,13 @@ function App() {
 
   /////////////////////////////////////////////////////////////////////////
 
-  // метод обработки сохранения фильма пользователем
+  // метод запроса к API для обработки сохранения фильма пользователем
   const handleMovieSave = (movie) => {
     mainApi
       .saveMovie(movie)
 
       .then(() => {
-        console.log('all ok');
+        console.log('movie save ok');
       })
 
       .catch((error) => {
@@ -117,7 +114,24 @@ function App() {
 
   /////////////////////////////////////////////////////////////////////////
 
-  // проверка метода  обработки регистрации пользоваетля на странице
+  //метод запроса к API для обновления информации пользователя
+  function handleUserUpdate(userInfo) {
+    mainApi
+      .updateUserInfo(userInfo)
+
+      .then((res) => {
+        setCurrentUser(res);
+        console.log('update ok');
+      })
+
+      .catch((error) => {
+        console.log(`Ошибка при обновлении данных пользователя: ${error}`);
+      });
+  }
+
+  /////////////////////////////////////////////////////////////////////////
+
+  // метод запроса к API для регистрации пользоваетля на странице
   function handleUserSignUp({ name, password, email }) {
     userAuthApi
       .register({ name, password, email })
@@ -132,14 +146,13 @@ function App() {
 
   /////////////////////////////////////////////////////////////////////////
 
-  // проверка метода обработки авторизации пользоваетля на странице
+  // метода запроса к API для авторизации пользоваетля на странице
   function handleUserSignIn({ password, email }) {
     userAuthApi
       .authorize({ password, email })
       .then((data) => {
         if (data._id) {
           localStorage.setItem('jwt', data._id);
-          // setUserData({ email });
           setIsLoggenIn(true);
           navigate('/movies', { replace: true });
           console.log('login ok');
@@ -153,7 +166,7 @@ function App() {
 
   /////////////////////////////////////////////////////////////////////////
 
-  //метод выхода пользоваетля из системы
+  //метод запроса к API для выхода пользоваетля из системы
   const handleSignOut = () => {
     userAuthApi
       .logout()
@@ -178,11 +191,7 @@ function App() {
         .getContent()
         .then((res) => {
           if (res) {
-            // const userData = {
-            //   email: res.email,
-            // };
             setIsLoggenIn(true);
-            // setUserData(userData);
             navigate('/movies', { replace: true });
           }
         })
@@ -194,7 +203,7 @@ function App() {
 
   /////////////////////////////////////////////////////////////////////////
 
-  //вызываем метод проверки токенов при рендеринге главной страницы
+  //вызываем метод проверки токенов при первичном рендеринге
   useEffect(() => {
     handleTokenCheck();
   }, []);
@@ -249,6 +258,7 @@ function App() {
                 <Profile
                   handleOpenMenu={handleOpenMenu}
                   handleSignOut={handleSignOut}
+                  handleUserUpdate={handleUserUpdate}
                 ></Profile>
               </ProtectedRoute>
             }

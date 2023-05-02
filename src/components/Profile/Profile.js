@@ -16,7 +16,7 @@ import { inputConfig } from '../../utils/constants';
 import './Profile.css';
 
 // компонет профиля //////////////////////////////////////////////////////
-const Profile = ({ handleOpenMenu, handleSignOut }) => {
+const Profile = ({ handleOpenMenu, handleSignOut, handleUserUpdate }) => {
   // подключаем контекст пользователя
   const currentUser = useContext(CurrentUserContext);
 
@@ -51,9 +51,10 @@ const Profile = ({ handleOpenMenu, handleSignOut }) => {
     setIsEditOn(true);
   };
 
+  // метод обработки клика по кнопке сохранения
   const onSubmit = (data) => {
+    handleUserUpdate(data);
     setIsEditOn(false);
-    console.log(data);
   };
 
   // начало JSX ////////////////////////////////////////////////////////////
