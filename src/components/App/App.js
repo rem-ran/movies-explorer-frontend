@@ -16,12 +16,13 @@ import MenuPopup from '../MenuPopup/MenuPopup';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import PageNotFound from '../PageNotFound/PageNotFound';
 
+// импорт Api
 import movieApi from '../../utils/MoviesApi';
 import mainApi from '../../utils/MainApi';
+import userAuthApi from '../../utils/UserAuthApi';
 
 // импорт стилей
 import './App.css';
-import userAuthApi from '../../utils/UserAuthApi';
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -29,7 +30,8 @@ import userAuthApi from '../../utils/UserAuthApi';
 function App() {
   const navigate = useNavigate();
   const location = useLocation();
-  ///////////////////////////////////////////////////////////////////////
+
+  // переменные состояния ///////////////////////////////////////////////
 
   // переменная состояния страницы Main
   const [isLoggenIn, setIsLoggenIn] = useState(false);
@@ -46,10 +48,13 @@ function App() {
   // переменная состояния клика меню на мобильных разрешении
   const [isMenuClicked, setIsMenuClicked] = useState(false);
 
+  // переменная состояния открытой страницы с сохранёнными фильмами
+  const [isSavedMoviesOpen, setIsSavedMoviesOpen] = useState(false);
+
   /////////////////////////////////////////////////////////////////////////
 
+  // получаем данные пользователя при первом рендеринге если пользователь авторизовался
   useEffect(() => {
-    // отправляем запрос только после того как пользователь успешно авторизировался
     if (isLoggenIn) {
       //запрос на получение данных пользователя
       mainApi
@@ -66,6 +71,8 @@ function App() {
         });
     }
   }, [isLoggenIn]);
+
+  /////////////////////////////////////////////////////////////////////////
 
   // метод запроса к API для фильмам на сервере и обработки их фильтром пользователя
   const handleMovieSearch = (filterText) => {
@@ -85,12 +92,20 @@ function App() {
   const handleUserMovieSearch = (moviesList, filterText) => {
     return moviesList.filter(
       (obj) =>
+        // фильруем только выборочные поля
         obj.nameRU.toLowerCase().includes(filterText) ||
         obj.nameEN.toLowerCase().includes(filterText) ||
         obj.director.toLowerCase().includes(filterText) ||
         obj.country.toLowerCase().includes(filterText) ||
         obj.description.toLowerCase().includes(filterText)
     );
+  };
+
+  /////////////////////////////////////////////////////////////////////////
+
+  // метод обработки состояния открытой страницы с сохранёнными фильмами
+  const handleSavedMoviesOpen = () => {
+    setIsSavedMoviesOpen(true);
   };
 
   /////////////////////////////////////////////////////////////////////////
@@ -119,9 +134,13 @@ function App() {
   /////////////////////////////////////////////////////////////////////////
 
   // метод запроса к API для обработки уделаения фильма пользователем
-  const handleMovieDelete = (movie) => {
+  const handleMovieDelete = (id) => {
     mainApi
-      .deleteMovie(movie._id)
+      .deleteMovie(id)
+
+      .then(() => {
+        setSavedMovies((state) => state.filter((movie) => movie._id !== id));
+      })
 
       .then(() => {
         console.log('movie delete ok');
@@ -285,8 +304,11 @@ function App() {
             element={
               <ProtectedRoute isLoggenIn={isLoggenIn}>
                 <SavedMovies
+                  handleSavedMoviesOpen={handleSavedMoviesOpen}
+                  isSavedMoviesOpen={isSavedMoviesOpen}
                   handleOpenMenu={handleOpenMenu}
                   handleGetSavedMovie={handleGetSavedMovie}
+                  handleMovieDelete={handleMovieDelete}
                   savedMovies={savedMovies}
                 ></SavedMovies>
               </ProtectedRoute>

@@ -7,17 +7,24 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 
-// ипорт констант
-// import { savedMovies } from '../../utils/constants';
-
 //импорт стилей
 import './SavedMovies.css';
 import { useEffect } from 'react';
 
-// компонет страницы с сохранёнными фильмами //////////////////////////
-const SavedMovies = ({ handleOpenMenu, handleGetSavedMovie, savedMovies }) => {
+// компонент страницы с сохранёнными фильмами //////////////////////////
+const SavedMovies = ({
+  handleSavedMoviesOpen,
+  isSavedMoviesOpen,
+  handleOpenMenu,
+  handleGetSavedMovie,
+  handleMovieDelete,
+  savedMovies,
+}) => {
+  // получаем фильмы через Api и меняем состояние открытой страницы с
+  // сохранёнными фильмами при рендеринге страницы
   useEffect(() => {
     handleGetSavedMovie();
+    handleSavedMoviesOpen();
   }, []);
 
   return (
@@ -29,7 +36,11 @@ const SavedMovies = ({ handleOpenMenu, handleGetSavedMovie, savedMovies }) => {
       ></Header>
       <main className="saved-movies__content">
         <SearchForm></SearchForm>
-        <MoviesCardList movieCardList={savedMovies}></MoviesCardList>
+        <MoviesCardList
+          movieCardList={savedMovies}
+          handleMovieDelete={handleMovieDelete}
+          isSavedMoviesOpen={isSavedMoviesOpen}
+        ></MoviesCardList>
       </main>
 
       <Footer></Footer>
