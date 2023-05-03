@@ -63,12 +63,14 @@ const Profile = ({ handleOpenMenu, handleSignOut, handleUserUpdate }) => {
 
   // метод сравнения значений инпутов и смены состояния кнопки сохранения
   const handleInputsValues = () => {
+    const saveBtn = document.querySelector('.profile__save-btn');
     if (currentUser.name === name && currentUser.email === email) {
       setIsInputValueSame(false);
+      saveBtn.setAttribute('disabled', true);
     } else {
       setIsInputValueSame(true);
+      saveBtn.removeAttribute('disabled');
     }
-    document.querySelector('.profile__save-btn').toggleAttribute('disabled');
   };
 
   // запускаем метод handleInputsValues каждый раз при изменении name, email и isEditOn
@@ -141,7 +143,7 @@ const Profile = ({ handleOpenMenu, handleSignOut, handleUserUpdate }) => {
               {/* у кнопки сохранения изменений меняется стиль в зависимости от 
               наличия ошибок в инпутах */}
               <button
-                id="save-btn"
+                disabled
                 onClick={handleSubmit(onSubmit)}
                 className={`profile__save-btn ${
                   (errors?.name || errors?.email || !isInputValueSame) &&

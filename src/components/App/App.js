@@ -101,6 +101,7 @@ function App() {
 
   // метод запроса к API для обработки сохранения фильма пользователем
   const handleMovieSave = (movie) => {
+    console.log(movie);
     mainApi
       .saveMovie(movie)
 

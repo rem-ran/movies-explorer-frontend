@@ -14,7 +14,6 @@ const MoviesCard = ({
   image,
   nameRU,
   nameEN,
-  thumbnail,
   id,
   trailerLink,
   handleMovieSave,
@@ -33,13 +32,12 @@ const MoviesCard = ({
       duration,
       year,
       description,
-      image,
+      image: `${moviesUrl}${image.url}`,
       nameRU,
       nameEN,
-      thumbnail,
+      thumbnail: `${moviesUrl}${image.formats.thumbnail.url}`,
       movieId: id,
       trailerLink,
-      owner: 'testOwner123',
     });
   };
   return (

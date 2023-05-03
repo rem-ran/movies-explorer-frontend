@@ -25,12 +25,12 @@ class MainApi {
   }
 
   //добавить фильм к сохранённым
-  saveMovie({ ...movie }) {
+  saveMovie(movie) {
     return fetch(`${this._url}/movies`, {
       method: 'POST',
       credentials: this._credentials,
       headers: this._headers,
-      body: JSON.stringify({ movie }),
+      body: JSON.stringify(movie),
     }).then(this._getResponseData);
   }
 
