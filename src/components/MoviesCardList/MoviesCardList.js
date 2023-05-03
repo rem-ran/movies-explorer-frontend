@@ -72,7 +72,7 @@ const MoviesCardList = ({
       <ul className="movies-list__container">
         {movieCardList.slice(0, cardLimit).map((movie) => (
           <MoviesCard
-            key={movie.id}
+            key={movie.id || movie.movieId}
             {...movie}
             handleMovieSave={handleMovieSave}
           />

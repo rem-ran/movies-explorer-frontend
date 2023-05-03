@@ -16,7 +16,7 @@ class MainApi {
   }
 
   //получить список всех сохранённых фильмов в виде массива
-  getAllSavedMovieCards() {
+  getAllSavedMovies() {
     return fetch(`${this._url}/movies`, {
       method: 'GET',
       credentials: this._credentials,

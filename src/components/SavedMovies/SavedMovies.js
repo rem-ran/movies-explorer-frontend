@@ -8,14 +8,20 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 
 // ипорт констант
-import { savedMovies } from '../../utils/constants';
+// import { savedMovies } from '../../utils/constants';
 
 //импорт стилей
 import './SavedMovies.css';
+import { useEffect } from 'react';
 
 // компонет страницы с сохранёнными фильмами //////////////////////////
-const SavedMovies = ({ handleOpenMenu }) => {
+const SavedMovies = ({ handleOpenMenu, handleGetSavedMovie, savedMovies }) => {
+  useEffect(() => {
+    handleGetSavedMovie();
+  }, []);
+
   return (
+    // начало JSX //////////////////////////////////////////////////////
     <div className="saved-movies">
       <Header
         handleOpenMenu={handleOpenMenu}

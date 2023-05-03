@@ -40,6 +40,9 @@ function App() {
   // переменная состояния отфильтрованного пользователем массива с фильмами
   const [movies, setMovies] = useState([]);
 
+  // переменная состояния отфильтрованного пользователем массива с фильмами
+  const [savedMovies, setSavedMovies] = useState([]);
+
   // переменная состояния клика меню на мобильных разрешении
   const [isMenuClicked, setIsMenuClicked] = useState(false);
 
@@ -101,7 +104,6 @@ function App() {
 
   // метод запроса к API для обработки сохранения фильма пользователем
   const handleMovieSave = (movie) => {
-    console.log(movie);
     mainApi
       .saveMovie(movie)
 
@@ -111,6 +113,39 @@ function App() {
 
       .catch((error) => {
         console.log(`Ошибка при сохранении фильма: ${error}`);
+      });
+  };
+
+  /////////////////////////////////////////////////////////////////////////
+
+  // метод запроса к API для обработки уделаения фильма пользователем
+  const handleMovieDelete = (movie) => {
+    mainApi
+      .deleteMovie(movie._id)
+
+      .then(() => {
+        console.log('movie delete ok');
+      })
+
+      .catch((error) => {
+        console.log(`Ошибка при удалении фильма: ${error}`);
+      });
+  };
+
+  /////////////////////////////////////////////////////////////////////////
+
+  // метод запроса к API для обработки получения сохранённых фильмов пользователем
+  const handleGetSavedMovie = () => {
+    mainApi
+      .getAllSavedMovies()
+
+      .then((savedMovies) => {
+        setSavedMovies(savedMovies);
+        console.log('saved movies received ok');
+      })
+
+      .catch((error) => {
+        console.log(`Ошибка при получении фильмов: ${error}`);
       });
   };
 
@@ -249,7 +284,11 @@ function App() {
             path="/saved-movies"
             element={
               <ProtectedRoute isLoggenIn={isLoggenIn}>
-                <SavedMovies handleOpenMenu={handleOpenMenu}></SavedMovies>
+                <SavedMovies
+                  handleOpenMenu={handleOpenMenu}
+                  handleGetSavedMovie={handleGetSavedMovie}
+                  savedMovies={savedMovies}
+                ></SavedMovies>
               </ProtectedRoute>
             }
           ></Route>

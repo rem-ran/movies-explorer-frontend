@@ -46,7 +46,7 @@ const MoviesCard = ({
       <a href={trailerLink} target="_blank" rel="noopener noreferrer">
         <img
           className="movie_image"
-          src={`${moviesUrl}${image.url}`}
+          src={typeof image === 'string' ? image : `${moviesUrl}${image.url}`}
           alt={nameRU}
         />
       </a>
