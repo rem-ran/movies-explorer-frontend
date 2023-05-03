@@ -20,9 +20,18 @@ const Profile = ({ handleOpenMenu, handleSignOut, handleUserUpdate }) => {
   // подключаем контекст пользователя
   const currentUser = useContext(CurrentUserContext);
 
+  // состояние, которое меняется при нажатии на кнопку формы
+  const [isEditOn, setIsEditOn] = useState(false);
+
+  // переменная сравнения значений инпута и currentUser
+  const [isInputValueSame, setIsInputValueSame] = useState(true);
+
+  ///////////////////////////////////////////////////////////////////////////
+
   //подключаем пакет валидации форм
   const {
     register,
+    watch,
     handleSubmit,
     formState: { errors },
   } = useForm({
@@ -33,16 +42,43 @@ const Profile = ({ handleOpenMenu, handleSignOut, handleUserUpdate }) => {
     },
   });
 
-  // состояние, которое меняется при нажатии на кнопку формы
-  const [isEditOn, setIsEditOn] = useState(false);
+  ///////////////////////////////////////////////////////////////////////////
+
+  // находим все инпуты на странице
   const profileInputs = document.querySelectorAll('.profile__input');
 
+  // включаем и выключаем инпуты при изменении сосотояния isEditOn
   useEffect(() => {
     const toggleInputState = () => {
       profileInputs.forEach((input) => input.toggleAttribute('disabled'));
     };
     toggleInputState();
   }, [isEditOn]);
+
+  ///////////////////////////////////////////////////////////////////////////
+
+  // назначаем слежение за значением инпутов name и email
+  const name = watch('name');
+  const email = watch('email');
+
+  // метод сравнения значений инпутов и смены состояния кнопки сохранения
+  const handleInputsValues = () => {
+    if (currentUser.name === name && currentUser.email === email) {
+      setIsInputValueSame(false);
+    } else {
+      setIsInputValueSame(true);
+    }
+    document.querySelector('.profile__save-btn').toggleAttribute('disabled');
+  };
+
+  // запускаем метод handleInputsValues каждый раз при изменении name, email и isEditOn
+  useEffect(() => {
+    if (isEditOn) {
+      handleInputsValues();
+    }
+  }, [name, email, isEditOn]);
+
+  ///////////////////////////////////////////////////////////////////////////
 
   // метод обработки клика по кнопке редактирования
   const handleEditClick = (e) => {
@@ -105,9 +141,10 @@ const Profile = ({ handleOpenMenu, handleSignOut, handleUserUpdate }) => {
               {/* у кнопки сохранения изменений меняется стиль в зависимости от 
               наличия ошибок в инпутах */}
               <button
+                id="save-btn"
                 onClick={handleSubmit(onSubmit)}
                 className={`profile__save-btn ${
-                  (errors?.name || errors?.email) &&
+                  (errors?.name || errors?.email || !isInputValueSame) &&
                   'profile__save-btn_disabled'
                 }`}
               >

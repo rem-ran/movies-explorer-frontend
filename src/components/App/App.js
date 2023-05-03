@@ -193,6 +193,7 @@ function App() {
         .then((res) => {
           if (res) {
             setIsLoggenIn(true);
+            setCurrentUser(res);
             navigate(location.pathname, { replace: true });
             console.log('token check ok');
           }
