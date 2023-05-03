@@ -37,11 +37,10 @@ const Profile = ({ handleOpenMenu, handleSignOut, handleUserUpdate }) => {
   const [isEditOn, setIsEditOn] = useState(false);
   const profileInputs = document.querySelectorAll('.profile__input');
 
-  const toggleInputState = () => {
-    profileInputs.forEach((input) => input.toggleAttribute('disabled'));
-  };
-
   useEffect(() => {
+    const toggleInputState = () => {
+      profileInputs.forEach((input) => input.toggleAttribute('disabled'));
+    };
     toggleInputState();
   }, [isEditOn]);
 

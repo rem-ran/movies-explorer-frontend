@@ -1,6 +1,6 @@
 // импорты
 import { useEffect, useState } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 
 // импортируем контекст пользователя
 import { CurrentUserContext } from '../../context/CurrentUserContext';
@@ -28,6 +28,7 @@ import userAuthApi from '../../utils/UserAuthApi';
 // главный компонент приложения /////////////////////////////////////////
 function App() {
   const navigate = useNavigate();
+  const location = useLocation();
   ///////////////////////////////////////////////////////////////////////
 
   // переменная состояния страницы Main
@@ -192,7 +193,8 @@ function App() {
         .then((res) => {
           if (res) {
             setIsLoggenIn(true);
-            navigate('/movies', { replace: true });
+            navigate(location.pathname, { replace: true });
+            console.log('token check ok');
           }
         })
         .catch((error) => {
