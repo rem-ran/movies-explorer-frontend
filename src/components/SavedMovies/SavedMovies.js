@@ -18,6 +18,7 @@ const SavedMovies = ({
   handleOpenMenu,
   handleGetSavedMovie,
   handleMovieDelete,
+  handleSavedMovieSearch,
   savedMovies,
 }) => {
   // получаем фильмы через Api и меняем состояние открытой страницы с
@@ -27,6 +28,10 @@ const SavedMovies = ({
     handleSavedMoviesOpen();
   }, []);
 
+  const onSavedMovieSearch = (Inputtext) => {
+    handleSavedMovieSearch(Inputtext);
+  };
+
   return (
     // начало JSX //////////////////////////////////////////////////////
     <div className="saved-movies">
@@ -35,7 +40,7 @@ const SavedMovies = ({
         links={<Navigation></Navigation>}
       ></Header>
       <main className="saved-movies__content">
-        <SearchForm></SearchForm>
+        <SearchForm handleMovieSearch={onSavedMovieSearch}></SearchForm>
         <MoviesCardList
           movieCardList={savedMovies}
           handleMovieDelete={handleMovieDelete}

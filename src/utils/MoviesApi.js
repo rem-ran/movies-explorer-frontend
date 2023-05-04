@@ -16,7 +16,7 @@ class MovieApi {
   }
 
   //получить список всех фильмов в виде массива
-  getAllMovieCards() {
+  getAllMovies() {
     return fetch(`${this._url}`, {
       method: 'GET',
       headers: this._headers,

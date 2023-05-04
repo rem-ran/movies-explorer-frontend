@@ -1,5 +1,5 @@
 //импорт стилей
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './SearchForm.css';
 
 const SearchForm = ({ handleMovieSearch }) => {
@@ -13,7 +13,13 @@ const SearchForm = ({ handleMovieSearch }) => {
   const onSearch = (e) => {
     e.preventDefault();
     handleMovieSearch(searchInputValue);
+    // localStorage.setItem('searchValue', searchInputValue);
   };
+
+  // useEffect(() => {
+  //   const searchInput = document.querySelector('.search__input');
+  //   searchInput.value = localStorage.getItem('searchValue');
+  // }, []);
   // начало JSX ///////////////////////////////////////////////////////////////
   return (
     <section className="search">

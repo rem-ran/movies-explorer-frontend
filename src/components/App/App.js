@@ -39,11 +39,14 @@ function App() {
   //переменная состояния информации пользователя
   const [currentUser, setCurrentUser] = useState({});
 
-  // переменная состояния отфильтрованного пользователем массива с фильмами
+  // переменная состояния массива всех полученных фильмов
   const [movies, setMovies] = useState([]);
 
-  // переменная состояния отфильтрованного пользователем массива с фильмами
+  // переменная состояния сохранённых пользователем массива с фильмами
   const [savedMovies, setSavedMovies] = useState([]);
+
+  // переменная состояния отфильтрованного пользователем массива с фильмами
+  const [filteredMovies, setFilteredMovies] = useState([]);
 
   // переменная состояния клика меню на мобильных разрешении
   const [isMenuClicked, setIsMenuClicked] = useState(false);
@@ -51,7 +54,15 @@ function App() {
   // переменная состояния открытой страницы с сохранёнными фильмами
   const [isSavedMoviesOpen, setIsSavedMoviesOpen] = useState(false);
 
+  const [searchInputMovies, setSearchInputMovies] = useState('');
+
+  const [searchInputSavedMovies, setSearchInputSavedMovies] = useState('');
+
   /////////////////////////////////////////////////////////////////////////
+
+  // useEffect(() => {
+  //   console.log(isSavedMoviesOpen);
+  // }, [isSavedMoviesOpen]);
 
   // получаем данные пользователя при первом рендеринге если пользователь авторизовался
   useEffect(() => {
@@ -74,13 +85,13 @@ function App() {
 
   /////////////////////////////////////////////////////////////////////////
 
-  // метод запроса к API для фильмам на сервере и обработки их фильтром пользователя
-  const handleMovieSearch = (filterText) => {
+  // метод запроса к API для получения всех фильмов
+  const handleGetAllMovies = () => {
     movieApi
-      .getAllMovieCards()
+      .getAllMovies()
 
-      .then((movies) => {
-        setMovies(handleUserMovieSearch(movies, filterText));
+      .then((allMovies) => {
+        setMovies(allMovies);
       })
 
       .catch((error) => {
@@ -88,11 +99,30 @@ function App() {
       });
   };
 
+  /////////////////////////////////////////////////////////////////////////
+
+  // метод обработки всех полученных фильмов фильтром пользователя
+  const handleMovieSearch = (filterText) => {
+    console.log(filterText);
+    setFilteredMovies(handleUserMovieSearch(movies, filterText));
+
+    // localStorage.setItem('foundFilteredMovies', movies);
+    // console.log(movies);
+  };
+
+  /////////////////////////////////////////////////////////////////////////
+  // метод обработки всех сохранённых фильмов фильтром пользователя
+  const handleSavedMovieSearch = (filterText) => {
+    console.log(filterText);
+    setSavedMovies(handleUserMovieSearch(savedMovies, filterText));
+  };
+  /////////////////////////////////////////////////////////////////////////
+
   // метод фильтрования массива с фильмами по введённому пользователем тексту "filterText"
   const handleUserMovieSearch = (moviesList, filterText) => {
     return moviesList.filter(
       (obj) =>
-        // фильруем только выборочные поля
+        // фильруем только по выборочным поля
         obj.nameRU.toLowerCase().includes(filterText) ||
         obj.nameEN.toLowerCase().includes(filterText) ||
         obj.director.toLowerCase().includes(filterText) ||
@@ -164,7 +194,7 @@ function App() {
       })
 
       .catch((error) => {
-        console.log(`Ошибка при получении фильмов: ${error}`);
+        console.log(`Ошибка при получении сохранённых фильмов: ${error}`);
       });
   };
 
@@ -289,10 +319,11 @@ function App() {
               <ProtectedRoute isLoggenIn={isLoggenIn}>
                 <Movies
                   handleOpenMenu={handleOpenMenu}
-                  movies={movies}
+                  filteredMovies={filteredMovies}
                   moviesListLength={movies.length}
                   handleMovieSearch={handleMovieSearch}
                   handleMovieSave={handleMovieSave}
+                  handleGetAllMovies={handleGetAllMovies}
                 ></Movies>
               </ProtectedRoute>
             }
@@ -309,6 +340,7 @@ function App() {
                   handleOpenMenu={handleOpenMenu}
                   handleGetSavedMovie={handleGetSavedMovie}
                   handleMovieDelete={handleMovieDelete}
+                  handleSavedMovieSearch={handleSavedMovieSearch}
                   savedMovies={savedMovies}
                 ></SavedMovies>
               </ProtectedRoute>

@@ -7,19 +7,26 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 import Navigation from '../Navigation/Navigation';
 
-// ипорт констант
-import { movieCards } from '../../utils/constants';
-
 //импорт стилей
 import './Movies.css';
+import { useEffect } from 'react';
 
 // компонет главной страницы с фильмами ////////////////////////////////////
 const Movies = ({
   handleOpenMenu,
-  movies,
+  filteredMovies,
   handleMovieSearch,
   handleMovieSave,
+  handleGetAllMovies,
 }) => {
+  useEffect(() => {
+    handleGetAllMovies();
+    // console.log(localStorage.getItem('foundFilteredMovies'));
+  }, []);
+
+  const onMovieSearch = (Inputtext) => {
+    handleMovieSearch(Inputtext);
+  };
   // начало JSX ///////////////////////////////////////////////////
   return (
     <div className="movies">
@@ -29,9 +36,9 @@ const Movies = ({
       ></Header>
 
       <main className="saved-movies__content">
-        <SearchForm handleMovieSearch={handleMovieSearch}></SearchForm>
+        <SearchForm handleMovieSearch={onMovieSearch}></SearchForm>
         <MoviesCardList
-          movieCardList={movies}
+          movieCardList={filteredMovies}
           handleMovieSave={handleMovieSave}
         ></MoviesCardList>
       </main>
