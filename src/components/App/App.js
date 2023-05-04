@@ -46,7 +46,9 @@ function App() {
   const [savedMovies, setSavedMovies] = useState([]);
 
   // переменная состояния отфильтрованного пользователем массива с фильмами
-  const [filteredMovies, setFilteredMovies] = useState([]);
+  const [filteredMovies, setFilteredMovies] = useState(
+    JSON.parse(localStorage.getItem('filteredMovies')) || []
+  );
 
   // переменная состояния клика меню на мобильных разрешении
   const [isMenuClicked, setIsMenuClicked] = useState(false);
@@ -82,12 +84,14 @@ function App() {
   /////////////////////////////////////////////////////////////////////////
 
   // метод запроса к API для получения всех фильмов
-  const handleGetAllMovies = () => {
-    movieApi
+  const handleGetAllMovies = async () => {
+    return movieApi
       .getAllMovies()
 
       .then((allMovies) => {
         setMovies(allMovies);
+        console.log(1);
+        console.log('movies searched');
       })
 
       .catch((error) => {
@@ -98,29 +102,28 @@ function App() {
   /////////////////////////////////////////////////////////////////////////
 
   // метод обработки всех полученных фильмов фильтром пользователя
-  const handleMovieSearch = (filterText) => {
-    // сохраняем с локальное хранилище результат фильтрации
-    localStorage.setItem(
-      'filteredMovies',
-      JSON.stringify(handleUserMovieSearch(movies, filterText))
-    );
+  const handleMovieSearch = async (filterText) => {
+    if (movies.length === 0) {
+      await handleGetAllMovies();
+    }
 
-    // достаём из локального хранилища отфильтрованные фильмы
-    // и передаём их переменной filteredMovies
-    setFilteredMovies(JSON.parse(localStorage.getItem('filteredMovies')));
+    const filteredMovies = handleUserMovieSearch(movies, filterText);
+
+    localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
+    setFilteredMovies(filteredMovies);
   };
 
   /////////////////////////////////////////////////////////////////////////
   // метод обработки всех сохранённых фильмов фильтром пользователя
   const handleSavedMovieSearch = (filterText) => {
-    // сохраняем с локальное хранилище результат фильтрации
+    // сохраняем в локальное хранилище результат фильтрации
     localStorage.setItem(
       'filteredSavedMovies',
       JSON.stringify(handleUserMovieSearch(savedMovies, filterText))
     );
 
-    // достаём из локального хранилища отфильтрованные фильмы
-    // и передаём их переменной filteredMovies
+    // достаём из локального хранилища сохранённые отфильтрованные фильмы
+    // и передаём их переменной savedMovies
     setSavedMovies(JSON.parse(localStorage.getItem('filteredSavedMovies')));
   };
   /////////////////////////////////////////////////////////////////////////

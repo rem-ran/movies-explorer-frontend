@@ -20,7 +20,11 @@ class MovieApi {
     return fetch(`${this._url}`, {
       method: 'GET',
       headers: this._headers,
-    }).then(this._getResponseData);
+    })
+      .then(this._getResponseData)
+      .then((allMovies) => {
+        return allMovies;
+      });
   }
 }
 
