@@ -60,10 +60,6 @@ function App() {
 
   /////////////////////////////////////////////////////////////////////////
 
-  // useEffect(() => {
-  //   console.log(isSavedMoviesOpen);
-  // }, [isSavedMoviesOpen]);
-
   // получаем данные пользователя при первом рендеринге если пользователь авторизовался
   useEffect(() => {
     if (isLoggenIn) {
@@ -103,18 +99,29 @@ function App() {
 
   // метод обработки всех полученных фильмов фильтром пользователя
   const handleMovieSearch = (filterText) => {
-    console.log(filterText);
-    setFilteredMovies(handleUserMovieSearch(movies, filterText));
+    // сохраняем с локальное хранилище результат фильтрации
+    localStorage.setItem(
+      'filteredMovies',
+      JSON.stringify(handleUserMovieSearch(movies, filterText))
+    );
 
-    // localStorage.setItem('foundFilteredMovies', movies);
-    // console.log(movies);
+    // достаём из локального хранилища отфильтрованные фильмы
+    // и передаём их переменной filteredMovies
+    setFilteredMovies(JSON.parse(localStorage.getItem('filteredMovies')));
   };
 
   /////////////////////////////////////////////////////////////////////////
   // метод обработки всех сохранённых фильмов фильтром пользователя
   const handleSavedMovieSearch = (filterText) => {
-    console.log(filterText);
-    setSavedMovies(handleUserMovieSearch(savedMovies, filterText));
+    // сохраняем с локальное хранилище результат фильтрации
+    localStorage.setItem(
+      'filteredSavedMovies',
+      JSON.stringify(handleUserMovieSearch(savedMovies, filterText))
+    );
+
+    // достаём из локального хранилища отфильтрованные фильмы
+    // и передаём их переменной filteredMovies
+    setSavedMovies(JSON.parse(localStorage.getItem('filteredSavedMovies')));
   };
   /////////////////////////////////////////////////////////////////////////
 
@@ -259,7 +266,7 @@ function App() {
       .then(() => {
         localStorage.removeItem('jwt');
         setIsLoggenIn(false);
-        navigate('/signin');
+        navigate('/');
         console.log('signout ok');
       })
       .catch((error) => {

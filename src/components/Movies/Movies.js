@@ -21,7 +21,6 @@ const Movies = ({
 }) => {
   useEffect(() => {
     handleGetAllMovies();
-    // console.log(localStorage.getItem('foundFilteredMovies'));
   }, []);
 
   const onMovieSearch = (Inputtext) => {
