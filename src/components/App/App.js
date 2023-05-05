@@ -46,9 +46,7 @@ function App() {
   const [savedMovies, setSavedMovies] = useState([]);
 
   // переменная состояния отфильтрованного пользователем массива с фильмами
-  const [filteredMovies, setFilteredMovies] = useState(
-    JSON.parse(localStorage.getItem('filteredMovies')) || []
-  );
+  const [filteredMovies, setFilteredMovies] = useState([]);
 
   // переменная состояния клика меню на мобильных разрешении
   const [isMenuClicked, setIsMenuClicked] = useState(false);
@@ -106,11 +104,13 @@ function App() {
     if (movies.length === 0) {
       await handleGetAllMovies();
     }
+    console.log(2);
+    localStorage.setItem(
+      'filteredMovies',
+      JSON.stringify(handleUserMovieSearch(movies, filterText))
+    );
 
-    const filteredMovies = handleUserMovieSearch(movies, filterText);
-
-    localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
-    setFilteredMovies(filteredMovies);
+    setFilteredMovies(JSON.parse(localStorage.getItem('filteredMovies')));
   };
 
   /////////////////////////////////////////////////////////////////////////

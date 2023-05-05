@@ -19,8 +19,6 @@ const Movies = ({
   handleMovieSave,
   handleGetAllMovies,
 }) => {
-  // useEffect(() => {}, [filteredMovies]);
-
   const onMovieSearch = (Inputtext) => {
     handleMovieSearch(Inputtext);
   };

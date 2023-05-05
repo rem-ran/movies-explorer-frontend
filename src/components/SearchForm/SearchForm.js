@@ -10,16 +10,11 @@ const SearchForm = ({ handleMovieSearch }) => {
   };
 
   // метод обработки отправки формы
-  const onSearch = (e) => {
+  const onSearch = async (e) => {
     e.preventDefault();
-    handleMovieSearch(searchInputValue);
-    // localStorage.setItem('searchValue', searchInputValue);
+    await handleMovieSearch(searchInputValue);
   };
 
-  // useEffect(() => {
-  //   const searchInput = document.querySelector('.search__input');
-  //   searchInput.value = localStorage.getItem('searchValue');
-  // }, []);
   // начало JSX ///////////////////////////////////////////////////////////////
   return (
     <section className="search">
