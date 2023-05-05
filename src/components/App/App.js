@@ -101,7 +101,7 @@ function App() {
   /////////////////////////////////////////////////////////////////////////
 
   // метод обработки всех полученных фильмов фильтром пользователя
-  const handleMovieSearch = async (filterText, shorMovie) => {
+  const handleMovieSearch = async (filterText, shortMovieCheck) => {
     if (movies.length === 0) {
       console.log(1);
       await handleGetAllMovies();
@@ -114,7 +114,7 @@ function App() {
         handleUserMovieSearch(
           JSON.parse(localStorage.getItem('movies')),
           filterText,
-          shorMovie
+          shortMovieCheck
         )
       )
     );
@@ -124,12 +124,14 @@ function App() {
 
   /////////////////////////////////////////////////////////////////////////
   // метод обработки всех сохранённых фильмов фильтром пользователя
-  const handleSavedMovieSearch = (filterText, shorMovie) => {
+  const handleSavedMovieSearch = (filterText, shortMovieCheck) => {
     // сохраняем в локальное хранилище результат фильтрации
-    console.log(shorMovie);
+    // console.log(shortMovie);
     localStorage.setItem(
       'filteredSavedMovies',
-      JSON.stringify(handleUserMovieSearch(savedMovies, filterText, shorMovie))
+      JSON.stringify(
+        handleUserMovieSearch(savedMovies, filterText, shortMovieCheck)
+      )
     );
 
     // достаём из локального хранилища сохранённые отфильтрованные фильмы
@@ -139,7 +141,7 @@ function App() {
   /////////////////////////////////////////////////////////////////////////
 
   // метод фильтрования массива с фильмами по введённому пользователем тексту "filterText"
-  const handleUserMovieSearch = (moviesList, filterText, shorMovie) => {
+  const handleUserMovieSearch = (moviesList, filterText, shortMovieCheck) => {
     let resultList = moviesList.filter(
       (movie) =>
         // фильруем только по выборочным поля
@@ -150,7 +152,7 @@ function App() {
         movie.description.toLowerCase().includes(filterText)
     );
 
-    if (shorMovie) {
+    if (shortMovieCheck) {
       return resultList.filter((movie) => movie.duration <= 40);
     } else {
       return resultList;
@@ -349,7 +351,6 @@ function App() {
                   moviesListLength={movies.length}
                   handleMovieSearch={handleMovieSearch}
                   handleMovieSave={handleMovieSave}
-                  // handleShortFiltering={handleShortFiltering}
                 ></Movies>
               </ProtectedRoute>
             }

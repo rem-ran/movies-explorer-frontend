@@ -1,4 +1,5 @@
 // импорты
+import { useEffect, useState } from 'react';
 
 // импорт компонент
 import Header from '../Header/Header';
@@ -9,7 +10,6 @@ import Navigation from '../Navigation/Navigation';
 
 //импорт стилей
 import './Movies.css';
-import { useCallback, useEffect } from 'react';
 
 // компонет главной страницы с фильмами ////////////////////////////////////
 const Movies = ({
@@ -17,15 +17,31 @@ const Movies = ({
   filteredMovies,
   handleMovieSearch,
   handleMovieSave,
-  handleShortFiltering,
 }) => {
-  const onMovieSearch = (inputText, shorMovie) => {
-    handleMovieSearch(inputText, shorMovie);
+  // переменная состояния статуса фильтра короткометражных фильмов
+  const [shortMovieStatus, setShortMovieStatus] = useState(false);
+
+  // метод обработки передачи данных в вверхний компонент для поиска фильмов
+  const onMovieSearch = (inputText) => {
+    handleMovieSearch(inputText, shortMovieStatus);
   };
 
-  // const onShortFilter = (status) => {
-  //   handleShortFiltering(status);
-  // };
+  // метод обработки состояния чекбокса короткометражных фильмов при клике по нему
+  // и сохранения состояния в локальное хранилище
+  const handleShortMovieFilter = () => {
+    setShortMovieStatus((ch) => !ch);
+    localStorage.setItem('shortMovies', JSON.stringify(!shortMovieStatus));
+  };
+
+  // рендерим состояние кнопки при рендеринге компонента в зависимости от
+  // данных полученных из локального хранилища
+  useEffect(() => {
+    if (JSON.parse(localStorage.getItem('shortMovies')) === true) {
+      setShortMovieStatus(true);
+    } else {
+      setShortMovieStatus(false);
+    }
+  }, [shortMovieStatus]);
 
   // начало JSX ///////////////////////////////////////////////////
   return (
@@ -38,6 +54,8 @@ const Movies = ({
       <main className="saved-movies__content">
         <SearchForm
           handleMovieSearch={onMovieSearch}
+          handleShortMovieFilter={handleShortMovieFilter}
+          checkedStatus={shortMovieStatus}
           // handleShortFiltering={onShortFilter}
         ></SearchForm>
         <MoviesCardList

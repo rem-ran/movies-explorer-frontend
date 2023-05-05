@@ -1,11 +1,13 @@
 //импорт стилей
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './SearchForm.css';
 
-const SearchForm = ({ handleMovieSearch, handleShortFiltering }) => {
+const SearchForm = ({
+  handleMovieSearch,
+  checkedStatus,
+  handleShortMovieFilter,
+}) => {
   const [searchInputValue, setSearchInputValue] = useState('');
-
-  const [shorMovie, setShorMovie] = useState(false);
 
   const handleSearchValue = (e) => {
     setSearchInputValue(e.target.value.toLowerCase());
@@ -14,12 +16,7 @@ const SearchForm = ({ handleMovieSearch, handleShortFiltering }) => {
   // метод обработки отправки формы
   const onSearch = (e) => {
     e.preventDefault();
-    handleMovieSearch(searchInputValue, shorMovie);
-  };
-
-  const onCkeck = (e) => {
-    setShorMovie(e.target.checked);
-    // handleShortFiltering(e.target.checked);
+    handleMovieSearch(searchInputValue);
   };
 
   // начало JSX ///////////////////////////////////////////////////////////////
@@ -43,9 +40,10 @@ const SearchForm = ({ handleMovieSearch, handleShortFiltering }) => {
           <p className="search__filter-txt">Короткометражки</p>
           <label className="toogle-switch toogle-switch__container">
             <input
+              checked={checkedStatus}
               className="toogle-switch__ckeckbox"
               type="checkbox"
-              onClick={onCkeck}
+              onChange={handleShortMovieFilter}
             ></input>
             <span className="toogle-switch__slider"></span>
           </label>

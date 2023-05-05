@@ -1,4 +1,5 @@
 // импорты
+import { useEffect, useState } from 'react';
 
 //импорт компонент
 import Header from '../Header/Header';
@@ -9,7 +10,6 @@ import Footer from '../Footer/Footer';
 
 //импорт стилей
 import './SavedMovies.css';
-import { useEffect } from 'react';
 
 // компонент страницы с сохранёнными фильмами //////////////////////////
 const SavedMovies = ({
@@ -21,6 +21,29 @@ const SavedMovies = ({
   handleSavedMovieSearch,
   savedMovies,
 }) => {
+  // переменная состояния статуса фильтра короткометражных фильмов
+  const [shortSavedMovieStatus, setShortSavedMovieStatus] = useState(false);
+
+  // метод обработки состояния чекбокса короткометражных фильмов при клике по нему
+  // и сохранения состояния в локальное хранилище
+  const handleShortMovieFilter = () => {
+    setShortSavedMovieStatus((ch) => !ch);
+    localStorage.setItem(
+      'shortSavedMovies',
+      JSON.stringify(!shortSavedMovieStatus)
+    );
+  };
+
+  // рендерим состояние кнопки при рендеринге компонента в зависимости от
+  // данных полученных из локального хранилища
+  useEffect(() => {
+    if (JSON.parse(localStorage.getItem('shortSavedMovies')) === true) {
+      setShortSavedMovieStatus(true);
+    } else {
+      setShortSavedMovieStatus(false);
+    }
+  }, [shortSavedMovieStatus]);
+
   // получаем фильмы через Api и меняем состояние открытой страницы с
   // сохранёнными фильмами при рендеринге страницы
   useEffect(() => {
@@ -29,8 +52,9 @@ const SavedMovies = ({
     handleSavedMoviesOpen();
   }, []);
 
-  const onSavedMovieSearch = (Inputtext, shorMovie) => {
-    handleSavedMovieSearch(Inputtext, shorMovie);
+  // метод обработки передачи данных в вверхний компонент для поиска фильмов
+  const onSavedMovieSearch = (inputText) => {
+    handleSavedMovieSearch(inputText, shortSavedMovieStatus);
   };
 
   return (
@@ -41,7 +65,11 @@ const SavedMovies = ({
         links={<Navigation></Navigation>}
       ></Header>
       <main className="saved-movies__content">
-        <SearchForm handleMovieSearch={onSavedMovieSearch}></SearchForm>
+        <SearchForm
+          handleMovieSearch={onSavedMovieSearch}
+          handleShortMovieFilter={handleShortMovieFilter}
+          checkedStatus={shortSavedMovieStatus}
+        ></SearchForm>
         <MoviesCardList
           movieCardList={savedMovies}
           handleMovieDelete={handleMovieDelete}
