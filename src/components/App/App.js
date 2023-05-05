@@ -87,11 +87,13 @@ function App() {
       .getAllMovies()
 
       .then((allMovies) => {
-        setMovies(allMovies);
-        console.log(1);
-        console.log('movies searched');
+        if (allMovies) {
+          setMovies((allMovies) => console.log(allMovies));
+          console.log(2);
+          // console.log('movies searched');
+          console.log(movies);
+        }
       })
-
       .catch((error) => {
         console.log(`Ошибка при загрузки фильмов с сервера: ${error}`);
       });
@@ -101,16 +103,18 @@ function App() {
 
   // метод обработки всех полученных фильмов фильтром пользователя
   const handleMovieSearch = async (filterText) => {
-    if (movies.length === 0) {
-      await handleGetAllMovies();
-    }
-    console.log(2);
+    // if (movies.length === 0) {
+    console.log(1);
+    await handleGetAllMovies();
+
+    console.log(movies);
     localStorage.setItem(
       'filteredMovies',
       JSON.stringify(handleUserMovieSearch(movies, filterText))
     );
 
     setFilteredMovies(JSON.parse(localStorage.getItem('filteredMovies')));
+    console.log(3);
   };
 
   /////////////////////////////////////////////////////////////////////////
@@ -198,8 +202,9 @@ function App() {
     mainApi
       .getAllSavedMovies()
 
-      .then((savedMovies) => {
-        setSavedMovies(savedMovies);
+      .then((userSavedMovies) => {
+        setSavedMovies(userSavedMovies);
+        console.log(savedMovies);
         console.log('saved movies received ok');
       })
 

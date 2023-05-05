@@ -25,6 +25,7 @@ const SavedMovies = ({
   // сохранёнными фильмами при рендеринге страницы
   useEffect(() => {
     handleGetSavedMovie();
+
     handleSavedMoviesOpen();
   }, []);
 

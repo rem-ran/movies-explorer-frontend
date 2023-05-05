@@ -10,9 +10,9 @@ const SearchForm = ({ handleMovieSearch }) => {
   };
 
   // метод обработки отправки формы
-  const onSearch = async (e) => {
+  const onSearch = (e) => {
     e.preventDefault();
-    await handleMovieSearch(searchInputValue);
+    handleMovieSearch(searchInputValue);
   };
 
   // начало JSX ///////////////////////////////////////////////////////////////

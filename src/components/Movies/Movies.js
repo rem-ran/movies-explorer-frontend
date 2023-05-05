@@ -19,8 +19,11 @@ const Movies = ({
   handleMovieSave,
   handleGetAllMovies,
 }) => {
-  const onMovieSearch = (Inputtext) => {
-    handleMovieSearch(Inputtext);
+  // useEffect(() => {
+  //   handleGetAllMovies();
+  // }, []);
+  const onMovieSearch = (inputText) => {
+    handleMovieSearch(inputText);
   };
   // начало JSX ///////////////////////////////////////////////////
   return (
