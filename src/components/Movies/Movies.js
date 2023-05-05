@@ -9,7 +9,7 @@ import Navigation from '../Navigation/Navigation';
 
 //импорт стилей
 import './Movies.css';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 
 // компонет главной страницы с фильмами ////////////////////////////////////
 const Movies = ({
@@ -17,14 +17,14 @@ const Movies = ({
   filteredMovies,
   handleMovieSearch,
   handleMovieSave,
-  handleGetAllMovies,
 }) => {
-  // useEffect(() => {
-  //   handleGetAllMovies();
-  // }, []);
-  const onMovieSearch = (inputText) => {
-    handleMovieSearch(inputText);
-  };
+  const onMovieSearch = useCallback(
+    (inputText) => {
+      handleMovieSearch(inputText);
+    },
+    [handleMovieSearch]
+  );
+
   // начало JSX ///////////////////////////////////////////////////
   return (
     <div className="movies">

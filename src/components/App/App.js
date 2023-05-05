@@ -88,10 +88,9 @@ function App() {
 
       .then((allMovies) => {
         if (allMovies) {
-          setMovies((allMovies) => console.log(allMovies));
+          setMovies((prevMovies) => [...prevMovies, ...allMovies]);
+          localStorage.setItem('movies', JSON.stringify(allMovies));
           console.log(2);
-          // console.log('movies searched');
-          console.log(movies);
         }
       })
       .catch((error) => {
@@ -103,18 +102,23 @@ function App() {
 
   // метод обработки всех полученных фильмов фильтром пользователя
   const handleMovieSearch = async (filterText) => {
-    // if (movies.length === 0) {
-    console.log(1);
-    await handleGetAllMovies();
+    if (movies.length === 0) {
+      console.log(1);
+      await handleGetAllMovies();
+    }
+    console.log(3);
 
-    console.log(movies);
     localStorage.setItem(
       'filteredMovies',
-      JSON.stringify(handleUserMovieSearch(movies, filterText))
+      JSON.stringify(
+        handleUserMovieSearch(
+          JSON.parse(localStorage.getItem('movies')),
+          filterText
+        )
+      )
     );
 
     setFilteredMovies(JSON.parse(localStorage.getItem('filteredMovies')));
-    console.log(3);
   };
 
   /////////////////////////////////////////////////////////////////////////
@@ -204,7 +208,6 @@ function App() {
 
       .then((userSavedMovies) => {
         setSavedMovies(userSavedMovies);
-        console.log(savedMovies);
         console.log('saved movies received ok');
       })
 
@@ -338,7 +341,6 @@ function App() {
                   moviesListLength={movies.length}
                   handleMovieSearch={handleMovieSearch}
                   handleMovieSave={handleMovieSave}
-                  handleGetAllMovies={handleGetAllMovies}
                 ></Movies>
               </ProtectedRoute>
             }

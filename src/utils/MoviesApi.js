@@ -16,13 +16,14 @@ class MovieApi {
   }
 
   //получить список всех фильмов в виде массива
-  async getAllMovies() {
-    const res = await fetch(`${this._url}`, {
+  getAllMovies() {
+    return fetch(`${this._url}`, {
       method: 'GET',
       headers: this._headers,
-    });
-    const allMovies = await this._getResponseData(res);
-    return allMovies;
+    }).then(this._getResponseData);
+    // .then((allMovies) => {
+    //   return allMovies;
+    // });
   }
 }
 
