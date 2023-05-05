@@ -101,7 +101,7 @@ function App() {
   /////////////////////////////////////////////////////////////////////////
 
   // метод обработки всех полученных фильмов фильтром пользователя
-  const handleMovieSearch = async (filterText) => {
+  const handleMovieSearch = async (filterText, shorMovie) => {
     if (movies.length === 0) {
       console.log(1);
       await handleGetAllMovies();
@@ -113,7 +113,8 @@ function App() {
       JSON.stringify(
         handleUserMovieSearch(
           JSON.parse(localStorage.getItem('movies')),
-          filterText
+          filterText,
+          shorMovie
         )
       )
     );
@@ -123,11 +124,12 @@ function App() {
 
   /////////////////////////////////////////////////////////////////////////
   // метод обработки всех сохранённых фильмов фильтром пользователя
-  const handleSavedMovieSearch = (filterText) => {
+  const handleSavedMovieSearch = (filterText, shorMovie) => {
     // сохраняем в локальное хранилище результат фильтрации
+    console.log(shorMovie);
     localStorage.setItem(
       'filteredSavedMovies',
-      JSON.stringify(handleUserMovieSearch(savedMovies, filterText))
+      JSON.stringify(handleUserMovieSearch(savedMovies, filterText, shorMovie))
     );
 
     // достаём из локального хранилища сохранённые отфильтрованные фильмы
@@ -137,16 +139,22 @@ function App() {
   /////////////////////////////////////////////////////////////////////////
 
   // метод фильтрования массива с фильмами по введённому пользователем тексту "filterText"
-  const handleUserMovieSearch = (moviesList, filterText) => {
-    return moviesList.filter(
-      (obj) =>
+  const handleUserMovieSearch = (moviesList, filterText, shorMovie) => {
+    let resultList = moviesList.filter(
+      (movie) =>
         // фильруем только по выборочным поля
-        obj.nameRU.toLowerCase().includes(filterText) ||
-        obj.nameEN.toLowerCase().includes(filterText) ||
-        obj.director.toLowerCase().includes(filterText) ||
-        obj.country.toLowerCase().includes(filterText) ||
-        obj.description.toLowerCase().includes(filterText)
+        movie.nameRU.toLowerCase().includes(filterText) ||
+        movie.nameEN.toLowerCase().includes(filterText) ||
+        movie.director.toLowerCase().includes(filterText) ||
+        movie.country.toLowerCase().includes(filterText) ||
+        movie.description.toLowerCase().includes(filterText)
     );
+
+    if (shorMovie) {
+      return resultList.filter((movie) => movie.duration <= 40);
+    } else {
+      return resultList;
+    }
   };
 
   /////////////////////////////////////////////////////////////////////////
@@ -341,6 +349,7 @@ function App() {
                   moviesListLength={movies.length}
                   handleMovieSearch={handleMovieSearch}
                   handleMovieSave={handleMovieSave}
+                  // handleShortFiltering={handleShortFiltering}
                 ></Movies>
               </ProtectedRoute>
             }

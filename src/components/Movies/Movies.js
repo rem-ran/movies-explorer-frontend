@@ -17,13 +17,15 @@ const Movies = ({
   filteredMovies,
   handleMovieSearch,
   handleMovieSave,
+  handleShortFiltering,
 }) => {
-  const onMovieSearch = useCallback(
-    (inputText) => {
-      handleMovieSearch(inputText);
-    },
-    [handleMovieSearch]
-  );
+  const onMovieSearch = (inputText, shorMovie) => {
+    handleMovieSearch(inputText, shorMovie);
+  };
+
+  // const onShortFilter = (status) => {
+  //   handleShortFiltering(status);
+  // };
 
   // начало JSX ///////////////////////////////////////////////////
   return (
@@ -34,7 +36,10 @@ const Movies = ({
       ></Header>
 
       <main className="saved-movies__content">
-        <SearchForm handleMovieSearch={onMovieSearch}></SearchForm>
+        <SearchForm
+          handleMovieSearch={onMovieSearch}
+          // handleShortFiltering={onShortFilter}
+        ></SearchForm>
         <MoviesCardList
           movieCardList={filteredMovies}
           handleMovieSave={handleMovieSave}

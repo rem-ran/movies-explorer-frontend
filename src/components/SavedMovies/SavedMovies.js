@@ -29,8 +29,8 @@ const SavedMovies = ({
     handleSavedMoviesOpen();
   }, []);
 
-  const onSavedMovieSearch = (Inputtext) => {
-    handleSavedMovieSearch(Inputtext);
+  const onSavedMovieSearch = (Inputtext, shorMovie) => {
+    handleSavedMovieSearch(Inputtext, shorMovie);
   };
 
   return (
