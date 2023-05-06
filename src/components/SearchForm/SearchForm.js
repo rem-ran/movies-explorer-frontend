@@ -16,7 +16,7 @@ const SearchForm = ({
 }) => {
   /////////////////////////////////////////////////////////////////////////
 
-  const location = useLocation();
+  const { pathname } = useLocation();
 
   // подключаем контекст пользователя
   const currentUser = useContext(CurrentUserContext);
@@ -41,7 +41,7 @@ const SearchForm = ({
     const movieSearchInputValue = localStorage.getItem(
       `${currentUser._id}-movieSearchInputValue`
     );
-    if (location.pathname === '/movies' && movieSearchInputValue) {
+    if (pathname === '/movies' && movieSearchInputValue) {
       setSearchInputValue(movieSearchInputValue);
     }
   }, [currentUser]);

@@ -27,7 +27,7 @@ const MoviesCard = ({
 }) => {
   /////////////////////////////////////////////////////////////////////////
 
-  const location = useLocation();
+  const { pathname } = useLocation();
 
   /////////////////////////////////////////////////////////////////////////
 
@@ -74,7 +74,7 @@ const MoviesCard = ({
         <div className="movie__name-box">
           <p className="movie__heading">{nameRU}</p>
           {/* подставляем кнопку в зависимости от текущего рута */}
-          {location.pathname === '/movies' ? (
+          {pathname === '/movies' ? (
             // кнопка лайка\удаления
             <button
               className={`movie__like-btn ${

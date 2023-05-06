@@ -69,17 +69,9 @@ const MoviesCardList = ({
     setCardLimit(cardLimit + cardsToAdd);
   };
 
-  // useEffect(() => {
-  //   console.log('tut');
-  //   console.log(movieCardList);
-  // });
-
+  // метод проверки еслть ли найденный фильм в сохранённых пользователем фильмах
   const isLiked = (movie) => {
-    console.log(
-      movieCardList.find((m) => {
-        return m.id === movie.movieId;
-      })
-    );
+    return savedMovies.find((savedMovie) => savedMovie.movieId === movie.id);
   };
 
   // начало JSX ////////////////////////////////////////////////////////////

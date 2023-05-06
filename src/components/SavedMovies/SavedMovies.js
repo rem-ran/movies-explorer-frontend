@@ -52,6 +52,7 @@ const SavedMovies = ({
         <MoviesCardList
           movieCardList={savedMovies}
           handleMovieDelete={handleMovieDelete}
+          savedMovies={savedMovies}
         ></MoviesCardList>
       </main>
 
