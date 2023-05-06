@@ -52,9 +52,7 @@ function App() {
   const [savedMovies, setSavedMovies] = useState([]);
 
   // переменная состояния отфильтрованного пользователем массива с фильмами
-  const [filteredMovies, setFilteredMovies] = useState(
-    JSON.parse(localStorage.getItem('filteredMovies')) || []
-  );
+  const [filteredMovies, setFilteredMovies] = useState([]);
 
   // переменная состояния клика меню на мобильных разрешении
   const [isMenuClicked, setIsMenuClicked] = useState(false);
@@ -90,7 +88,10 @@ function App() {
       .then((allMovies) => {
         if (allMovies) {
           setMovies((prevMovies) => [...prevMovies, ...allMovies]);
-          localStorage.setItem('movies', JSON.stringify(allMovies));
+          localStorage.setItem(
+            `${currentUser._id}-movies`,
+            JSON.stringify(allMovies)
+          );
         }
       })
       .catch((error) => {
@@ -110,10 +111,10 @@ function App() {
 
     // сохраняем в локальное хранилище результат фильтрации
     localStorage.setItem(
-      'filteredMovies',
+      `${currentUser._id}-filteredMovies`,
       JSON.stringify(
         handleUserMovieSearch(
-          JSON.parse(localStorage.getItem('movies')),
+          JSON.parse(localStorage.getItem(`${currentUser._id}-movies`)),
           filterText,
           shortMovieCheck
         )
@@ -122,15 +123,30 @@ function App() {
 
     // достаём из локального хранилища сохранённые отфильтрованные фильмы
     // и передаём их переменной filteredMovies
-    setFilteredMovies(JSON.parse(localStorage.getItem('filteredMovies')));
+    setFilteredMovies(
+      JSON.parse(localStorage.getItem(`${currentUser._id}-filteredMovies`))
+    );
   };
+
+  /////////////////////////////////////////////////////////////////////////
+
+  // рендерим filteredMovies в зависимости от изменения данных currentUser
+  useEffect(() => {
+    const filtMov = JSON.parse(
+      localStorage.getItem(`${currentUser._id}-filteredMovies`)
+    );
+    if (filtMov) {
+      setFilteredMovies(filtMov);
+    }
+    console.log('rendered');
+  }, [currentUser]);
 
   /////////////////////////////////////////////////////////////////////////
   // метод обработки всех сохранённых фильмов фильтром пользователя
   const handleSavedMovieSearch = (filterText, shortMovieCheck) => {
     // сохраняем в локальное хранилище результат фильтрации
     localStorage.setItem(
-      'filteredSavedMovies',
+      `${currentUser._id}-filteredSavedMovies`,
       JSON.stringify(
         handleUserMovieSearch(savedMovies, filterText, shortMovieCheck)
       )
@@ -138,7 +154,9 @@ function App() {
 
     // достаём из локального хранилища сохранённые отфильтрованные фильмы
     // и передаём их переменной savedMovies
-    setSavedMovies(JSON.parse(localStorage.getItem('filteredSavedMovies')));
+    setSavedMovies(
+      JSON.parse(localStorage.getItem(`${currentUser._id}-filteredSavedMovies`))
+    );
   };
   /////////////////////////////////////////////////////////////////////////
 
@@ -283,6 +301,10 @@ function App() {
       .logout()
       .then(() => {
         localStorage.removeItem('jwt');
+        localStorage.clear();
+        setCurrentUser({});
+        setMovies([]);
+        setFilteredMovies([]);
         setIsLoggenIn(false);
         navigate('/');
         console.log('signout ok');

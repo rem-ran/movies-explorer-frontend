@@ -1,6 +1,9 @@
 // импорты
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+
+// импорт контекста пользователя
+import { CurrentUserContext } from '../../context/CurrentUserContext';
 
 // импорт стилей
 import './SearchForm.css';
@@ -12,7 +15,11 @@ const SearchForm = ({
   handleShortMovieFilter,
 }) => {
   /////////////////////////////////////////////////////////////////////////
+
   const location = useLocation();
+
+  // подключаем контекст пользователя
+  const currentUser = useContext(CurrentUserContext);
 
   // переменная состояния введённого текста в инпут
   const [searchInputValue, setSearchInputValue] = useState('');
@@ -31,11 +38,13 @@ const SearchForm = ({
   // проверяем на какой мы странице, используя location.pathname и отображаем
   // введённый ранее текст запроса при рендере страницы, если он есть
   useEffect(() => {
-    const movieSearchInputValue = localStorage.getItem('movieSearchInputValue');
+    const movieSearchInputValue = localStorage.getItem(
+      `${currentUser._id}-movieSearchInputValue`
+    );
     if (location.pathname === '/movies' && movieSearchInputValue) {
       setSearchInputValue(movieSearchInputValue);
     }
-  }, []);
+  }, [currentUser]);
 
   // начало JSX ///////////////////////////////////////////////////////////////
   return (

@@ -1,5 +1,8 @@
 // импорты
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+
+// импорт контекста пользователя
+import { CurrentUserContext } from '../../context/CurrentUserContext';
 
 // импорт компонент
 import Header from '../Header/Header';
@@ -20,12 +23,15 @@ const Movies = ({
 }) => {
   /////////////////////////////////////////////////////////////////////////
 
+  // подключаем контекст пользователя
+  const currentUser = useContext(CurrentUserContext);
+
   // переменная состояния статуса фильтра короткометражных фильмов
   const [shortMovieStatus, setShortMovieStatus] = useState(false);
 
   // метод обработки передачи данных в вверхний компонент для поиска фильмов
   const onMovieSearch = (inputText) => {
-    localStorage.setItem('movieSearchInputValue', inputText);
+    localStorage.setItem(`${currentUser._id}-movieSearchInputValue`, inputText);
     handleMovieSearch(inputText, shortMovieStatus);
   };
 
@@ -33,18 +39,24 @@ const Movies = ({
   // и сохранения состояния в локальное хранилище
   const handleShortMovieFilter = () => {
     setShortMovieStatus((ch) => !ch);
-    localStorage.setItem('shortMovies', JSON.stringify(!shortMovieStatus));
+    localStorage.setItem(
+      `${currentUser._id}-shortMovies`,
+      JSON.stringify(!shortMovieStatus)
+    );
   };
 
   // рендерим состояние кнопки при рендеринге компонента в зависимости от
   // данных полученных из локального хранилища
   useEffect(() => {
-    if (JSON.parse(localStorage.getItem('shortMovies')) === true) {
+    if (
+      JSON.parse(localStorage.getItem(`${currentUser._id}-shortMovies`)) ===
+      true
+    ) {
       setShortMovieStatus(true);
     } else {
       setShortMovieStatus(false);
     }
-  }, [shortMovieStatus]);
+  }, [shortMovieStatus, currentUser]);
 
   // начало JSX ///////////////////////////////////////////////////
   return (
@@ -59,7 +71,6 @@ const Movies = ({
           handleMovieSearch={onMovieSearch}
           handleShortMovieFilter={handleShortMovieFilter}
           checkedStatus={shortMovieStatus}
-          // handleShortFiltering={onShortFilter}
         ></SearchForm>
         <MoviesCardList
           movieCardList={filteredMovies}
