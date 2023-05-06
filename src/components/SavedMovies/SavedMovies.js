@@ -14,7 +14,6 @@ import './SavedMovies.css';
 // компонент страницы с сохранёнными фильмами //////////////////////////
 const SavedMovies = ({
   handleOpenMenu,
-  handleGetSavedMovie,
   handleMovieDelete,
   handleSavedMovieSearch,
   savedMovies,
@@ -30,13 +29,6 @@ const SavedMovies = ({
   const handleShortMovieFilter = () => {
     setShortSavedMovieStatus((ch) => !ch);
   };
-
-  /////////////////////////////////////////////////////////////////////////
-
-  // получаем фильмы через Api при каждом рендеринге страницы
-  useEffect(() => {
-    handleGetSavedMovie();
-  }, []);
 
   /////////////////////////////////////////////////////////////////////////
 

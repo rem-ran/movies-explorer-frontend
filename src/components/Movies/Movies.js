@@ -20,6 +20,7 @@ const Movies = ({
   filteredMovies,
   handleMovieSearch,
   handleMovieSave,
+  savedMovies,
 }) => {
   /////////////////////////////////////////////////////////////////////////
 
@@ -75,6 +76,7 @@ const Movies = ({
         <MoviesCardList
           movieCardList={filteredMovies}
           handleMovieSave={handleMovieSave}
+          savedMovies={savedMovies}
         ></MoviesCardList>
       </main>
 

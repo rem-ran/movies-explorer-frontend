@@ -27,6 +27,7 @@ const MoviesCardList = ({
   moviesListLength,
   handleMovieSave,
   handleMovieDelete,
+  savedMovies,
 }) => {
   const [width] = useWindowSize();
 
@@ -39,6 +40,13 @@ const MoviesCardList = ({
   // переменная состояния рендеринга всех имеющихся карточек
   const [allCardsRendered, setAllCardsRendered] = useState(false);
 
+  // метод обработки количества карточек к рендерингу
+  const setCardRenderAmount = (toAdd, initial) => {
+    setCardsToAdd(toAdd);
+    setCardLimit(initial);
+  };
+
+  // следим за шириной экрана и выставляем количество фильмов для рендеринга
   useEffect(() => {
     if (width < 768) {
       setCardRenderAmount(2, 5);
@@ -56,15 +64,22 @@ const MoviesCardList = ({
     }
   }, [cardLimit]);
 
-  // метод обработки количества карточек к рендерингу
-  const setCardRenderAmount = (toAdd, initial) => {
-    setCardsToAdd(toAdd);
-    setCardLimit(initial);
-  };
-
   // метод обработки клика на кнопку "Ещё"
   const handleMoreClick = () => {
     setCardLimit(cardLimit + cardsToAdd);
+  };
+
+  // useEffect(() => {
+  //   console.log('tut');
+  //   console.log(movieCardList);
+  // });
+
+  const isLiked = (movie) => {
+    console.log(
+      movieCardList.find((m) => {
+        return m.id === movie.movieId;
+      })
+    );
   };
 
   // начало JSX ////////////////////////////////////////////////////////////
@@ -75,6 +90,7 @@ const MoviesCardList = ({
           <MoviesCard
             key={movie.id || movie.movieId}
             {...movie}
+            isLiked={isLiked(movie)}
             handleMovieSave={handleMovieSave}
             handleMovieDelete={handleMovieDelete}
           />

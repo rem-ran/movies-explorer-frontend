@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 
 // импорт констант
 import { moviesUrl } from '../../utils/constants';
+import { calculateTiming } from '../../utils/utils';
 
 // импорт стилей
 import './MoviesCard.css';
@@ -22,17 +23,11 @@ const MoviesCard = ({
   _id,
   handleMovieSave,
   handleMovieDelete,
+  isLiked,
 }) => {
   /////////////////////////////////////////////////////////////////////////
 
   const location = useLocation();
-
-  /////////////////////////////////////////////////////////////////////////
-
-  //метод подсчёта времени в часа и минутах
-  const calculateTiming = (minutes) => {
-    return `${Math.floor(minutes / 60)}ч ${minutes % 60}м`;
-  };
 
   /////////////////////////////////////////////////////////////////////////
 
@@ -63,14 +58,9 @@ const MoviesCard = ({
 
   /////////////////////////////////////////////////////////////////////////
 
-  // метод выбора обработки клака по кнопке лайка или удаления карточки
-  // в зависимости от открыто /movies или /saved-movies
-  const movieBtnClick = (ev) => {
-    if (location.pathname === '/saved-movies') {
-      handleMovieDelete(_id);
-    } else {
-      handleLikeClick(ev);
-    }
+  // метод обработки удаления удаления фильма
+  const onMovieDelete = () => {
+    handleMovieDelete(_id);
   };
 
   return (
@@ -83,15 +73,27 @@ const MoviesCard = ({
       <div className="movie__text-box">
         <div className="movie__name-box">
           <p className="movie__heading">{nameRU}</p>
-          <button
-            className={`movie__like-btn ${
-              location.pathname === '/saved-movies' &&
-              'movie__like-btn_type_delete'
-            }`}
-            aria-label="Like"
-            type="button"
-            onClick={movieBtnClick}
-          />
+          {/* подставляем кнопку в зависимости от текущего рута */}
+          {location.pathname === '/movies' ? (
+            // кнопка лайка\удаления
+            <button
+              className={`movie__like-btn ${
+                isLiked && 'movie__like-btn_active'
+              }`}
+              aria-label="Like"
+              type="button"
+              onClick={handleLikeClick}
+            />
+          ) : (
+            // кнопка удаления
+            <button
+              className="movie__like-btn 
+                movie__like-btn_type_delete"
+              aria-label="Delete"
+              type="button"
+              onClick={onMovieDelete}
+            />
+          )}
         </div>
         <span className="movie__duration">{calculateTiming(duration)}</span>
       </div>

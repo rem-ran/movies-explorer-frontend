@@ -21,9 +21,6 @@ class MovieApi {
       method: 'GET',
       headers: this._headers,
     }).then(this._getResponseData);
-    // .then((allMovies) => {
-    //   return allMovies;
-    // });
   }
 }
 

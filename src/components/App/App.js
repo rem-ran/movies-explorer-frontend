@@ -1,11 +1,11 @@
 // импорты
 import { useEffect, useState } from 'react';
 import {
-  Routes,
   Route,
+  Routes,
+  Navigate,
   useNavigate,
   useLocation,
-  Navigate,
 } from 'react-router-dom';
 
 // импортируем контекст пользователя
@@ -13,18 +13,18 @@ import { CurrentUserContext } from '../../context/CurrentUserContext';
 
 // импорт компонент
 import Main from '../Main/Main';
+import Login from '../Login/Login';
 import Movies from '../Movies/Movies';
 import Profile from '../Profile/Profile';
-import SavedMovies from '../SavedMovies/SavedMovies';
-import Login from '../Login/Login';
 import Register from '../Register/Register';
 import MenuPopup from '../MenuPopup/MenuPopup';
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import SavedMovies from '../SavedMovies/SavedMovies';
 import PageNotFound from '../PageNotFound/PageNotFound';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 // импорт Api
-import movieApi from '../../utils/MoviesApi';
 import mainApi from '../../utils/MainApi';
+import movieApi from '../../utils/MoviesApi';
 import userAuthApi from '../../utils/UserAuthApi';
 
 // импорт стилей
@@ -59,24 +59,28 @@ function App() {
 
   /////////////////////////////////////////////////////////////////////////
 
-  // получаем данные пользователя при первом рендеринге если пользователь авторизовался
-  useEffect(() => {
-    if (isLoggenIn) {
-      //запрос на получение данных пользователя
-      mainApi
-        .getUserInfo()
+  // метод обработки состояния клика меню на мобильном разрешении
+  const handleOpenMenu = () => {
+    setIsMenuClicked((open) => !open);
+  };
 
-        .then((userData) => {
-          setCurrentUser(userData);
-        })
+  /////////////////////////////////////////////////////////////////////////
 
-        .catch((error) => {
-          console.log(
-            `Ошибка при начальной загрузки информации пользователя с сервера: ${error}`
-          );
-        });
-    }
-  }, [isLoggenIn]);
+  // метод получения получения данных пользователя с сервера
+  const handleGetUserInfo = () => {
+    mainApi
+      .getUserInfo()
+
+      .then((userData) => {
+        setCurrentUser(userData);
+      })
+
+      .catch((error) => {
+        console.log(
+          `Ошибка при начальной загрузки информации пользователя с сервера: ${error}`
+        );
+      });
+  };
 
   /////////////////////////////////////////////////////////////////////////
 
@@ -129,19 +133,6 @@ function App() {
   };
 
   /////////////////////////////////////////////////////////////////////////
-
-  // рендерим filteredMovies в зависимости от изменения данных currentUser
-  useEffect(() => {
-    const filtMov = JSON.parse(
-      localStorage.getItem(`${currentUser._id}-filteredMovies`)
-    );
-    if (filtMov) {
-      setFilteredMovies(filtMov);
-    }
-    console.log('rendered');
-  }, [currentUser]);
-
-  /////////////////////////////////////////////////////////////////////////
   // метод обработки всех сохранённых фильмов фильтром пользователя
   const handleSavedMovieSearch = (filterText, shortMovieCheck) => {
     // сохраняем в локальное хранилище результат фильтрации
@@ -183,25 +174,29 @@ function App() {
 
   /////////////////////////////////////////////////////////////////////////
 
-  // метод обработки состояния клика меню на мобильном разрешении
-  const handleOpenMenu = () => {
-    setIsMenuClicked((open) => !open);
-  };
-
-  /////////////////////////////////////////////////////////////////////////
-
   // метод запроса к API для обработки сохранения фильма пользователем
   const handleMovieSave = (movie) => {
-    mainApi
-      .saveMovie(movie)
+    // сохраняем фильм только если такого фильма уже нет в списке сохранённых
+    const alreadySaveMovie = savedMovies.find(
+      (m) => m.movieId === movie.movieId
+    );
+    console.log(alreadySaveMovie);
+    if (!alreadySaveMovie) {
+      mainApi
+        .saveMovie(movie)
 
-      .then(() => {
-        console.log('movie save ok');
-      })
+        .then((newSavedMovie) => {
+          setSavedMovies([newSavedMovie, ...savedMovies]);
+        })
 
-      .catch((error) => {
-        console.log(`Ошибка при сохранении фильма: ${error}`);
-      });
+        .then(() => {
+          console.log('movie save ok');
+        })
+
+        .catch((error) => {
+          console.log(`Ошибка при сохранении фильма: ${error}`);
+        });
+    }
   };
 
   /////////////////////////////////////////////////////////////////////////
@@ -232,7 +227,7 @@ function App() {
       .getAllSavedMovies()
 
       .then((userSavedMovies) => {
-        setSavedMovies(userSavedMovies);
+        setSavedMovies(userSavedMovies.reverse());
         console.log('saved movies received ok');
       })
 
@@ -340,10 +335,35 @@ function App() {
 
   /////////////////////////////////////////////////////////////////////////
 
+  // получаем данные пользователя и загружаем сохранённые пользователем фильмы
+  // при первом рендеринге если авторизовался
+  useEffect(() => {
+    if (isLoggenIn) {
+      handleGetUserInfo();
+
+      handleGetSavedMovie();
+    }
+  }, [isLoggenIn]);
+
+  /////////////////////////////////////////////////////////////////////////
+
   // вызываем метод проверки токенов при первичном рендеринге
   useEffect(() => {
     handleTokenCheck();
   }, []);
+
+  /////////////////////////////////////////////////////////////////////////
+
+  // рендерим filteredMovies в зависимости от изменения данных currentUser
+  useEffect(() => {
+    const filtMov = JSON.parse(
+      localStorage.getItem(`${currentUser._id}-filteredMovies`)
+    );
+    if (filtMov) {
+      setFilteredMovies(filtMov);
+    }
+    console.log('rendered');
+  }, [currentUser]);
 
   // начало JSX ////////////////////////////////////////////////////////////
   return (
@@ -372,6 +392,7 @@ function App() {
                   moviesListLength={movies.length}
                   handleMovieSearch={handleMovieSearch}
                   handleMovieSave={handleMovieSave}
+                  savedMovies={savedMovies}
                 ></Movies>
               </ProtectedRoute>
             }
@@ -384,7 +405,6 @@ function App() {
               <ProtectedRoute isLoggenIn={isLoggenIn}>
                 <SavedMovies
                   handleOpenMenu={handleOpenMenu}
-                  handleGetSavedMovie={handleGetSavedMovie}
                   handleMovieDelete={handleMovieDelete}
                   handleSavedMovieSearch={handleSavedMovieSearch}
                   savedMovies={savedMovies}
