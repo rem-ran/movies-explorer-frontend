@@ -52,14 +52,12 @@ function App() {
   const [savedMovies, setSavedMovies] = useState([]);
 
   // переменная состояния отфильтрованного пользователем массива с фильмами
-  const [filteredMovies, setFilteredMovies] = useState([]);
+  const [filteredMovies, setFilteredMovies] = useState(
+    JSON.parse(localStorage.getItem('filteredMovies')) || []
+  );
 
   // переменная состояния клика меню на мобильных разрешении
   const [isMenuClicked, setIsMenuClicked] = useState(false);
-
-  const [searchInputMovies, setSearchInputMovies] = useState('');
-
-  const [searchInputSavedMovies, setSearchInputSavedMovies] = useState('');
 
   /////////////////////////////////////////////////////////////////////////
 
