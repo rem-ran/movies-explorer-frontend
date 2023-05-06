@@ -244,7 +244,7 @@ function App() {
   /////////////////////////////////////////////////////////////////////////
 
   // метод запроса к API для обновления информации пользователя
-  function handleUserUpdate(userInfo) {
+  const handleUserUpdate = (userInfo) => {
     mainApi
       .updateUserInfo(userInfo)
 
@@ -256,27 +256,27 @@ function App() {
       .catch((error) => {
         console.log(`Ошибка при обновлении данных пользователя: ${error}`);
       });
-  }
+  };
 
   /////////////////////////////////////////////////////////////////////////
 
   // метод запроса к API для регистрации пользоваетля на странице
-  function handleUserSignUp({ name, password, email }) {
+  const handleUserSignUp = ({ name, password, email }) => {
     userAuthApi
       .register({ name, password, email })
       .then(() => {
-        navigate('/signin', { replace: true });
+        handleUserSignIn({ password, email });
         console.log('reg ok');
       })
       .catch((error) => {
         console.log(`Error with registration: ${error}`);
       });
-  }
+  };
 
   /////////////////////////////////////////////////////////////////////////
 
   // метода запроса к API для авторизации пользоваетля на странице
-  function handleUserSignIn({ password, email }) {
+  const handleUserSignIn = ({ password, email }) => {
     userAuthApi
       .authorize({ password, email })
       .then((data) => {
@@ -291,7 +291,7 @@ function App() {
       .catch((error) => {
         console.log(`Error with login: ${error}`);
       });
-  }
+  };
 
   /////////////////////////////////////////////////////////////////////////
 
@@ -317,7 +317,7 @@ function App() {
   /////////////////////////////////////////////////////////////////////////
 
   // метод проверки токенов авторизированных пользователей, вернувшихся в приложение
-  function handleTokenCheck() {
+  const handleTokenCheck = () => {
     const token = localStorage.getItem('jwt');
     if (token) {
       userAuthApi
@@ -328,13 +328,15 @@ function App() {
             setCurrentUser(res);
             navigate(location.pathname, { replace: true });
             console.log('token check ok');
+          } else {
+            setIsLoggenIn(false);
           }
         })
         .catch((error) => {
           console.log(`Error with token check: ${error}`);
         });
     }
-  }
+  };
 
   /////////////////////////////////////////////////////////////////////////
 
