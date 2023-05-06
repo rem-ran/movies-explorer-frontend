@@ -392,6 +392,7 @@ function App() {
                   moviesListLength={movies.length}
                   handleMovieSearch={handleMovieSearch}
                   handleMovieSave={handleMovieSave}
+                  handleMovieDelete={handleMovieDelete}
                   savedMovies={savedMovies}
                 ></Movies>
               </ProtectedRoute>

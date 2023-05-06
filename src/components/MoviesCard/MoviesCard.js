@@ -23,6 +23,7 @@ const MoviesCard = ({
   _id,
   handleMovieSave,
   handleMovieDelete,
+  savedMovies,
   isLiked,
 }) => {
   /////////////////////////////////////////////////////////////////////////
@@ -31,22 +32,33 @@ const MoviesCard = ({
 
   /////////////////////////////////////////////////////////////////////////
 
+  // метод обработки удаления удаления фильма
+  const onMovieDelete = () => {
+    handleMovieDelete(_id);
+  };
+
   //метод обработки клика по иконке лайку
-  const handleLikeClick = (ev) => {
-    ev.target.classList.toggle('movie__like-btn_active');
-    handleMovieSave({
-      country,
-      director,
-      duration,
-      year,
-      description,
-      image: `${moviesUrl}${image.url}`,
-      nameRU,
-      nameEN,
-      thumbnail: `${moviesUrl}${image.formats.thumbnail.url}`,
-      movieId: id,
-      trailerLink,
-    });
+  const handleLikeClick = () => {
+    // если фильм не сохранён, то сохраняем фильм
+    if (!isLiked) {
+      handleMovieSave({
+        country,
+        director,
+        duration,
+        year,
+        description,
+        image: `${moviesUrl}${image.url}`,
+        nameRU,
+        nameEN,
+        thumbnail: `${moviesUrl}${image.formats.thumbnail.url}`,
+        movieId: id,
+        trailerLink,
+      });
+    } else {
+      // если фильм сохранён, то находим этот фильм в списке сохранённых и берем его _id
+      const foundSavedMovie = savedMovies.find((m) => m.movieId === id);
+      handleMovieDelete(foundSavedMovie._id);
+    }
   };
   /////////////////////////////////////////////////////////////////////////
 
@@ -58,11 +70,6 @@ const MoviesCard = ({
 
   /////////////////////////////////////////////////////////////////////////
 
-  // метод обработки удаления удаления фильма
-  const onMovieDelete = () => {
-    handleMovieDelete(_id);
-  };
-
   return (
     // начало JSX //////////////////////////////////////////////////////
     <li className="movie" id={id}>
@@ -73,7 +80,7 @@ const MoviesCard = ({
       <div className="movie__text-box">
         <div className="movie__name-box">
           <p className="movie__heading">{nameRU}</p>
-          {/* подставляем кнопку в зависимости от текущего рута */}
+          {/* рендерим кнопку в зависимости от текущего рута */}
           {pathname === '/movies' ? (
             // кнопка лайка\удаления
             <button

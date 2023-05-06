@@ -69,7 +69,7 @@ const MoviesCardList = ({
     setCardLimit(cardLimit + cardsToAdd);
   };
 
-  // метод проверки еслть ли найденный фильм в сохранённых пользователем фильмах
+  // метод проверки есть ли найденный фильм в сохранённых пользователем фильмах
   const isLiked = (movie) => {
     return savedMovies.find((savedMovie) => savedMovie.movieId === movie.id);
   };
@@ -83,6 +83,7 @@ const MoviesCardList = ({
             key={movie.id || movie.movieId}
             {...movie}
             isLiked={isLiked(movie)}
+            savedMovies={savedMovies}
             handleMovieSave={handleMovieSave}
             handleMovieDelete={handleMovieDelete}
           />
