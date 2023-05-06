@@ -1,6 +1,12 @@
 // импорты
 import { useEffect, useState } from 'react';
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import {
+  Routes,
+  Route,
+  useNavigate,
+  useLocation,
+  Navigate,
+} from 'react-router-dom';
 
 // импортируем контекст пользователя
 import { CurrentUserContext } from '../../context/CurrentUserContext';
@@ -382,13 +388,25 @@ function App() {
           {/* рут авторизации //////////////////////////////,////////////////////*/}
           <Route
             path="/signin"
-            element={<Login handleUserSignIn={handleUserSignIn}></Login>}
+            element={
+              isLoggenIn ? (
+                <Navigate to="/" replace />
+              ) : (
+                <Login handleUserSignIn={handleUserSignIn}></Login>
+              )
+            }
           ></Route>
 
           {/* рут регистрации //////////////////////////////,////////////////////*/}
           <Route
             path="/signup"
-            element={<Register handleUserSignUp={handleUserSignUp}></Register>}
+            element={
+              isLoggenIn ? (
+                <Navigate to="/" replace />
+              ) : (
+                <Register handleUserSignUp={handleUserSignUp}></Register>
+              )
+            }
           ></Route>
 
           {/* рут несуществующей страницы /////////////////////,////////////////////*/}

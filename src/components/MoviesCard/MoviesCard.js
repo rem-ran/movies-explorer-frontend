@@ -23,6 +23,8 @@ const MoviesCard = ({
   handleMovieSave,
   handleMovieDelete,
 }) => {
+  /////////////////////////////////////////////////////////////////////////
+
   const location = useLocation();
 
   //метод подсчёта времени в часа и минутах

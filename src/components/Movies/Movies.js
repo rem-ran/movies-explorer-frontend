@@ -18,6 +18,8 @@ const Movies = ({
   handleMovieSearch,
   handleMovieSave,
 }) => {
+  /////////////////////////////////////////////////////////////////////////
+
   // переменная состояния статуса фильтра короткометражных фильмов
   const [shortMovieStatus, setShortMovieStatus] = useState(false);
 

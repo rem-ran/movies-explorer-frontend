@@ -11,6 +11,7 @@ const SearchForm = ({
   checkedStatus,
   handleShortMovieFilter,
 }) => {
+  /////////////////////////////////////////////////////////////////////////
   const location = useLocation();
 
   // переменная состояния введённого текста в инпут

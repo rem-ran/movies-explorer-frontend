@@ -13,13 +13,14 @@ import './SavedMovies.css';
 
 // компонент страницы с сохранёнными фильмами //////////////////////////
 const SavedMovies = ({
-  handleSavedMoviesOpen,
   handleOpenMenu,
   handleGetSavedMovie,
   handleMovieDelete,
   handleSavedMovieSearch,
   savedMovies,
 }) => {
+  /////////////////////////////////////////////////////////////////////////
+
   // переменная состояния статуса фильтра короткометражных фильмов
   const [shortSavedMovieStatus, setShortSavedMovieStatus] = useState(false);
 
