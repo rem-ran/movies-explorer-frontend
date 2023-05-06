@@ -1,10 +1,13 @@
+// импорты
+import { useLocation } from 'react-router-dom';
+
 // импорт констант
 import { moviesUrl } from '../../utils/constants';
 
 // импорт стилей
 import './MoviesCard.css';
 
-// компонет карточки с фильмом ////////////////////////////////////////
+// компонент карточки с фильмом ////////////////////////////////////////
 const MoviesCard = ({
   country,
   director,
@@ -19,8 +22,9 @@ const MoviesCard = ({
   _id,
   handleMovieSave,
   handleMovieDelete,
-  isSavedMoviesOpen,
 }) => {
+  const location = useLocation();
+
   //метод подсчёта времени в часа и минутах
   const calculateTiming = (minutes) => {
     return `${Math.floor(minutes / 60)}ч ${minutes % 60}м`;
@@ -53,7 +57,7 @@ const MoviesCard = ({
   // метод выбора обработки клака по кнопке лайка или удаления карточки
   // в зависимости от открыто /movies или /saved-movies
   const movieBtnClick = (ev) => {
-    if (isSavedMoviesOpen) {
+    if (location.pathname === '/saved-movies') {
       handleMovieDelete(_id);
     } else {
       handleLikeClick(ev);
@@ -71,7 +75,8 @@ const MoviesCard = ({
           <p className="movie__heading">{nameRU}</p>
           <button
             className={`movie__like-btn ${
-              isSavedMoviesOpen && 'movie__like-btn_type_delete'
+              location.pathname === '/saved-movies' &&
+              'movie__like-btn_type_delete'
             }`}
             aria-label="Like"
             type="button"

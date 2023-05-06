@@ -14,7 +14,6 @@ import './SavedMovies.css';
 // компонент страницы с сохранёнными фильмами //////////////////////////
 const SavedMovies = ({
   handleSavedMoviesOpen,
-  isSavedMoviesOpen,
   handleOpenMenu,
   handleGetSavedMovie,
   handleMovieDelete,
@@ -25,31 +24,13 @@ const SavedMovies = ({
   const [shortSavedMovieStatus, setShortSavedMovieStatus] = useState(false);
 
   // метод обработки состояния чекбокса короткометражных фильмов при клике по нему
-  // и сохранения состояния в локальное хранилище
   const handleShortMovieFilter = () => {
     setShortSavedMovieStatus((ch) => !ch);
-    localStorage.setItem(
-      'shortSavedMovies',
-      JSON.stringify(!shortSavedMovieStatus)
-    );
   };
 
-  // рендерим состояние кнопки при рендеринге компонента в зависимости от
-  // данных полученных из локального хранилища
-  useEffect(() => {
-    if (JSON.parse(localStorage.getItem('shortSavedMovies')) === true) {
-      setShortSavedMovieStatus(true);
-    } else {
-      setShortSavedMovieStatus(false);
-    }
-  }, [shortSavedMovieStatus]);
-
-  // получаем фильмы через Api и меняем состояние открытой страницы с
-  // сохранёнными фильмами при рендеринге страницы
+  // получаем фильмы через Api при каждом рендеринге страницы
   useEffect(() => {
     handleGetSavedMovie();
-
-    handleSavedMoviesOpen();
   }, []);
 
   // метод обработки передачи данных в вверхний компонент для поиска фильмов
@@ -68,12 +49,10 @@ const SavedMovies = ({
         <SearchForm
           handleMovieSearch={onSavedMovieSearch}
           handleShortMovieFilter={handleShortMovieFilter}
-          checkedStatus={shortSavedMovieStatus}
         ></SearchForm>
         <MoviesCardList
           movieCardList={savedMovies}
           handleMovieDelete={handleMovieDelete}
-          isSavedMoviesOpen={isSavedMoviesOpen}
         ></MoviesCardList>
       </main>
 

@@ -1,14 +1,22 @@
-//импорт стилей
-import { useState } from 'react';
+// импорты
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+
+// импорт стилей
 import './SearchForm.css';
 
+// компонент строки поиска и фильтра
 const SearchForm = ({
   handleMovieSearch,
   checkedStatus,
   handleShortMovieFilter,
 }) => {
+  const location = useLocation();
+
+  // переменная состояния введённого текста в инпут
   const [searchInputValue, setSearchInputValue] = useState('');
 
+  // передаём введённый в поиске текст в верхний компонент
   const handleSearchValue = (e) => {
     setSearchInputValue(e.target.value.toLowerCase());
   };
@@ -18,6 +26,15 @@ const SearchForm = ({
     e.preventDefault();
     handleMovieSearch(searchInputValue);
   };
+
+  // проверяем на какой мы странице, используя location.pathname и отображаем
+  // введённый ранее текст запроса при рендере страницы, если он есть
+  useEffect(() => {
+    const movieSearchInputValue = localStorage.getItem('movieSearchInputValue');
+    if (location.pathname === '/movies' && movieSearchInputValue) {
+      setSearchInputValue(movieSearchInputValue);
+    }
+  }, []);
 
   // начало JSX ///////////////////////////////////////////////////////////////
   return (
@@ -31,6 +48,7 @@ const SearchForm = ({
             placeholder="Фильм"
             className="search__input"
             onChange={handleSearchValue}
+            value={searchInputValue || ''}
           ></input>
           <button className="search__btn" onClick={onSearch}>
             Найти

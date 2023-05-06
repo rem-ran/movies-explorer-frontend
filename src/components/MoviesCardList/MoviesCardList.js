@@ -27,7 +27,6 @@ const MoviesCardList = ({
   moviesListLength,
   handleMovieSave,
   handleMovieDelete,
-  isSavedMoviesOpen,
 }) => {
   const [width] = useWindowSize();
 
@@ -78,7 +77,6 @@ const MoviesCardList = ({
             {...movie}
             handleMovieSave={handleMovieSave}
             handleMovieDelete={handleMovieDelete}
-            isSavedMoviesOpen={isSavedMoviesOpen}
           />
         ))}
       </ul>

@@ -51,9 +51,6 @@ function App() {
   // переменная состояния клика меню на мобильных разрешении
   const [isMenuClicked, setIsMenuClicked] = useState(false);
 
-  // переменная состояния открытой страницы с сохранёнными фильмами
-  const [isSavedMoviesOpen, setIsSavedMoviesOpen] = useState(false);
-
   const [searchInputMovies, setSearchInputMovies] = useState('');
 
   const [searchInputSavedMovies, setSearchInputSavedMovies] = useState('');
@@ -90,7 +87,6 @@ function App() {
         if (allMovies) {
           setMovies((prevMovies) => [...prevMovies, ...allMovies]);
           localStorage.setItem('movies', JSON.stringify(allMovies));
-          console.log(2);
         }
       })
       .catch((error) => {
@@ -102,12 +98,13 @@ function App() {
 
   // метод обработки всех полученных фильмов фильтром пользователя
   const handleMovieSearch = async (filterText, shortMovieCheck) => {
+    // проверяем был ли совершён уже поиск карточек и если, нет, то
+    // обращаемся к api для загрузки всех фильмов
     if (movies.length === 0) {
-      console.log(1);
       await handleGetAllMovies();
     }
-    console.log(3);
 
+    // сохраняем в локальное хранилище результат фильтрации
     localStorage.setItem(
       'filteredMovies',
       JSON.stringify(
@@ -119,6 +116,8 @@ function App() {
       )
     );
 
+    // достаём из локального хранилища сохранённые отфильтрованные фильмы
+    // и передаём их переменной filteredMovies
     setFilteredMovies(JSON.parse(localStorage.getItem('filteredMovies')));
   };
 
@@ -126,7 +125,6 @@ function App() {
   // метод обработки всех сохранённых фильмов фильтром пользователя
   const handleSavedMovieSearch = (filterText, shortMovieCheck) => {
     // сохраняем в локальное хранилище результат фильтрации
-    // console.log(shortMovie);
     localStorage.setItem(
       'filteredSavedMovies',
       JSON.stringify(
@@ -144,7 +142,7 @@ function App() {
   const handleUserMovieSearch = (moviesList, filterText, shortMovieCheck) => {
     let resultList = moviesList.filter(
       (movie) =>
-        // фильруем только по выборочным поля
+        // фильруем только по выборочным полям
         movie.nameRU.toLowerCase().includes(filterText) ||
         movie.nameEN.toLowerCase().includes(filterText) ||
         movie.director.toLowerCase().includes(filterText) ||
@@ -152,18 +150,13 @@ function App() {
         movie.description.toLowerCase().includes(filterText)
     );
 
+    // если включен фильтр короткометражных фильмов, то дополнительно фильтруем
+    // полученный ранее массив дополнительным фильтром
     if (shortMovieCheck) {
       return resultList.filter((movie) => movie.duration <= 40);
     } else {
       return resultList;
     }
-  };
-
-  /////////////////////////////////////////////////////////////////////////
-
-  // метод обработки состояния открытой страницы с сохранёнными фильмами
-  const handleSavedMoviesOpen = () => {
-    setIsSavedMoviesOpen(true);
   };
 
   /////////////////////////////////////////////////////////////////////////
@@ -228,7 +221,7 @@ function App() {
 
   /////////////////////////////////////////////////////////////////////////
 
-  //метод запроса к API для обновления информации пользователя
+  // метод запроса к API для обновления информации пользователя
   function handleUserUpdate(userInfo) {
     mainApi
       .updateUserInfo(userInfo)
@@ -280,7 +273,7 @@ function App() {
 
   /////////////////////////////////////////////////////////////////////////
 
-  //метод запроса к API для выхода пользоваетля из системы
+  // метод запроса к API для выхода пользоваетля из системы
   const handleSignOut = () => {
     userAuthApi
       .logout()
@@ -297,7 +290,7 @@ function App() {
 
   /////////////////////////////////////////////////////////////////////////
 
-  //метод проверки токенов авторизированных пользователей, вернувшихся в приложение
+  // метод проверки токенов авторизированных пользователей, вернувшихся в приложение
   function handleTokenCheck() {
     const token = localStorage.getItem('jwt');
     if (token) {
@@ -319,7 +312,7 @@ function App() {
 
   /////////////////////////////////////////////////////////////////////////
 
-  //вызываем метод проверки токенов при первичном рендеринге
+  // вызываем метод проверки токенов при первичном рендеринге
   useEffect(() => {
     handleTokenCheck();
   }, []);
@@ -362,8 +355,6 @@ function App() {
             element={
               <ProtectedRoute isLoggenIn={isLoggenIn}>
                 <SavedMovies
-                  handleSavedMoviesOpen={handleSavedMoviesOpen}
-                  isSavedMoviesOpen={isSavedMoviesOpen}
                   handleOpenMenu={handleOpenMenu}
                   handleGetSavedMovie={handleGetSavedMovie}
                   handleMovieDelete={handleMovieDelete}

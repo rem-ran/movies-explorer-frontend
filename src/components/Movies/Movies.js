@@ -11,7 +11,7 @@ import Navigation from '../Navigation/Navigation';
 //импорт стилей
 import './Movies.css';
 
-// компонет главной страницы с фильмами ////////////////////////////////////
+// компонент главной страницы с фильмами ////////////////////////////////////
 const Movies = ({
   handleOpenMenu,
   filteredMovies,
@@ -23,6 +23,7 @@ const Movies = ({
 
   // метод обработки передачи данных в вверхний компонент для поиска фильмов
   const onMovieSearch = (inputText) => {
+    localStorage.setItem('movieSearchInputValue', inputText);
     handleMovieSearch(inputText, shortMovieStatus);
   };
 
