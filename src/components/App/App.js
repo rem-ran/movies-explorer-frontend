@@ -390,7 +390,6 @@ function App() {
                 <Movies
                   handleOpenMenu={handleOpenMenu}
                   filteredMovies={filteredMovies}
-                  moviesListLength={filteredMovies.length}
                   handleMovieSearch={handleMovieSearch}
                   handleMovieSave={handleMovieSave}
                   handleMovieDelete={handleMovieDelete}

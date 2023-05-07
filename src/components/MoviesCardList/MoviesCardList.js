@@ -1,9 +1,6 @@
 // импорты
-import { useContext, useEffect, useLayoutEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-
-// импорт контекста пользователя
-import { CurrentUserContext } from '../../context/CurrentUserContext';
 
 // иморт компонент
 import MoviesCard from '../MoviesCard/MoviesCard';
@@ -28,13 +25,10 @@ const useWindowSize = () => {
 // компонет списка карточек ////////////////////////////////////////////////
 const MoviesCardList = ({
   movieCardList,
-  moviesListLength,
   handleMovieSave,
   handleMovieDelete,
   savedMovies,
 }) => {
-  // подключаем контекст пользователя
-  const currentUser = useContext(CurrentUserContext);
   const { pathname } = useLocation();
   const [width] = useWindowSize();
 
@@ -44,24 +38,11 @@ const MoviesCardList = ({
   // переменная состояния количества карточек для рендеринга
   const [cardLimit, setCardLimit] = useState(0);
 
-  // переменная состояния рендеринга всех имеющихся карточек
-  const [allCardsRendered, setAllCardsRendered] = useState(false);
-
   // метод обработки количества карточек к рендерингу
   const setCardRenderAmount = (toAdd, initial) => {
     setCardsToAdd(toAdd);
     setCardLimit(initial);
   };
-
-  // useEffect(() => {
-  //   const movLen = JSON.parse(
-  //     localStorage.getItem(`${currentUser._id}-filteredMovies`)
-  //   ).length;
-  //   console.log(`moviesLocalSto ${movLen}`);
-  //   console.log(`moviesListLength ${moviesListLength}`);
-  //   console.log(`cardLimit ${cardLimit}`);
-  //   console.log(allCardsRendered);
-  // }, [moviesListLength, cardLimit, allCardsRendered]);
 
   // следим за шириной экрана и выставляем количество фильмов для рендеринга
   useEffect(() => {
@@ -74,24 +55,7 @@ const MoviesCardList = ({
         setCardRenderAmount(3, 12);
       }
     }
-  }, [width, pathname, moviesListLength]);
-
-  // const returnvalue = () => {
-  //   const movLen = JSON.parse(
-  //     localStorage.getItem(`${currentUser._id}-filteredMovies`)
-  //   ).length;
-  //   return movLen;
-  // };
-
-  // контролируем переменную "cardLimit" для изменения переменной "allCardsRendered"
-  useEffect(() => {
-    const movLen = JSON.parse(
-      localStorage.getItem(`${currentUser._id}-filteredMovies`)
-    ).length;
-    if (cardLimit >= movLen && pathname !== '/saved-movies') {
-      setAllCardsRendered(true);
-    }
-  }, [cardLimit, pathname, currentUser]);
+  }, [width, pathname]);
 
   // метод обработки клика на кнопку "Ещё"
   const handleMoreClick = () => {
@@ -120,7 +84,7 @@ const MoviesCardList = ({
             />
           ))}
       </ul>
-      {!allCardsRendered && pathname !== '/saved-movies' && (
+      {movieCardList.length > cardLimit && pathname !== '/saved-movies' && (
         <button className="movies-list__more-btn" onClick={handleMoreClick}>
           Ещё
         </button>
