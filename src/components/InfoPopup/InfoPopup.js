@@ -47,7 +47,9 @@ function InfoPopup({ setInfoPopupStatus, onClose, infoModalMsg }) {
           type="button"
           aria-label="Close"
           onClick={onClose}
-        />
+        >
+          OK
+        </button>
       </div>
     </section>
   );

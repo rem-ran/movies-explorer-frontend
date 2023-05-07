@@ -62,10 +62,12 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
 
   //переменная состояния попапа с сообщением
-  const [infoPopupStatus, setInfoPopupStatus] = useState(false);
+  const [infoPopupStatus, setInfoPopupStatus] = useState(true);
 
   //переменная состояния текста сообщения в информационном модальном окне
-  const [infoModalMsg, setInfoModalMsg] = useState('');
+  const [infoModalMsg, setInfoModalMsg] = useState(
+    'TEst msasd adfdsifhj kjhdfkjh adf sdaf adf adf asdasdasdasd'
+  );
 
   /////////////////////////////////////////////////////////////////////////
 
