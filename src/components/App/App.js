@@ -177,7 +177,8 @@ function App() {
       `${currentUser._id}-filteredSavedMovies`,
       JSON.stringify(
         handleUserMovieSearch(
-          JSON.parse(localStorage.getItem(`${currentUser._id}-saved-movies`)),
+          // JSON.parse(localStorage.getItem(`${currentUser._id}-saved-movies`)),
+          savedMovies,
           filterText,
           shortMovieCheck
         )
@@ -410,12 +411,12 @@ function App() {
       setFilteredMovies(filtMov);
     }
 
-    const filtSavedMov = JSON.parse(
-      localStorage.getItem(`${currentUser._id}-filteredSavedMovies`)
-    );
-    if (filtSavedMov) {
-      setSavedMovies(filtSavedMov);
-    }
+    // const filtSavedMov = JSON.parse(
+    //   localStorage.getItem(`${currentUser._id}-filteredSavedMovies`)
+    // );
+    // if (filtSavedMov) {
+    //   setSavedMovies(filtSavedMov);
+    // }
   }, [currentUser]);
 
   // начало JSX ////////////////////////////////////////////////////////////
