@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import './InfoPopup.css';
 
 // компонет информационного попапа /////////////////////////////////////
-function InfoPopup({ setInfoPopupStatus, onClose, infoModalMsg }) {
+function InfoPopup({ setInfoPopupStatus, onClose, infoPopupMsg }) {
   //вешаем слушатель на зактрые модального окна по нажатию ESC клавиши
   useEffect(() => {
     const handleEscClose = (event) => {
@@ -39,7 +39,7 @@ function InfoPopup({ setInfoPopupStatus, onClose, infoModalMsg }) {
       onClick={handleOutsideClickClose}
     >
       <div className="popup__container">
-        <h2 className={`popup__heading`}>{infoModalMsg}</h2>
+        <h2 className={`popup__heading`}>{infoPopupMsg}</h2>
 
         {/* кнопка закрытия попапа */}
         <button

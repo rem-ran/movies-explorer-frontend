@@ -28,6 +28,8 @@ import mainApi from '../../utils/MainApi';
 import movieApi from '../../utils/MoviesApi';
 import userAuthApi from '../../utils/UserAuthApi';
 
+import { serverErrorMsg } from '../../utils/constants';
+
 // импорт стилей
 import './App.css';
 
@@ -62,12 +64,10 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
 
   //переменная состояния попапа с сообщением
-  const [infoPopupStatus, setInfoPopupStatus] = useState(true);
+  const [infoPopupStatus, setInfoPopupStatus] = useState(false);
 
   //переменная состояния текста сообщения в информационном модальном окне
-  const [infoModalMsg, setInfoModalMsg] = useState(
-    'TEst msasd adfdsifhj kjhdfkjh adf sdaf adf adf asdasdasdasd'
-  );
+  const [infoPopupMsg, setInfoPopupMsg] = useState('');
 
   /////////////////////////////////////////////////////////////////////////
 
@@ -79,8 +79,15 @@ function App() {
   /////////////////////////////////////////////////////////////////////////
 
   // метод обработки состояния клика меню на мобильном разрешении
-  const handleOpenInfoPopup = () => {
-    setInfoPopupStatus((open) => !open);
+  const handleInfoModalMsg = (msg) => {
+    setInfoPopupMsg(msg);
+  };
+
+  /////////////////////////////////////////////////////////////////////////
+
+  // метод обработкистекста сообщения в информационном модальном окне
+  const handleCloseInfoPopup = () => {
+    setInfoPopupStatus(false);
   };
 
   /////////////////////////////////////////////////////////////////////////
@@ -116,7 +123,8 @@ function App() {
             `${currentUser._id}-movies`,
             JSON.stringify(allMovies)
           );
-          console.log('get all movies');
+          setInfoPopupStatus(true);
+          handleInfoModalMsg(serverErrorMsg);
         }
       })
       .catch((error) => {
@@ -131,7 +139,10 @@ function App() {
   const handleMovieSearch = async (filterText, shortMovieCheck) => {
     // проверяем был ли совершён уже поиск карточек и если, нет, то
     // обращаемся к api для загрузки всех фильмов
-    if (movies.length === 0) {
+    const allMovies = JSON.parse(
+      localStorage.getItem(`${currentUser._id}-movies`)
+    );
+    if (allMovies.length === 0) {
       await handleGetAllMovies();
     }
 
@@ -161,7 +172,11 @@ function App() {
     localStorage.setItem(
       `${currentUser._id}-filteredSavedMovies`,
       JSON.stringify(
-        handleUserMovieSearch(savedMovies, filterText, shortMovieCheck)
+        handleUserMovieSearch(
+          JSON.parse(localStorage.getItem(`${currentUser._id}-saved-movies`)),
+          filterText,
+          shortMovieCheck
+        )
       )
     );
 
@@ -175,23 +190,24 @@ function App() {
 
   // метод фильтрования массива с фильмами по введённому пользователем тексту "filterText"
   const handleUserMovieSearch = (moviesList, filterText, shortMovieCheck) => {
-    let resultList = moviesList.filter(
-      (movie) =>
-        // фильруем только по выборочным полям
-        movie.nameRU.toLowerCase().includes(filterText) ||
-        movie.nameEN.toLowerCase().includes(filterText) ||
-        movie.director.toLowerCase().includes(filterText) ||
-        movie.country.toLowerCase().includes(filterText) ||
-        movie.description.toLowerCase().includes(filterText)
-    );
+    let resultList = moviesList
+      .filter(
+        (movie) =>
+          // фильруем только по выборочным полям
+          movie.nameRU.toLowerCase().includes(filterText) ||
+          movie.nameEN.toLowerCase().includes(filterText) ||
+          movie.director.toLowerCase().includes(filterText) ||
+          movie.country.toLowerCase().includes(filterText) ||
+          movie.description.toLowerCase().includes(filterText)
+      )
+      .filter((movie) => (shortMovieCheck ? movie.duration <= 40 : movie));
 
-    // если включен фильтр короткометражных фильмов, то дополнительно фильтруем
-    // полученный ранее массив дополнительным фильтром
-    if (shortMovieCheck) {
-      return resultList.filter((movie) => movie.duration <= 40);
-    } else {
-      return resultList;
+    if (resultList.length === 0) {
+      setInfoPopupStatus(true);
+      handleInfoModalMsg('ничего не найдено');
     }
+
+    return resultList;
   };
 
   /////////////////////////////////////////////////////////////////////////
@@ -250,6 +266,10 @@ function App() {
 
       .then((userSavedMovies) => {
         setSavedMovies(userSavedMovies.reverse());
+        localStorage.setItem(
+          `${currentUser._id}-saved-movies`,
+          JSON.stringify(userSavedMovies)
+        );
         console.log('saved movies received ok');
       })
 
@@ -266,11 +286,15 @@ function App() {
       .updateUserInfo(userInfo)
 
       .then((res) => {
+        setInfoPopupStatus(true);
+        handleInfoModalMsg('Вы успешно обновили свои данные!');
         setCurrentUser(res);
         console.log('update ok');
       })
 
       .catch((error) => {
+        setInfoPopupStatus(true);
+        handleInfoModalMsg(serverErrorMsg);
         console.log(`Ошибка при обновлении данных пользователя: ${error}`);
       });
   };
@@ -358,7 +382,7 @@ function App() {
   /////////////////////////////////////////////////////////////////////////
 
   // получаем данные пользователя и загружаем сохранённые пользователем фильмы
-  // при первом рендеринге если авторизовался
+  // при рендеринге если авторизовался
   useEffect(() => {
     if (isLoggenIn) {
       handleGetUserInfo();
@@ -369,7 +393,7 @@ function App() {
 
   /////////////////////////////////////////////////////////////////////////
 
-  // вызываем метод проверки токенов при первичном рендеринге
+  // вызываем метод проверки токенов рендеринге приложения
   useEffect(() => {
     handleTokenCheck();
   }, []);
@@ -487,8 +511,8 @@ function App() {
         {/* попап с сообщением /////////////////////////////////////////////////////*/}
         <InfoPopup
           setInfoPopupStatus={infoPopupStatus}
-          onClose={handleOpenInfoPopup}
-          infoModalMsg={infoModalMsg}
+          onClose={handleCloseInfoPopup}
+          infoPopupMsg={infoPopupMsg}
         />
       </CurrentUserContext.Provider>
     </div>
