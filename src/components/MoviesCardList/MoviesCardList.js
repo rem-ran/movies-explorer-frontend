@@ -1,6 +1,9 @@
 // импорты
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+
+// импорт контекста пользователя
+import { CurrentUserContext } from '../../context/CurrentUserContext';
 
 // иморт компонент
 import MoviesCard from '../MoviesCard/MoviesCard';
@@ -30,6 +33,8 @@ const MoviesCardList = ({
   handleMovieDelete,
   savedMovies,
 }) => {
+  // подключаем контекст пользователя
+  const currentUser = useContext(CurrentUserContext);
   const { pathname } = useLocation();
   const [width] = useWindowSize();
 
@@ -48,6 +53,16 @@ const MoviesCardList = ({
     setCardLimit(initial);
   };
 
+  // useEffect(() => {
+  //   const movLen = JSON.parse(
+  //     localStorage.getItem(`${currentUser._id}-filteredMovies`)
+  //   ).length;
+  //   console.log(`moviesLocalSto ${movLen}`);
+  //   console.log(`moviesListLength ${moviesListLength}`);
+  //   console.log(`cardLimit ${cardLimit}`);
+  //   console.log(allCardsRendered);
+  // }, [moviesListLength, cardLimit, allCardsRendered]);
+
   // следим за шириной экрана и выставляем количество фильмов для рендеринга
   useEffect(() => {
     if (pathname !== '/saved-movies') {
@@ -59,14 +74,24 @@ const MoviesCardList = ({
         setCardRenderAmount(3, 12);
       }
     }
-  }, [width]);
+  }, [width, pathname, moviesListLength]);
+
+  // const returnvalue = () => {
+  //   const movLen = JSON.parse(
+  //     localStorage.getItem(`${currentUser._id}-filteredMovies`)
+  //   ).length;
+  //   return movLen;
+  // };
 
   // контролируем переменную "cardLimit" для изменения переменной "allCardsRendered"
   useEffect(() => {
-    if (cardLimit >= moviesListLength && pathname !== '/saved-movies') {
+    const movLen = JSON.parse(
+      localStorage.getItem(`${currentUser._id}-filteredMovies`)
+    ).length;
+    if (cardLimit >= movLen && pathname !== '/saved-movies') {
       setAllCardsRendered(true);
     }
-  }, [cardLimit]);
+  }, [cardLimit, pathname, currentUser]);
 
   // метод обработки клика на кнопку "Ещё"
   const handleMoreClick = () => {

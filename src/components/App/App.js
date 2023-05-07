@@ -96,6 +96,7 @@ function App() {
             `${currentUser._id}-movies`,
             JSON.stringify(allMovies)
           );
+          console.log('get all movies');
         }
       })
       .catch((error) => {
@@ -322,7 +323,7 @@ function App() {
             setIsLoggenIn(true);
             setCurrentUser(res);
             navigate(location.pathname, { replace: true });
-            console.log('token check ok');
+            // console.log('token check ok');
           } else {
             setIsLoggenIn(false);
           }
@@ -362,7 +363,7 @@ function App() {
     if (filtMov) {
       setFilteredMovies(filtMov);
     }
-    console.log('rendered');
+    // console.log('rendered');
   }, [currentUser]);
 
   // начало JSX ////////////////////////////////////////////////////////////
@@ -389,7 +390,7 @@ function App() {
                 <Movies
                   handleOpenMenu={handleOpenMenu}
                   filteredMovies={filteredMovies}
-                  moviesListLength={movies.length}
+                  moviesListLength={filteredMovies.length}
                   handleMovieSearch={handleMovieSearch}
                   handleMovieSave={handleMovieSave}
                   handleMovieDelete={handleMovieDelete}

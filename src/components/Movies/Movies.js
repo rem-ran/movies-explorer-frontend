@@ -22,6 +22,7 @@ const Movies = ({
   handleMovieSave,
   handleMovieDelete,
   savedMovies,
+  moviesListLength,
 }) => {
   /////////////////////////////////////////////////////////////////////////
 
@@ -79,6 +80,7 @@ const Movies = ({
           handleMovieSave={handleMovieSave}
           savedMovies={savedMovies}
           handleMovieDelete={handleMovieDelete}
+          moviesListLength={moviesListLength}
         ></MoviesCardList>
       </main>
 
