@@ -15,13 +15,19 @@ import './SavedMovies.css';
 const SavedMovies = ({
   handleOpenMenu,
   handleMovieDelete,
-  handleSavedMovieSearch,
+  handleUserMovieSearch,
   savedMovies,
 }) => {
   /////////////////////////////////////////////////////////////////////////
 
   // переменная состояния статуса фильтра короткометражных фильмов
   const [shortSavedMovieStatus, setShortSavedMovieStatus] = useState(false);
+
+  // переменная состояния отфильтрованного массива сохранённых фильмов
+  const [filteredMovies, setFilteredMovies] = useState(savedMovies);
+
+  // переменная состояния введённого текста в инпут
+  const [searchTxt, setSearchTxt] = useState('');
 
   /////////////////////////////////////////////////////////////////////////
 
@@ -32,10 +38,18 @@ const SavedMovies = ({
 
   /////////////////////////////////////////////////////////////////////////
 
-  // метод обработки передачи данных в вверхний компонент для поиска фильмов
+  // метод обработки назначения перемонной "searchTxt"
   const onSavedMovieSearch = (inputText) => {
-    handleSavedMovieSearch(inputText, shortSavedMovieStatus);
+    setSearchTxt(inputText);
   };
+
+  // фильтуем массив сохранённых фильмов при изменении состояний
+  // "savedMovies", "searchTxt" и "shortSavedMovieStatus"
+  useEffect(() => {
+    setFilteredMovies(
+      handleUserMovieSearch(savedMovies, searchTxt, shortSavedMovieStatus)
+    );
+  }, [savedMovies, searchTxt, shortSavedMovieStatus]);
 
   return (
     // начало JSX //////////////////////////////////////////////////////
@@ -50,7 +64,7 @@ const SavedMovies = ({
           handleShortMovieFilter={handleShortMovieFilter}
         ></SearchForm>
         <MoviesCardList
-          movieCardList={savedMovies}
+          movieCardList={filteredMovies}
           handleMovieDelete={handleMovieDelete}
           savedMovies={savedMovies}
         ></MoviesCardList>

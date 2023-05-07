@@ -78,13 +78,6 @@ function App() {
 
   /////////////////////////////////////////////////////////////////////////
 
-  // метод обработки состояния клика меню на мобильном разрешении
-  const handleInfoModalMsg = (msg) => {
-    setInfoPopupMsg(msg);
-  };
-
-  /////////////////////////////////////////////////////////////////////////
-
   // метод обработки закрытия информационного попапа
   const handleCloseInfoPopup = () => {
     setInfoPopupStatus(false);
@@ -170,28 +163,6 @@ function App() {
   };
 
   /////////////////////////////////////////////////////////////////////////
-  // метод обработки всех сохранённых фильмов фильтром пользователя
-  const handleSavedMovieSearch = (filterText, shortMovieCheck) => {
-    // сохраняем в локальное хранилище результат фильтрации
-    localStorage.setItem(
-      `${currentUser._id}-filteredSavedMovies`,
-      JSON.stringify(
-        handleUserMovieSearch(
-          // JSON.parse(localStorage.getItem(`${currentUser._id}-saved-movies`)),
-          savedMovies,
-          filterText,
-          shortMovieCheck
-        )
-      )
-    );
-
-    // достаём из локального хранилища сохранённые отфильтрованные фильмы
-    // и передаём их переменной savedMovies
-    setSavedMovies(
-      JSON.parse(localStorage.getItem(`${currentUser._id}-filteredSavedMovies`))
-    );
-  };
-  /////////////////////////////////////////////////////////////////////////
 
   // метод фильтрования массива с фильмами по введённому пользователем тексту "filterText"
   const handleUserMovieSearch = (moviesList, filterText, shortMovieCheck) => {
@@ -270,10 +241,6 @@ function App() {
 
       .then((userSavedMovies) => {
         setSavedMovies(userSavedMovies.reverse());
-        localStorage.setItem(
-          `${currentUser._id}-saved-movies`,
-          JSON.stringify(userSavedMovies)
-        );
         console.log('saved movies received ok');
       })
 
@@ -410,13 +377,6 @@ function App() {
     if (filtMov) {
       setFilteredMovies(filtMov);
     }
-
-    // const filtSavedMov = JSON.parse(
-    //   localStorage.getItem(`${currentUser._id}-filteredSavedMovies`)
-    // );
-    // if (filtSavedMov) {
-    //   setSavedMovies(filtSavedMov);
-    // }
   }, [currentUser]);
 
   // начало JSX ////////////////////////////////////////////////////////////
@@ -461,7 +421,7 @@ function App() {
                 <SavedMovies
                   handleOpenMenu={handleOpenMenu}
                   handleMovieDelete={handleMovieDelete}
-                  handleSavedMovieSearch={handleSavedMovieSearch}
+                  handleUserMovieSearch={handleUserMovieSearch}
                   savedMovies={savedMovies}
                 ></SavedMovies>
               </ProtectedRoute>
