@@ -85,9 +85,17 @@ function App() {
 
   /////////////////////////////////////////////////////////////////////////
 
-  // метод обработкистекста сообщения в информационном модальном окне
+  // метод обработки закрытия информационного попапа
   const handleCloseInfoPopup = () => {
     setInfoPopupStatus(false);
+  };
+
+  /////////////////////////////////////////////////////////////////////////
+
+  // метод обработки открытия информационного попапа
+  const handleOpenInfoPopup = (msg) => {
+    setInfoPopupMsg(msg);
+    setInfoPopupStatus(true);
   };
 
   /////////////////////////////////////////////////////////////////////////
@@ -123,11 +131,10 @@ function App() {
             `${currentUser._id}-movies`,
             JSON.stringify(allMovies)
           );
-          setInfoPopupStatus(true);
-          handleInfoModalMsg(serverErrorMsg);
         }
       })
       .catch((error) => {
+        handleOpenInfoPopup(serverErrorMsg);
         console.log(`Ошибка при загрузки фильмов с сервера: ${error}`);
       })
       .finally(() => setIsLoading(false));
@@ -139,10 +146,7 @@ function App() {
   const handleMovieSearch = async (filterText, shortMovieCheck) => {
     // проверяем был ли совершён уже поиск карточек и если, нет, то
     // обращаемся к api для загрузки всех фильмов
-    const allMovies = JSON.parse(
-      localStorage.getItem(`${currentUser._id}-movies`)
-    );
-    if (allMovies.length === 0) {
+    if (movies.length === 0) {
       await handleGetAllMovies();
     }
 
@@ -203,8 +207,7 @@ function App() {
       .filter((movie) => (shortMovieCheck ? movie.duration <= 40 : movie));
 
     if (resultList.length === 0) {
-      setInfoPopupStatus(true);
-      handleInfoModalMsg('ничего не найдено');
+      handleOpenInfoPopup('ничего не найдено');
     }
 
     return resultList;
@@ -286,15 +289,13 @@ function App() {
       .updateUserInfo(userInfo)
 
       .then((res) => {
-        setInfoPopupStatus(true);
-        handleInfoModalMsg('Вы успешно обновили свои данные!');
         setCurrentUser(res);
+        handleOpenInfoPopup('Вы успешно обновили свои данные!');
         console.log('update ok');
       })
 
       .catch((error) => {
-        setInfoPopupStatus(true);
-        handleInfoModalMsg(serverErrorMsg);
+        handleOpenInfoPopup(serverErrorMsg);
         console.log(`Ошибка при обновлении данных пользователя: ${error}`);
       });
   };
@@ -408,7 +409,13 @@ function App() {
     if (filtMov) {
       setFilteredMovies(filtMov);
     }
-    // console.log('rendered');
+
+    const filtSavedMov = JSON.parse(
+      localStorage.getItem(`${currentUser._id}-filteredSavedMovies`)
+    );
+    if (filtSavedMov) {
+      setSavedMovies(filtSavedMov);
+    }
   }, [currentUser]);
 
   // начало JSX ////////////////////////////////////////////////////////////
