@@ -4,7 +4,9 @@ import { useLocation } from 'react-router-dom';
 
 // иморт компонент
 import MoviesCard from '../MoviesCard/MoviesCard';
+import Preloader from '../Preloader/Preloader';
 
+// импорт кастомного хука
 import useWindowSize from '../customHooks/useWIndowSize';
 
 // импорт стилей
@@ -16,6 +18,7 @@ const MoviesCardList = ({
   handleMovieSave,
   handleMovieDelete,
   savedMovies,
+  isLoading,
 }) => {
   /////////////////////////////////////////////////////////////////////////
 
@@ -74,6 +77,7 @@ const MoviesCardList = ({
   // начало JSX ////////////////////////////////////////////////////////////
   return (
     <section className="movies-list">
+      {isLoading && <Preloader />}
       <ul className="movies-list__container">
         {movieCardList
           .slice(0, pathname !== '/saved-movies' ? movieLimit : undefined)

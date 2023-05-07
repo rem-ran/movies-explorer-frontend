@@ -4,8 +4,8 @@ import {
   Route,
   Routes,
   Navigate,
-  useNavigate,
   useLocation,
+  useNavigate,
 } from 'react-router-dom';
 
 // импортируем контекст пользователя
@@ -17,6 +17,7 @@ import Login from '../Login/Login';
 import Movies from '../Movies/Movies';
 import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
+import InfoPopup from '../InfoPopup/InfoPopup';
 import MenuPopup from '../MenuPopup/MenuPopup';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import PageNotFound from '../PageNotFound/PageNotFound';
@@ -57,11 +58,27 @@ function App() {
   // переменная состояния клика меню на мобильных разрешении
   const [isMenuClicked, setIsMenuClicked] = useState(false);
 
+  // переменная состояния загрузки
+  const [isLoading, setIsLoading] = useState(false);
+
+  //переменная состояния попапа с сообщением
+  const [infoPopupStatus, setInfoPopupStatus] = useState(false);
+
+  //переменная состояния текста сообщения в информационном модальном окне
+  const [infoModalMsg, setInfoModalMsg] = useState('');
+
   /////////////////////////////////////////////////////////////////////////
 
   // метод обработки состояния клика меню на мобильном разрешении
   const handleOpenMenu = () => {
     setIsMenuClicked((open) => !open);
+  };
+
+  /////////////////////////////////////////////////////////////////////////
+
+  // метод обработки состояния клика меню на мобильном разрешении
+  const handleOpenInfoPopup = () => {
+    setInfoPopupStatus((open) => !open);
   };
 
   /////////////////////////////////////////////////////////////////////////
@@ -86,6 +103,7 @@ function App() {
 
   // метод запроса к API для получения всех фильмов
   const handleGetAllMovies = async () => {
+    setIsLoading(true);
     return movieApi
       .getAllMovies()
 
@@ -101,7 +119,8 @@ function App() {
       })
       .catch((error) => {
         console.log(`Ошибка при загрузки фильмов с сервера: ${error}`);
-      });
+      })
+      .finally(() => setIsLoading(false));
   };
 
   /////////////////////////////////////////////////////////////////////////
@@ -394,6 +413,7 @@ function App() {
                   handleMovieSave={handleMovieSave}
                   handleMovieDelete={handleMovieDelete}
                   savedMovies={savedMovies}
+                  isLoading={isLoading}
                 ></Movies>
               </ProtectedRoute>
             }
@@ -456,11 +476,18 @@ function App() {
           <Route path="*" element={<PageNotFound></PageNotFound>}></Route>
         </Routes>
 
-        {/* попа с меню при нажатии на бургер-меню ///////////////////////////////*/}
+        {/* попап с меню при нажатии на бургер-меню ///////////////////////////////*/}
         <MenuPopup
           isMenuClicked={isMenuClicked}
           handleOpenMenu={handleOpenMenu}
         ></MenuPopup>
+
+        {/* попап с сообщением /////////////////////////////////////////////////////*/}
+        <InfoPopup
+          setInfoPopupStatus={infoPopupStatus}
+          onClose={handleOpenInfoPopup}
+          infoModalMsg={infoModalMsg}
+        />
       </CurrentUserContext.Provider>
     </div>
   );
