@@ -1,5 +1,6 @@
 // импорты
 import { useEffect, useLayoutEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 // иморт компонент
 import MoviesCard from '../MoviesCard/MoviesCard';
@@ -29,6 +30,7 @@ const MoviesCardList = ({
   handleMovieDelete,
   savedMovies,
 }) => {
+  const { pathname } = useLocation();
   const [width] = useWindowSize();
 
   // переменная состояния количества карточек для загрузки при нажатии "Ещё"
@@ -48,18 +50,20 @@ const MoviesCardList = ({
 
   // следим за шириной экрана и выставляем количество фильмов для рендеринга
   useEffect(() => {
-    if (width < 768) {
-      setCardRenderAmount(2, 5);
-    } else if (width > 768 && width < 1279) {
-      setCardRenderAmount(2, 8);
-    } else if (width >= 1280) {
-      setCardRenderAmount(3, 12);
+    if (pathname !== '/saved-movies') {
+      if (width < 768) {
+        setCardRenderAmount(2, 5);
+      } else if (width > 768 && width < 1279) {
+        setCardRenderAmount(2, 8);
+      } else if (width >= 1280) {
+        setCardRenderAmount(3, 12);
+      }
     }
   }, [width]);
 
   // контролируем переменную "cardLimit" для изменения переменной "allCardsRendered"
   useEffect(() => {
-    if (cardLimit >= moviesListLength) {
+    if (cardLimit >= moviesListLength && pathname !== '/saved-movies') {
       setAllCardsRendered(true);
     }
   }, [cardLimit]);
@@ -78,18 +82,20 @@ const MoviesCardList = ({
   return (
     <section className="movies-list">
       <ul className="movies-list__container">
-        {movieCardList.slice(0, cardLimit).map((movie) => (
-          <MoviesCard
-            key={movie.id || movie.movieId}
-            {...movie}
-            isLiked={isLiked(movie)}
-            savedMovies={savedMovies}
-            handleMovieSave={handleMovieSave}
-            handleMovieDelete={handleMovieDelete}
-          />
-        ))}
+        {movieCardList
+          .slice(0, pathname !== '/saved-movies' ? cardLimit : undefined)
+          .map((movie) => (
+            <MoviesCard
+              key={movie.id || movie.movieId}
+              {...movie}
+              isLiked={isLiked(movie)}
+              savedMovies={savedMovies}
+              handleMovieSave={handleMovieSave}
+              handleMovieDelete={handleMovieDelete}
+            />
+          ))}
       </ul>
-      {!allCardsRendered && (
+      {!allCardsRendered && pathname !== '/saved-movies' && (
         <button className="movies-list__more-btn" onClick={handleMoreClick}>
           Ещё
         </button>
