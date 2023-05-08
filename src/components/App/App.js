@@ -166,7 +166,6 @@ function App() {
     const alreadySaveMovie = savedMovies.find(
       (m) => m.movieId === movie.movieId
     );
-    console.log(alreadySaveMovie);
     if (!alreadySaveMovie) {
       mainApi
         .saveMovie(movie)
