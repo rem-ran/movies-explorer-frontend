@@ -34,3 +34,5 @@ CSS:
 Ссылка на макет: https://disk.yandex.com/d/ppxuERjoMKz8hw
 
 Адрес репозитория: https://github.com/rem-ran/movies-explorer-frontend
+
+Адрес пул-реквеста:

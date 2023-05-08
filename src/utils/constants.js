@@ -20,7 +20,7 @@ export const nothingFoundMsg = 'Ничего не найдено';
 
 //объект с нужными для работы с сервером данными
 export const apiMainConfig = {
-  url: 'http://localhost:3001',
+  url: 'https://api.remran.nomoredomains.monster',
   credentials: 'include',
   headers: {
     'Content-Type': 'application/json',
