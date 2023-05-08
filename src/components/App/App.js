@@ -28,7 +28,12 @@ import mainApi from '../../utils/MainApi';
 import movieApi from '../../utils/MoviesApi';
 import userAuthApi from '../../utils/UserAuthApi';
 
-import { serverErrorMsg } from '../../utils/constants';
+// импорт констант
+import {
+  serverErrorMsg,
+  userUpdateOkMsg,
+  nothingFoundMsg,
+} from '../../utils/constants';
 
 // импорт стилей
 import './App.css';
@@ -179,7 +184,7 @@ function App() {
       .filter((movie) => (shortMovieCheck ? movie.duration <= 40 : movie));
 
     if (resultList.length === 0) {
-      handleOpenInfoPopup('ничего не найдено');
+      handleOpenInfoPopup(nothingFoundMsg);
     }
 
     return resultList;
@@ -202,10 +207,6 @@ function App() {
           setSavedMovies([newSavedMovie, ...savedMovies]);
         })
 
-        .then(() => {
-          console.log('movie save ok');
-        })
-
         .catch((error) => {
           console.log(`Ошибка при сохранении фильма: ${error}`);
         });
@@ -223,10 +224,6 @@ function App() {
         setSavedMovies((state) => state.filter((movie) => movie._id !== id));
       })
 
-      .then(() => {
-        console.log('movie delete ok');
-      })
-
       .catch((error) => {
         console.log(`Ошибка при удалении фильма: ${error}`);
       });
@@ -241,7 +238,6 @@ function App() {
 
       .then((userSavedMovies) => {
         setSavedMovies(userSavedMovies.reverse());
-        console.log('saved movies received ok');
       })
 
       .catch((error) => {
@@ -258,8 +254,7 @@ function App() {
 
       .then((res) => {
         setCurrentUser(res);
-        handleOpenInfoPopup('Вы успешно обновили свои данные!');
-        console.log('update ok');
+        handleOpenInfoPopup(userUpdateOkMsg);
       })
 
       .catch((error) => {
@@ -276,10 +271,9 @@ function App() {
       .register({ name, password, email })
       .then(() => {
         handleUserSignIn({ password, email });
-        console.log('reg ok');
       })
       .catch((error) => {
-        console.log(`Error with registration: ${error}`);
+        console.log(`Ошибка регистрации: ${error}`);
       });
   };
 
@@ -291,15 +285,14 @@ function App() {
       .authorize({ password, email })
       .then((data) => {
         if (data._id) {
-          localStorage.setItem('jwt', data._id);
+          localStorage.setItem('token', data._id);
           setIsLoggenIn(true);
           navigate('/movies', { replace: true });
-          console.log('login ok');
         }
       })
 
       .catch((error) => {
-        console.log(`Error with login: ${error}`);
+        console.log(`Ошибка авторизации: ${error}`);
       });
   };
 
@@ -310,17 +303,16 @@ function App() {
     userAuthApi
       .logout()
       .then(() => {
-        localStorage.removeItem('jwt');
+        localStorage.removeItem('token');
         localStorage.clear();
         setCurrentUser({});
         setMovies([]);
         setFilteredMovies([]);
         setIsLoggenIn(false);
         navigate('/');
-        console.log('signout ok');
       })
       .catch((error) => {
-        console.log(`Error with logout: ${error}`);
+        console.log(`Ошибка выхода пользователя: ${error}`);
       });
   };
 
@@ -328,25 +320,21 @@ function App() {
 
   // метод проверки токенов авторизированных пользователей, вернувшихся в приложение
   const handleTokenCheck = () => {
-    const token = localStorage.getItem('jwt');
-    console.log(token);
+    const token = localStorage.getItem('token');
     if (token) {
-      console.log('if token ok');
       userAuthApi
         .getContent()
         .then((res) => {
-          console.log(res);
           if (res) {
             setIsLoggenIn(true);
             setCurrentUser(res);
             navigate(location.pathname, { replace: true });
-            // console.log('token check ok');
           } else {
             setIsLoggenIn(false);
           }
         })
         .catch((error) => {
-          console.log(`Error with token check: ${error}`);
+          console.log(`Ошибка сверки токена: ${error}`);
         });
     }
   };
