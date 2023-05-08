@@ -41,7 +41,6 @@ class UserAuthApi {
       method: 'POST',
       credentials: this._credentials,
       headers: this._headers,
-      // body: JSON.stringify(_id),
     }).then(this._getResponseData);
   }
 

@@ -13,6 +13,7 @@ const SearchForm = ({
   handleMovieSearch,
   checkedStatus,
   handleShortMovieFilter,
+  isLoading,
 }) => {
   /////////////////////////////////////////////////////////////////////////
 
@@ -52,6 +53,7 @@ const SearchForm = ({
       <div className="search__container">
         <form className="search__form" role="search" onSubmit={onSearch}>
           <input
+            disabled={isLoading && true}
             name="q"
             aria-label="Поиск по списку фильмов на сайте"
             type="search"

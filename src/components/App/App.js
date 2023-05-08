@@ -329,10 +329,13 @@ function App() {
   // метод проверки токенов авторизированных пользователей, вернувшихся в приложение
   const handleTokenCheck = () => {
     const token = localStorage.getItem('jwt');
+    console.log(token);
     if (token) {
+      console.log('if token ok');
       userAuthApi
         .getContent()
         .then((res) => {
+          console.log(res);
           if (res) {
             setIsLoggenIn(true);
             setCurrentUser(res);
@@ -387,11 +390,36 @@ function App() {
           {/* рут с информацией об авторе и проекте ///////////////////////////*/}
           <Route
             path="/"
+            exact
             element={
               <Main
                 isLoggenIn={isLoggenIn}
                 handleOpenMenu={handleOpenMenu}
               ></Main>
+            }
+          ></Route>
+
+          {/* рут авторизации //////////////////////////////,////////////////////*/}
+          <Route
+            path="/signin"
+            element={
+              isLoggenIn ? (
+                <Navigate to="/" replace />
+              ) : (
+                <Login handleUserSignIn={handleUserSignIn}></Login>
+              )
+            }
+          ></Route>
+
+          {/* рут регистрации //////////////////////////////,////////////////////*/}
+          <Route
+            path="/signup"
+            element={
+              isLoggenIn ? (
+                <Navigate to="/" replace />
+              ) : (
+                <Register handleUserSignUp={handleUserSignUp}></Register>
+              )
             }
           ></Route>
 
@@ -423,6 +451,7 @@ function App() {
                   handleMovieDelete={handleMovieDelete}
                   handleUserMovieSearch={handleUserMovieSearch}
                   savedMovies={savedMovies}
+                  isLoading={isLoading}
                 ></SavedMovies>
               </ProtectedRoute>
             }
@@ -439,30 +468,6 @@ function App() {
                   handleUserUpdate={handleUserUpdate}
                 ></Profile>
               </ProtectedRoute>
-            }
-          ></Route>
-
-          {/* рут авторизации //////////////////////////////,////////////////////*/}
-          <Route
-            path="/signin"
-            element={
-              isLoggenIn ? (
-                <Navigate to="/" replace />
-              ) : (
-                <Login handleUserSignIn={handleUserSignIn}></Login>
-              )
-            }
-          ></Route>
-
-          {/* рут регистрации //////////////////////////////,////////////////////*/}
-          <Route
-            path="/signup"
-            element={
-              isLoggenIn ? (
-                <Navigate to="/" replace />
-              ) : (
-                <Register handleUserSignUp={handleUserSignUp}></Register>
-              )
             }
           ></Route>
 

@@ -74,6 +74,7 @@ const Movies = ({
           handleMovieSearch={onMovieSearch}
           handleShortMovieFilter={handleShortMovieFilter}
           checkedStatus={shortMovieStatus}
+          isLoading={isLoading}
         ></SearchForm>
         <MoviesCardList
           movieCardList={filteredMovies}

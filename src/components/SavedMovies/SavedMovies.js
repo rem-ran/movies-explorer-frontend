@@ -17,6 +17,7 @@ const SavedMovies = ({
   handleMovieDelete,
   handleUserMovieSearch,
   savedMovies,
+  isLoading,
 }) => {
   /////////////////////////////////////////////////////////////////////////
 
@@ -62,6 +63,7 @@ const SavedMovies = ({
         <SearchForm
           handleMovieSearch={onSavedMovieSearch}
           handleShortMovieFilter={handleShortMovieFilter}
+          isLoading={isLoading}
         ></SearchForm>
         <MoviesCardList
           movieCardList={filteredMovies}
