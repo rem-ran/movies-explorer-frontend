@@ -59,9 +59,6 @@ function App() {
   // переменная состояния сохранённых пользователем массива с фильмами
   const [savedMovies, setSavedMovies] = useState([]);
 
-  // переменная состояния отфильтрованного пользователем массива с фильмами
-  const [filteredMovies, setFilteredMovies] = useState([]);
-
   // переменная состояния клика меню на мобильных разрешении
   const [isMenuClicked, setIsMenuClicked] = useState(false);
 
@@ -140,37 +137,8 @@ function App() {
 
   /////////////////////////////////////////////////////////////////////////
 
-  // метод обработки всех полученных фильмов фильтром пользователя
-  const handleMovieSearch = async (filterText, shortMovieCheck) => {
-    // проверяем был ли совершён уже поиск карточек и если, нет, то
-    // обращаемся к api для загрузки всех фильмов
-    if (movies.length === 0) {
-      await handleGetAllMovies();
-    }
-
-    // сохраняем в локальное хранилище результат фильтрации
-    localStorage.setItem(
-      `${currentUser._id}-filteredMovies`,
-      JSON.stringify(
-        handleUserMovieSearch(
-          JSON.parse(localStorage.getItem(`${currentUser._id}-movies`)),
-          filterText,
-          shortMovieCheck
-        )
-      )
-    );
-
-    // достаём из локального хранилища сохранённые отфильтрованные фильмы
-    // и передаём их переменной filteredMovies
-    setFilteredMovies(
-      JSON.parse(localStorage.getItem(`${currentUser._id}-filteredMovies`))
-    );
-  };
-
-  /////////////////////////////////////////////////////////////////////////
-
   // метод фильтрования массива с фильмами по введённому пользователем тексту "filterText"
-  const handleUserMovieSearch = (moviesList, filterText, shortMovieCheck) => {
+  const handleUserMovieFilter = (moviesList, filterText, shortMovieCheck) => {
     let resultList = moviesList
       .filter(
         (movie) =>
@@ -307,7 +275,6 @@ function App() {
         localStorage.clear();
         setCurrentUser({});
         setMovies([]);
-        setFilteredMovies([]);
         setIsLoggenIn(false);
         navigate('/');
       })
@@ -358,18 +325,6 @@ function App() {
     handleTokenCheck();
   }, []);
 
-  /////////////////////////////////////////////////////////////////////////
-
-  // рендерим filteredMovies в зависимости от изменения данных currentUser
-  useEffect(() => {
-    const filtMov = JSON.parse(
-      localStorage.getItem(`${currentUser._id}-filteredMovies`)
-    );
-    if (filtMov) {
-      setFilteredMovies(filtMov);
-    }
-  }, [currentUser]);
-
   // начало JSX ////////////////////////////////////////////////////////////
   return (
     <div className="page">
@@ -417,13 +372,14 @@ function App() {
             element={
               <ProtectedRoute isLoggenIn={isLoggenIn}>
                 <Movies
+                  isLoading={isLoading}
+                  savedMovies={savedMovies}
                   handleOpenMenu={handleOpenMenu}
-                  filteredMovies={filteredMovies}
-                  handleMovieSearch={handleMovieSearch}
                   handleMovieSave={handleMovieSave}
                   handleMovieDelete={handleMovieDelete}
-                  savedMovies={savedMovies}
-                  isLoading={isLoading}
+                  handleUserMovieFilter={handleUserMovieFilter}
+                  handleGetAllMovies={handleGetAllMovies}
+                  movies={movies}
                 ></Movies>
               </ProtectedRoute>
             }
@@ -435,11 +391,11 @@ function App() {
             element={
               <ProtectedRoute isLoggenIn={isLoggenIn}>
                 <SavedMovies
+                  isLoading={isLoading}
+                  savedMovies={savedMovies}
                   handleOpenMenu={handleOpenMenu}
                   handleMovieDelete={handleMovieDelete}
-                  handleUserMovieSearch={handleUserMovieSearch}
-                  savedMovies={savedMovies}
-                  isLoading={isLoading}
+                  handleUserMovieFilter={handleUserMovieFilter}
                 ></SavedMovies>
               </ProtectedRoute>
             }

@@ -12,7 +12,7 @@ import './SearchForm.css';
 const SearchForm = ({
   handleMovieSearch,
   checkedStatus,
-  handleShortMovieFilter,
+  handleShortMovie,
   isLoading,
 }) => {
   /////////////////////////////////////////////////////////////////////////
@@ -73,7 +73,7 @@ const SearchForm = ({
               checked={checkedStatus}
               className="toogle-switch__ckeckbox"
               type="checkbox"
-              onChange={handleShortMovieFilter}
+              onChange={handleShortMovie}
             ></input>
             <span className="toogle-switch__slider"></span>
           </label>

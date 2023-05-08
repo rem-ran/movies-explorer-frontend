@@ -15,7 +15,7 @@ import './SavedMovies.css';
 const SavedMovies = ({
   handleOpenMenu,
   handleMovieDelete,
-  handleUserMovieSearch,
+  handleUserMovieFilter,
   savedMovies,
   isLoading,
 }) => {
@@ -25,7 +25,7 @@ const SavedMovies = ({
   const [shortSavedMovieStatus, setShortSavedMovieStatus] = useState(false);
 
   // переменная состояния отфильтрованного массива сохранённых фильмов
-  const [filteredMovies, setFilteredMovies] = useState(savedMovies);
+  const [filteredSavedMovies, setFilteredSavedMovies] = useState(savedMovies);
 
   // переменная состояния введённого текста в инпут
   const [searchTxt, setSearchTxt] = useState('');
@@ -33,7 +33,7 @@ const SavedMovies = ({
   /////////////////////////////////////////////////////////////////////////
 
   // метод обработки состояния чекбокса короткометражных фильмов при клике по нему
-  const handleShortMovieFilter = () => {
+  const handleShortMovie = () => {
     setShortSavedMovieStatus((ch) => !ch);
   };
 
@@ -47,8 +47,8 @@ const SavedMovies = ({
   // фильтуем массив сохранённых фильмов при изменении состояний
   // "savedMovies", "searchTxt" и "shortSavedMovieStatus"
   useEffect(() => {
-    setFilteredMovies(
-      handleUserMovieSearch(savedMovies, searchTxt, shortSavedMovieStatus)
+    setFilteredSavedMovies(
+      handleUserMovieFilter(savedMovies, searchTxt, shortSavedMovieStatus)
     );
   }, [savedMovies, searchTxt, shortSavedMovieStatus]);
 
@@ -62,11 +62,11 @@ const SavedMovies = ({
       <main className="saved-movies__content">
         <SearchForm
           handleMovieSearch={onSavedMovieSearch}
-          handleShortMovieFilter={handleShortMovieFilter}
+          handleShortMovie={handleShortMovie}
           isLoading={isLoading}
         ></SearchForm>
         <MoviesCardList
-          movieCardList={filteredMovies}
+          movieCardList={filteredSavedMovies}
           handleMovieDelete={handleMovieDelete}
           savedMovies={savedMovies}
         ></MoviesCardList>
