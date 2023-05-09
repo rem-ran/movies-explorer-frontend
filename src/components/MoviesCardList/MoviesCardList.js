@@ -9,6 +9,19 @@ import Preloader from '../Preloader/Preloader';
 // импорт кастомного хука
 import useWindowSize from '../customHooks/useWIndowSize';
 
+// импорт констант
+import {
+  mobileMax,
+  tabletMax,
+  desktopMin,
+  mobileMoviesToAdd,
+  tabletMoviesToAdd,
+  desktopMoviesToAdd,
+  mobileInitialMovies,
+  tabletInitialMovies,
+  desktopInitialMovies,
+} from '../../utils/constants';
+
 // импорт стилей
 import './MoviesCardList.css';
 
@@ -43,12 +56,12 @@ const MoviesCardList = ({
 
   // метод котроля ширины экрана и выставления количества фильмов для рендеринга
   const handleRenderMoviesAmount = () => {
-    if (width < 768) {
-      setCardRenderAmount(2, 5);
-    } else if (width > 768 && width < 1279) {
-      setCardRenderAmount(2, 8);
-    } else if (width >= 1280) {
-      setCardRenderAmount(3, 12);
+    if (width < mobileMax) {
+      setCardRenderAmount(mobileMoviesToAdd, mobileInitialMovies);
+    } else if (width > mobileMax && width < tabletMax) {
+      setCardRenderAmount(tabletMoviesToAdd, tabletInitialMovies);
+    } else if (width >= desktopMin) {
+      setCardRenderAmount(desktopMoviesToAdd, desktopInitialMovies);
     }
   };
 

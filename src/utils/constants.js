@@ -18,7 +18,33 @@ export const nothingFoundMsg = 'Ничего не найдено';
 
 /////////////////////////////////////////////////////////////////////////
 
+// константа для фильрации фильма по его продолжительности
 export const shortMoviesFilterValue = 40;
+
+/////////////////////////////////////////////////////////////////////////
+
+// константы ширины экрана для сравнения слушателем "resize"
+export const mobileMax = 768;
+
+export const tabletMax = 1279;
+
+export const desktopMin = 1280;
+
+/////////////////////////////////////////////////////////////////////////
+
+// константы отрисовки количества фильмов в зависимости от ширины экрана
+
+export const mobileMoviesToAdd = 2;
+
+export const tabletMoviesToAdd = 2;
+
+export const desktopMoviesToAdd = 2;
+
+export const mobileInitialMovies = 5;
+
+export const tabletInitialMovies = 8;
+
+export const desktopInitialMovies = 12;
 
 /////////////////////////////////////////////////////////////////////////
 
