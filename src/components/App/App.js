@@ -242,6 +242,7 @@ function App() {
         handleUserSignIn({ password, email });
       })
       .catch((error) => {
+        handleOpenInfoPopup(serverErrorMsg);
         console.log(`Ошибка регистрации: ${error}`);
       });
   };
