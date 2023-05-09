@@ -175,6 +175,7 @@ function App() {
         })
 
         .catch((error) => {
+          handleOpenInfoPopup(serverErrorMsg);
           console.log(`Ошибка при сохранении фильма: ${error}`);
         });
     }
