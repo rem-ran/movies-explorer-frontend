@@ -192,6 +192,7 @@ function App() {
       })
 
       .catch((error) => {
+        handleOpenInfoPopup(serverErrorMsg);
         console.log(`Ошибка при удалении фильма: ${error}`);
       });
   };
