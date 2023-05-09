@@ -18,9 +18,14 @@ export const nothingFoundMsg = 'Ничего не найдено';
 
 /////////////////////////////////////////////////////////////////////////
 
+export const shortMoviesFilterValue = 40;
+
+/////////////////////////////////////////////////////////////////////////
+
 //объект с нужными для работы с сервером данными
 export const apiMainConfig = {
-  url: 'https://api.remran.nomoredomains.monster',
+  // url: 'https://api.remran.nomoredomains.monster',
+  url: 'http://localhost:3000',
   credentials: 'include',
   headers: {
     'Content-Type': 'application/json',

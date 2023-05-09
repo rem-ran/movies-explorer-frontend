@@ -33,6 +33,7 @@ import {
   serverErrorMsg,
   userUpdateOkMsg,
   nothingFoundMsg,
+  shortMoviesFilterValue,
 } from '../../utils/constants';
 
 // импорт стилей
@@ -149,7 +150,9 @@ function App() {
           movie.country.toLowerCase().includes(filterText) ||
           movie.description.toLowerCase().includes(filterText)
       )
-      .filter((movie) => (shortMovieCheck ? movie.duration <= 40 : movie));
+      .filter((movie) =>
+        shortMovieCheck ? movie.duration <= shortMoviesFilterValue : movie
+      );
 
     if (resultList.length === 0) {
       handleOpenInfoPopup(nothingFoundMsg);
