@@ -34,6 +34,16 @@ import {
   userUpdateOkMsg,
   nothingFoundMsg,
   shortMoviesFilterValue,
+  userInfoErrorMsg,
+  allMoviesErrorMsg,
+  moviesSaveErrorMsg,
+  moviesDeleteErrorMsg,
+  savedMoviesErrorMsg,
+  userInfoUpdateErrorMsg,
+  userSignupErrorMsg,
+  userSigninErrorMsg,
+  userSignoutErrorMsg,
+  tokenCheckErrorMsg,
 } from '../../utils/constants';
 
 // импорт стилей
@@ -106,9 +116,7 @@ function App() {
       })
 
       .catch((error) => {
-        console.log(
-          `Ошибка при начальной загрузки информации пользователя с сервера: ${error}`
-        );
+        console.log(`${userInfoErrorMsg}: ${error}`);
       });
   };
 
@@ -131,7 +139,7 @@ function App() {
       })
       .catch((error) => {
         handleOpenInfoPopup(serverErrorMsg);
-        console.log(`Ошибка при загрузки фильмов с сервера: ${error}`);
+        console.log(`${allMoviesErrorMsg}: ${error}`);
       })
       .finally(() => setIsLoading(false));
   };
@@ -179,7 +187,7 @@ function App() {
 
         .catch((error) => {
           handleOpenInfoPopup(serverErrorMsg);
-          console.log(`Ошибка при сохранении фильма: ${error}`);
+          console.log(`${moviesSaveErrorMsg}: ${error}`);
         });
     }
   };
@@ -197,7 +205,7 @@ function App() {
 
       .catch((error) => {
         handleOpenInfoPopup(serverErrorMsg);
-        console.log(`Ошибка при удалении фильма: ${error}`);
+        console.log(`${moviesDeleteErrorMsg}: ${error}`);
       });
   };
 
@@ -213,7 +221,7 @@ function App() {
       })
 
       .catch((error) => {
-        console.log(`Ошибка при получении сохранённых фильмов: ${error}`);
+        console.log(`${savedMoviesErrorMsg}: ${error}`);
       });
   };
 
@@ -231,7 +239,7 @@ function App() {
 
       .catch((error) => {
         handleOpenInfoPopup(serverErrorMsg);
-        console.log(`Ошибка при обновлении данных пользователя: ${error}`);
+        console.log(`${userInfoUpdateErrorMsg}: ${error}`);
       });
   };
 
@@ -246,7 +254,7 @@ function App() {
       })
       .catch((error) => {
         handleOpenInfoPopup(serverErrorMsg);
-        console.log(`Ошибка регистрации: ${error}`);
+        console.log(`${userSignupErrorMsg}: ${error}`);
       });
   };
 
@@ -266,7 +274,7 @@ function App() {
 
       .catch((error) => {
         handleOpenInfoPopup(serverErrorMsg);
-        console.log(`Ошибка авторизации: ${error}`);
+        console.log(`${userSigninErrorMsg}: ${error}`);
       });
   };
 
@@ -285,7 +293,7 @@ function App() {
         navigate('/');
       })
       .catch((error) => {
-        console.log(`Ошибка выхода пользователя: ${error}`);
+        console.log(`${userSignoutErrorMsg}: ${error}`);
       });
   };
 
@@ -307,7 +315,7 @@ function App() {
           }
         })
         .catch((error) => {
-          console.log(`Ошибка сверки токена: ${error}`);
+          console.log(`${tokenCheckErrorMsg}: ${error}`);
         });
     }
   };

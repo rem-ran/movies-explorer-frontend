@@ -33,7 +33,6 @@ export const desktopMin = 1280;
 /////////////////////////////////////////////////////////////////////////
 
 // константы отрисовки количества фильмов в зависимости от ширины экрана
-
 export const mobileMoviesToAdd = 2;
 
 export const tabletMoviesToAdd = 2;
@@ -45,6 +44,31 @@ export const mobileInitialMovies = 5;
 export const tabletInitialMovies = 8;
 
 export const desktopInitialMovies = 12;
+
+/////////////////////////////////////////////////////////////////////////
+
+// константы текста ошибок дял отображения в консоли компоненты App
+export const userInfoErrorMsg =
+  'Ошибка при начальной загрузки информации пользователя с сервера';
+
+export const allMoviesErrorMsg = 'Ошибка при загрузки фильмов с сервера';
+
+export const moviesSaveErrorMsg = 'Ошибка при сохранении фильма';
+
+export const moviesDeleteErrorMsg = 'Ошибка при удалении фильма';
+
+export const savedMoviesErrorMsg = 'Ошибка при получении сохранённых фильмов';
+
+export const userInfoUpdateErrorMsg =
+  'Ошибка при обновлении данных пользователя';
+
+export const userSignupErrorMsg = 'Ошибка регистрации';
+
+export const userSigninErrorMsg = 'Ошибка авторизации';
+
+export const userSignoutErrorMsg = 'Ошибка выхода пользователя';
+
+export const tokenCheckErrorMsg = 'Ошибка сверки токена';
 
 /////////////////////////////////////////////////////////////////////////
 
