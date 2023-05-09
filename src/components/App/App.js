@@ -262,6 +262,7 @@ function App() {
       })
 
       .catch((error) => {
+        handleOpenInfoPopup(serverErrorMsg);
         console.log(`Ошибка авторизации: ${error}`);
       });
   };
