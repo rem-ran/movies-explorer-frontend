@@ -9,7 +9,7 @@ import './Login.css';
 import '../CommonSignPage/CommonSignPage.css';
 
 // компонет авторизации //////////////////////////////////////////////////////
-const Login = ({ handleUserSignIn }) => {
+const Login = ({ handleUserSignIn, isLoading }) => {
   //подключаем пакет валидации форм
   const {
     register,
@@ -30,6 +30,7 @@ const Login = ({ handleUserSignIn }) => {
   return (
     <section className="login">
       <CommonSignPage
+        isLoading={isLoading}
         heading={'Рады видеть!'}
         btnTxt={'Войти'}
         linkRoute={'/signup'}
@@ -37,7 +38,8 @@ const Login = ({ handleUserSignIn }) => {
         linkTxt={'Регистрация'}
         handleSubmit={handleSubmit(onSubmit)}
         buttonDisabled={
-          (errors?.email || errors?.password) && 'sign__submit-btn_disabled'
+          (errors?.email || errors?.password || isLoading) &&
+          'sign__submit-btn_disabled'
         }
         inputs={
           <>

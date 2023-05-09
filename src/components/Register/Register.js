@@ -13,7 +13,7 @@ import './Register.css';
 import '../CommonSignPage/CommonSignPage.css';
 
 // компонет регистрации //////////////////////////////////////////////////////
-const Register = ({ handleUserSignUp }) => {
+const Register = ({ handleUserSignUp, isLoading }) => {
   //подключаем пакет валидации форм
   const {
     register,
@@ -34,6 +34,7 @@ const Register = ({ handleUserSignUp }) => {
   return (
     <div className="register">
       <CommonSignPage
+        isLoading={isLoading}
         heading={'Добро пожаловать!'}
         btnTxt={'Зарегистрироваться'}
         linkRoute={'/signin'}
@@ -41,7 +42,7 @@ const Register = ({ handleUserSignUp }) => {
         linkTxt={'Войти'}
         handleSubmit={handleSubmit(onSubmit)}
         buttonDisabled={
-          (errors?.name || errors?.email || errors?.password) &&
+          (errors?.name || errors?.email || errors?.password || isLoading) &&
           'sign__submit-btn_disabled'
         }
         inputs={

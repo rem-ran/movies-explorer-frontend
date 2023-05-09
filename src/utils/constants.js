@@ -8,7 +8,7 @@ export const moviesUrl = 'https://api.nomoreparties.co/';
 
 /////////////////////////////////////////////////////////////////////////
 
-// константы сообщений
+// константы текста сообщений для информационного попапа
 export const serverErrorMsg =
   'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз';
 
@@ -16,10 +16,17 @@ export const userUpdateOkMsg = 'Вы успешно обновили свои д
 
 export const nothingFoundMsg = 'Ничего не найдено';
 
+export const sameEmailErrorMsg = 'Пользователь с таким email уже существует';
+
 /////////////////////////////////////////////////////////////////////////
 
 // константа для фильрации фильма по его продолжительности
 export const shortMoviesFilterValue = 40;
+
+/////////////////////////////////////////////////////////////////////////
+
+// константа ошибки "409"
+export const errorCode409 = 409;
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -75,7 +82,7 @@ export const tokenCheckErrorMsg = 'Ошибка сверки токена';
 //объект с нужными для работы с сервером данными
 export const apiMainConfig = {
   // url: 'https://api.remran.nomoredomains.monster',
-  url: 'http://localhost:3000',
+  url: 'http://localhost:3001',
   credentials: 'include',
   headers: {
     'Content-Type': 'application/json',

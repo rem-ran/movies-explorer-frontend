@@ -30,6 +30,7 @@ import userAuthApi from '../../utils/UserAuthApi';
 
 // импорт констант
 import {
+  errorCode409,
   serverErrorMsg,
   userUpdateOkMsg,
   nothingFoundMsg,
@@ -44,6 +45,7 @@ import {
   userSigninErrorMsg,
   userSignoutErrorMsg,
   tokenCheckErrorMsg,
+  sameEmailErrorMsg,
 } from '../../utils/constants';
 
 // импорт стилей
@@ -247,21 +249,30 @@ function App() {
 
   // метод запроса к API для регистрации пользоваетля на странице
   const handleUserSignUp = ({ name, password, email }) => {
+    setIsLoading(true);
     userAuthApi
       .register({ name, password, email })
       .then(() => {
         handleUserSignIn({ password, email });
       })
       .catch((error) => {
-        handleOpenInfoPopup(serverErrorMsg);
-        console.log(`${userSignupErrorMsg}: ${error}`);
-      });
+        if (error.includes(errorCode409)) {
+          handleOpenInfoPopup(sameEmailErrorMsg);
+          console.log(error);
+        } else {
+          handleOpenInfoPopup(serverErrorMsg);
+          console.log(`${userSignupErrorMsg}: ${error}`);
+        }
+        setIsLoading(false);
+      })
+      .finally(() => setIsLoading(false));
   };
 
   /////////////////////////////////////////////////////////////////////////
 
   // метода запроса к API для авторизации пользоваетля на странице
   const handleUserSignIn = ({ password, email }) => {
+    setIsLoading(true);
     userAuthApi
       .authorize({ password, email })
       .then((data) => {
@@ -274,8 +285,10 @@ function App() {
 
       .catch((error) => {
         handleOpenInfoPopup(serverErrorMsg);
+        setIsLoading(false);
         console.log(`${userSigninErrorMsg}: ${error}`);
-      });
+      })
+      .finally(() => setIsLoading(false));
   };
 
   /////////////////////////////////////////////////////////////////////////
@@ -363,7 +376,10 @@ function App() {
               isLoggenIn ? (
                 <Navigate to="/" replace />
               ) : (
-                <Login handleUserSignIn={handleUserSignIn}></Login>
+                <Login
+                  handleUserSignIn={handleUserSignIn}
+                  isLoading={isLoading}
+                ></Login>
               )
             }
           ></Route>
@@ -375,7 +391,10 @@ function App() {
               isLoggenIn ? (
                 <Navigate to="/" replace />
               ) : (
-                <Register handleUserSignUp={handleUserSignUp}></Register>
+                <Register
+                  handleUserSignUp={handleUserSignUp}
+                  isLoading={isLoading}
+                ></Register>
               )
             }
           ></Route>

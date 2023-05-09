@@ -9,6 +9,7 @@ import './CommonSignPage.css';
 
 // компонет для login/register //////////////////////////////////////////////////////
 const CommonSignPage = ({
+  isLoading,
   heading,
   btnTxt,
   handleSubmit,
@@ -41,6 +42,7 @@ const CommonSignPage = ({
           <button
             onClick={handleSubmit}
             className={`sign__submit-btn ${buttonDisabled}`}
+            disabled={isLoading && true}
           >
             {btnTxt}
           </button>
