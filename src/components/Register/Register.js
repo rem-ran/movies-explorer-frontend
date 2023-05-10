@@ -13,13 +13,12 @@ import './Register.css';
 import '../CommonSignPage/CommonSignPage.css';
 
 // компонет регистрации //////////////////////////////////////////////////////
-const Register = ({ handleUserSignUp }) => {
+const Register = ({ handleUserSignUp, isLoading }) => {
   //подключаем пакет валидации форм
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm({
     mode: 'onBlur',
   });
@@ -27,13 +26,13 @@ const Register = ({ handleUserSignUp }) => {
   // метод обработки сабмита формы
   const onSubmit = (inputData) => {
     handleUserSignUp(inputData);
-    reset();
   };
 
   // начало JSX ////////////////////////////////////////////////////////////
   return (
     <div className="register">
       <CommonSignPage
+        isLoading={isLoading}
         heading={'Добро пожаловать!'}
         btnTxt={'Зарегистрироваться'}
         linkRoute={'/signin'}
@@ -41,7 +40,7 @@ const Register = ({ handleUserSignUp }) => {
         linkTxt={'Войти'}
         handleSubmit={handleSubmit(onSubmit)}
         buttonDisabled={
-          (errors?.name || errors?.email || errors?.password) &&
+          (errors?.name || errors?.email || errors?.password || isLoading) &&
           'sign__submit-btn_disabled'
         }
         inputs={

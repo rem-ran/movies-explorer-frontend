@@ -1,7 +1,9 @@
 // импорты
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+
+// импорт контекста пользователя
+import { CurrentUserContext } from '../../context/CurrentUserContext';
 
 // импорт компонент
 import Header from '../Header/Header';
@@ -14,41 +16,82 @@ import { inputConfig } from '../../utils/constants';
 import './Profile.css';
 
 // компонет профиля //////////////////////////////////////////////////////
-const Profile = ({ handleOpenMenu }) => {
+const Profile = ({ handleOpenMenu, handleSignOut, handleUserUpdate }) => {
+  // подключаем контекст пользователя
+  const currentUser = useContext(CurrentUserContext);
+
+  // состояние, которое меняется при нажатии на кнопку формы
+  const [isEditOn, setIsEditOn] = useState(false);
+
+  // переменная сравнения значений инпута и currentUser
+  const [isInputValueSame, setIsInputValueSame] = useState(true);
+
+  ///////////////////////////////////////////////////////////////////////////
+
   //подключаем пакет валидации форм
   const {
     register,
+    watch,
     handleSubmit,
     formState: { errors },
   } = useForm({
     mode: 'onBlur',
     defaultValues: {
-      name: 'Виталий',
-      email: 'pochta@yandex.ru',
+      name: currentUser.name,
+      email: currentUser.email,
     },
   });
 
-  // состояние, которое меняется при нажатии на кнопку формы
-  const [isEditOn, setIsEditOn] = useState(false);
+  ///////////////////////////////////////////////////////////////////////////
+
+  // находим все инпуты на странице
   const profileInputs = document.querySelectorAll('.profile__input');
 
-  const toggleInputState = () => {
-    profileInputs.forEach((input) => input.toggleAttribute('disabled'));
-  };
-
+  // включаем и выключаем инпуты при изменении сосотояния isEditOn
   useEffect(() => {
+    const toggleInputState = () => {
+      profileInputs.forEach((input) => input.toggleAttribute('disabled'));
+    };
     toggleInputState();
   }, [isEditOn]);
 
+  ///////////////////////////////////////////////////////////////////////////
+
+  // назначаем слежение за значением инпутов name и email
+  const name = watch('name');
+  const email = watch('email');
+
+  // метод сравнения значений инпутов и смены состояния кнопки сохранения
+  const handleInputsValues = () => {
+    const saveBtn = document.querySelector('.profile__save-btn');
+    if (currentUser.name === name && currentUser.email === email) {
+      setIsInputValueSame(false);
+      saveBtn.setAttribute('disabled', true);
+    } else {
+      setIsInputValueSame(true);
+      saveBtn.removeAttribute('disabled');
+    }
+  };
+
+  // запускаем метод handleInputsValues каждый раз при изменении name, email и isEditOn
+  useEffect(() => {
+    if (isEditOn) {
+      handleInputsValues();
+    }
+  }, [name, email, isEditOn]);
+
+  ///////////////////////////////////////////////////////////////////////////
+
   // метод обработки клика по кнопке редактирования
-  const handleEditClick = (ev) => {
-    ev.preventDefault();
+  const handleEditClick = (e) => {
+    e.preventDefault();
     setIsEditOn(true);
   };
 
+  // метод обработки клика по кнопке сохранения
   const onSubmit = (data) => {
+    handleUserUpdate(data);
     setIsEditOn(false);
-    console.log(data);
   };
 
   // начало JSX ////////////////////////////////////////////////////////////
@@ -64,6 +107,7 @@ const Profile = ({ handleOpenMenu }) => {
           <div className="profile__form-element-box">
             <div className="profile__form-element">
               <label className="profile__input-label">Имя</label>
+              {/* импут с именем */}
               <input
                 {...register('name', inputConfig.name)}
                 disabled
@@ -75,6 +119,7 @@ const Profile = ({ handleOpenMenu }) => {
             </div>
             <div className="profile__form-element">
               <label className="profile__input-label">E-mail</label>
+              {/* импут с электронным адресом */}
               <input
                 {...register('email', inputConfig.email)}
                 disabled
@@ -95,11 +140,13 @@ const Profile = ({ handleOpenMenu }) => {
                   (errors?.email && errors.email.message)}
               </span>
 
-              {/* у кнопки меняется стиль в зависимости от наличия ошибок в инпутах */}
+              {/* у кнопки сохранения изменений меняется стиль в зависимости от 
+              наличия ошибок в инпутах */}
               <button
+                disabled
                 onClick={handleSubmit(onSubmit)}
                 className={`profile__save-btn ${
-                  (errors?.name || errors?.email) &&
+                  (errors?.name || errors?.email || !isInputValueSame) &&
                   'profile__save-btn_disabled'
                 }`}
               >
@@ -112,12 +159,12 @@ const Profile = ({ handleOpenMenu }) => {
         в зависимости от значения состояние isEditOn */}
         {!isEditOn && (
           <div className="profile__container-btns">
-            <button onClick={handleEditClick} className="profile__edit-btn">
+            <button className="profile__edit-btn" onClick={handleEditClick}>
               Редактировать
             </button>
-            <Link to="/signin" className="profile__logout">
+            <button className="profile__logout" onClick={handleSignOut}>
               Выйти из аккаунта
-            </Link>
+            </button>
           </div>
         )}
       </div>

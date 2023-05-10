@@ -1,5 +1,7 @@
+//импорт стилей
 import './Preloader.css';
 
+// компонент визуализации загрузки
 const Preloader = () => {
   return (
     <div className="preloader">
@@ -10,4 +12,5 @@ const Preloader = () => {
   );
 };
 
+// экспорт //////////////////////////////////////////////////////
 export default Preloader;
