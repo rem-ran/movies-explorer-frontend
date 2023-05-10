@@ -31,6 +31,7 @@ import userAuthApi from '../../utils/UserAuthApi';
 // импорт констант
 import {
   errorCode409,
+  errorCode401,
   serverErrorMsg,
   userUpdateOkMsg,
   nothingFoundMsg,
@@ -46,6 +47,7 @@ import {
   userSignoutErrorMsg,
   tokenCheckErrorMsg,
   sameEmailErrorMsg,
+  wrongAuthDataErrorMsg,
 } from '../../utils/constants';
 
 // импорт стилей
@@ -256,9 +258,11 @@ function App() {
         handleUserSignIn({ password, email });
       })
       .catch((error) => {
+        // обработка конкретной ошибки "409"
         if (error.includes(errorCode409)) {
           handleOpenInfoPopup(sameEmailErrorMsg);
           console.log(error);
+          // общая обработка остальных ошибок
         } else {
           handleOpenInfoPopup(serverErrorMsg);
           console.log(`${userSignupErrorMsg}: ${error}`);
@@ -284,9 +288,16 @@ function App() {
       })
 
       .catch((error) => {
-        handleOpenInfoPopup(serverErrorMsg);
+        // обработка конкретной ошибки "401"
+        if (error.includes(errorCode401)) {
+          handleOpenInfoPopup(wrongAuthDataErrorMsg);
+          console.log(error);
+          // общая обработка остальных ошибок
+        } else {
+          handleOpenInfoPopup(serverErrorMsg);
+          console.log(`${userSigninErrorMsg}: ${error}`);
+        }
         setIsLoading(false);
-        console.log(`${userSigninErrorMsg}: ${error}`);
       })
       .finally(() => setIsLoading(false));
   };
