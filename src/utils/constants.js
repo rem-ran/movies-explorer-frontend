@@ -85,8 +85,7 @@ export const tokenCheckErrorMsg = 'Ошибка сверки токена';
 
 //объект с нужными для работы с сервером данными
 export const apiMainConfig = {
-  // url: 'https://api.remran.nomoredomains.monster',
-  url: 'http://localhost:3001',
+  url: 'https://api.remran.nomoredomains.monster',
   credentials: 'include',
   headers: {
     'Content-Type': 'application/json',
