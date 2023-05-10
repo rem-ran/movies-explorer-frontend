@@ -19,7 +19,6 @@ const Register = ({ handleUserSignUp, isLoading }) => {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm({
     mode: 'onBlur',
   });
@@ -27,7 +26,6 @@ const Register = ({ handleUserSignUp, isLoading }) => {
   // метод обработки сабмита формы
   const onSubmit = (inputData) => {
     handleUserSignUp(inputData);
-    reset();
   };
 
   // начало JSX ////////////////////////////////////////////////////////////

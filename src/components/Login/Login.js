@@ -15,7 +15,6 @@ const Login = ({ handleUserSignIn, isLoading }) => {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm({
     mode: 'onBlur',
   });
@@ -23,7 +22,6 @@ const Login = ({ handleUserSignIn, isLoading }) => {
   // метод обработки сабмита формы
   function onSubmit(inputData) {
     handleUserSignIn(inputData);
-    reset();
   }
 
   // начало JSX ////////////////////////////////////////////////////////////
